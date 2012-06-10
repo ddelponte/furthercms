@@ -1,9 +1,18 @@
+# IntelliJ Config Files #
+#########################
+*.iml
+.idea/*
+!.idea/codeStyleSettings.xml
 *.iws
+
+# Other stuff           #
+#########################
 *Db.properties
 *Db.script
 .settings
 eclipse
 stacktrace.log
+out
 target
 /plugins
 /web-app/plugins
