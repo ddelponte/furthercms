@@ -5,10 +5,16 @@ class Category {
     Category parent
     String urlKey
     Page page
+    Boolean isPublished = false // If true, it's viewable by the public
+    Boolean isInMenu = true // If true, it's displayed in the main menu
 
     static constraints = {
         parent(nullable: true)
         page(nullable: true)
+    }
+
+    static mapping = {
+        cache true
     }
 
     /**
