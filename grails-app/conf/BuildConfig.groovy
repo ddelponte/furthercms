@@ -15,7 +15,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
-        //mavenCentral()
+        mavenCentral()
         //mavenLocal()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
@@ -31,13 +31,13 @@ grails.project.dependency.resolution = {
 
     plugins {
         build(":tomcat:$grailsVersion",
-                ":release:1.0.0") {
+                ":release:2.0.4") {
             export = false
         }
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.7.1"
+        runtime ":jquery:1.8.0"
         runtime ":jquery-ui:1.8.15"
-        runtime ":resources:1.1.6"
+        runtime ":resources:1.2-RC1"
         compile ":cache-headers:1.1.5"
         runtime ":cached-resources:1.0"
         runtime ":zipped-resources:1.0"
@@ -45,6 +45,7 @@ grails.project.dependency.resolution = {
         compile ":spring-security-core:latest.integration"
         compile ":spring-security-ui:0.2"
         compile ":mail:latest.integration"
+        compile ":svn:1.0.2"
     }
 }
 

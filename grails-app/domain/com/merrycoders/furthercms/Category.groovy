@@ -1,5 +1,8 @@
 package com.merrycoders.furthercms
 
+/**
+ * Represents the node of a site's tree, often corresponding to a specific URL and page
+ */
 class Category {
     String name = ""
     Category parent
@@ -7,6 +10,8 @@ class Category {
     Page page
     Boolean isPublished = false // If true, it's viewable by the public
     Boolean isInMenu = true // If true, it's displayed in the main menu
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         parent(nullable: true)

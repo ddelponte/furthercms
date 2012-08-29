@@ -29,3 +29,5 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.merrycode
 grails.plugins.springsecurity.authority.className = 'com.merrycoders.furthercms.Authority'
 grails.plugins.springsecurity.requestMap.className = 'com.merrycoders.furthercms.Requestmap'
 grails.plugins.springsecurity.securityConfigType = grails.plugins.springsecurity.SecurityConfigType.Requestmap
+grails.views.default.codec="none" // none, html, base64
+grails.views.gsp.encoding="UTF-8"
