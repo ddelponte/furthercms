@@ -3,6 +3,7 @@ import grails.util.Environment
 class UrlMappings {
 
     static mappings = {
+        "/"(controller: "page", action: "create")
 
         // Errors
         //"403"(controller: "errorPage", action: "forbidden")
