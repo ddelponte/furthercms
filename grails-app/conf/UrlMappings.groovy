@@ -1,24 +1,31 @@
+import grails.util.Environment
+
 class UrlMappings {
 
     static mappings = {
+
+        // Errors
+        //"403"(controller: "errorPage", action: "forbidden")
+        //"404"(controller: "errorPage", action: "notFound")
+
+        if (Environment.DEVELOPMENT) {
+            "500"(view: '/error')
+        }
+        else {
+            "500"(controller: "errorPage", action: "serverError")
+        }
+
         "/$controller/$action?/$id?" {
             constraints {
                 // apply constraints here
             }
         }
 
-        "/"(view: "/index")
-        "500"(view: '/error')
-
         // Pretty URLs
         name prettyUrl: "/$path**?" {
             controller = "requestDispatch"
             action = "dispatch"
         }
-
-        // Authentication
-        "/login/$action"(controller: "login")
-        "/logout/"(controller: "logout", action: "index")
 
         // Admin
         "/admin"(controller: "admin", action: "index")
@@ -28,5 +35,12 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+
+        // Authentication
+        "/login/$action"(controller: "login")
+        "/logout/"(controller: "logout", action: "index")
+
+        // Public
+        //"/sitemap"(controller: "sitemap", action: "index")
     }
 }
