@@ -35,14 +35,14 @@ class Category {
      *
      * @return List of all children at all levels
      */
-    List<Category> getDeepChildren() {
+    List<Category> getDescendants() {
         def list = []
 
         def children = getChildren()
         list.addAll(children)
 
         children.each { child ->
-            list.addAll(child.getDeepChildren())
+            list.addAll(child.getDescendants())
         }
         return list
     }
