@@ -30,6 +30,8 @@ class UrlMappings {
 
         // Admin
         "/admin"(controller: "admin", action: "index")
+        "/admin/index"(controller: "admin", action: "index")
+
         /*Convention*/
         "/admin/$controller/$action?/$id?" {
             constraints {
