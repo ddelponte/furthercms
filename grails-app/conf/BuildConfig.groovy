@@ -40,7 +40,8 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.RC2"
         compile ":mail:latest.integration"
         compile ":svn:1.0.2"
-        compile ':platform-core:1.0.M6'
+        compile ":platform-core:1.0.RC1"
+        compile ":platform-ui:1.0.RC1"
     }
 }
 

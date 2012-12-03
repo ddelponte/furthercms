@@ -2,7 +2,9 @@ package com.merrycoders.furthercms
 
 class RequestDispatchController {
 
-    def dispatch() {}
+    def dispatch() {
+        log.info "do something with $params"
+    }
 
     def index() { }
 }
