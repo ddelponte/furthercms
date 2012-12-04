@@ -13,12 +13,14 @@ class Page {
     Date lastUpdated
 
     static constraints = {
-        metaDescription(nullable: true)
-        metaKeywords(nullable: true)
+        metaDescription nullable: true
+        metaKeywords nullable: true
+        linkText nullable: true
     }
 
     static mapping = {
         cache true
+        pageType fetch: 'join'
     }
 
     def beforeDelete() {

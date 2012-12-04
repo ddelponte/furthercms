@@ -1,10 +1,13 @@
 package com.merrycoders.furthercms
 
+import org.codehaus.groovy.grails.validation.routines.UrlValidator
+
 /**
  * Represents the node of a site's tree, often corresponding to a specific URL and page
  */
 class Category {
     String name = ""
+    String description
     Category parent
     String urlKey
     Page page
@@ -14,12 +17,19 @@ class Category {
     Date lastUpdated
 
     static constraints = {
-        parent(nullable: true)
-        page(nullable: true)
+        description nullable: true
+        parent nullable: true
+        parent nullable: true
+        urlKey(unique: true, validator: {
+            UrlValidator v = new UrlValidator()
+            return v.isValid("http://www.google.com/" + it)
+        })
+        page nullable: true
     }
 
     static mapping = {
         cache true
+        urlKey column: 'url_key', index: 'UrlKey_Idx'
     }
 
     /**
