@@ -2,7 +2,6 @@ package com.merrycoders.furthercms
 
 public enum PageType {
     HTML("HTML"),
-    LINK("Link"),
     REVIEW("Review")
 
     String name

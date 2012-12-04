@@ -9,7 +9,7 @@ class RequestDispatchController {
         sanitizedPath = StringUtils.stripEnd(sanitizedPath, "/")
         def category = Category.findByUrlKey(sanitizedPath, [fetch: [page: "join"]])
         PageType pageType = category?.page?.pageType
-        def pageTypeController = "${pageType?.class?.canonicalName}PageType"
+        def pageTypeController = "${pageType?.class?.canonicalName - 'PageType'}${pageType}PageType"
         forward(controller: pageTypeController, params: params)
     }
 
