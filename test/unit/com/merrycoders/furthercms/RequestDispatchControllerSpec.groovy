@@ -22,9 +22,9 @@ class RequestDispatchControllerSpec extends SpecificationDataCore {
 
         where:
         path                | forwardedUrl
-        ""                  | "/grails/com.merrycoders.furthercms.HTMLPageType.dispatch?path="
-        "html"              | "/grails/com.merrycoders.furthercms.HTMLPageType.dispatch?path=html"
-        "html/html-child"   | "/grails/com.merrycoders.furthercms.HTMLPageType.dispatch?path=html%2Fhtml-child"
+        ""                  | "/grails/htmlPageType.dispatch?path="
+        "html"              | "/grails/htmlPageType.dispatch?path=html"
+        "html/html-child"   | "/grails/htmlPageType.dispatch?path=html%2Fhtml-child"
 
     }
 }
