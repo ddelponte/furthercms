@@ -1,4 +1,4 @@
-<%@ page import="com.merrycoders.furthercms.Page" %>
+<%@ page import="com.merrycoders.furthercms.PageType; com.merrycoders.furthercms.Page" %>
 
 
 
@@ -16,6 +16,14 @@
 
     </label>
     <g:textField name="metaKeywords" value="${pageInstance?.metaKeywords}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: pageInstance, field: 'linkText', 'error')} ">
+    <label for="linkText">
+        <g:message code="page.linkText.label" default="Link Text"/>
+
+    </label>
+    <g:textField name="linkText" value="${pageInstance?.linkText}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: pageInstance, field: 'isHidden', 'error')} ">
@@ -42,21 +50,12 @@
     <g:checkBox name="isPublished" value="${pageInstance?.isPublished}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pageInstance, field: 'linkText', 'error')} ">
-    <label for="linkText">
-        <g:message code="page.linkText.label" default="Link Text"/>
-
-    </label>
-    <g:textField name="linkText" value="${pageInstance?.linkText}"/>
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: pageInstance, field: 'pageType', 'error')} required">
     <label for="pageType">
         <g:message code="page.pageType.label" default="Page Type"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:select name="pageType" from="${com.merrycoders.furthercms.PageType?.values()}" keys="${com.merrycoders.furthercms.PageType.values()*.name()}" required=""
-              value="${pageInstance?.pageType?.name()}"/>
+    <g:select id="pageType" name="pageType.id" from="${PageType.list()}" optionKey="id" required="" value="${pageInstance?.pageType?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: pageInstance, field: 'title', 'error')} ">

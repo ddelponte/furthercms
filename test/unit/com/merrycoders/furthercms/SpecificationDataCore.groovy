@@ -14,10 +14,28 @@ class SpecificationDataCore extends Specification {
         initCategories()
     }
 
+    def initPageTypes() {
+        def pageTypePropertyList = [
+                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML"],
+                [name: "Review Page Type", controller: "reviewPageType", pageTypeKey: "REVIEW"]]
+
+        pageTypePropertyList.each { properties ->
+            if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
+                def pageType = new PageType()
+                pageType.properties = properties
+                if (!pageType.save(flush: true)) {
+                    log.error "Unable to save PageType ${pageType} due to errors: ${pageType?.errors?.fieldErrors}"
+                }
+            }
+        }
+    }
+
     def initPages() {
-        def homePage = new Page(title: homePageTitle, pageType: PageType.HTML)
-        def htmlPage = new Page(title: htmlPageTitle, pageType: PageType.HTML)
-        def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: PageType.HTML)
+        if (!PageType.count()) initPageTypes()
+        def htmlPageType = PageType.findByPageTypeKey("HTML")
+        def homePage = new Page(title: homePageTitle, pageType: htmlPageType)
+        def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType)
+        def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType)
         saveDomainObjects([homePage, htmlPage, htmlChildPage])
 
         def homePageData = new PageData(page: homePage, name: "content", dataValue: "<p>Home page content</p>")
@@ -37,7 +55,7 @@ class SpecificationDataCore extends Specification {
     }
 
     private saveDomainObjects(List domainObjects) {
-        domainObjects.each {object ->
+        domainObjects.each { object ->
             if (!object.save()) {
                 println object.errors.fieldErrors
             }

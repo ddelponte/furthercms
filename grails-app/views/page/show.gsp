@@ -44,6 +44,15 @@
                     </li>
                 </g:if>
 
+                <g:if test="${pageInstance?.linkText}">
+                    <li class="fieldcontain">
+                        <span id="linkText-label" class="property-label"><g:message code="page.linkText.label" default="Link Text"/></span>
+
+                        <span class="property-value" aria-labelledby="linkText-label"><g:fieldValue bean="${pageInstance}" field="linkText"/></span>
+
+                    </li>
+                </g:if>
+
                 <g:if test="${pageInstance?.dateCreated}">
                     <li class="fieldcontain">
                         <span id="dateCreated-label" class="property-label"><g:message code="page.dateCreated.label" default="Date Created"/></span>
@@ -89,20 +98,12 @@
                     </li>
                 </g:if>
 
-                <g:if test="${pageInstance?.linkText}">
-                    <li class="fieldcontain">
-                        <span id="linkText-label" class="property-label"><g:message code="page.linkText.label" default="Link Text"/></span>
-
-                        <span class="property-value" aria-labelledby="linkText-label"><g:fieldValue bean="${pageInstance}" field="linkText"/></span>
-
-                    </li>
-                </g:if>
-
                 <g:if test="${pageInstance?.pageType}">
                     <li class="fieldcontain">
                         <span id="pageType-label" class="property-label"><g:message code="page.pageType.label" default="Page Type"/></span>
 
-                        <span class="property-value" aria-labelledby="pageType-label"><g:fieldValue bean="${pageInstance}" field="pageType"/></span>
+                        <span class="property-value" aria-labelledby="pageType-label"><g:link controller="pageType2" action="show"
+                                                                                              id="${pageInstance?.pageType?.id}">${pageInstance?.pageType?.encodeAsHTML()}</g:link></span>
 
                     </li>
                 </g:if>

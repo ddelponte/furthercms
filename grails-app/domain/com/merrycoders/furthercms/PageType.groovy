@@ -1,29 +1,25 @@
 package com.merrycoders.furthercms
 
-/**
- * Describes the type of page to be rendered and supplies the name of the controller that will handle the rendering
- */
-public enum PageType {
-    HTML("HTML", "htmlPageType"),
-    REVIEW("Review", "reviewPageType")
-
+class PageType {
     String name
     String controller
+    String pageTypeKey
     String description = ""
 
-    PageType(String name, String controller) {
-        this.name = name
-        this.controller = controller
+    static constraints = {
+        name unique: true
+        pageTypeKey unique: true
+        description maxSize: 30000
+    }
+
+    static mapping = {
+        cache: true
+        index: 'Name_Idx'
+        controller: "Controller_Idx"
+        pageTypeKey: "PageTypeKey_Idx"
     }
 
     String toString() {
-        return name
-    }
-
-    static constraints = {
-    }
-
-    def getPages() {
-        Page.findByPageType(this, [sort: "title"])
+        name
     }
 }

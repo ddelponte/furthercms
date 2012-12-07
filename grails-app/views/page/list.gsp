@@ -30,13 +30,13 @@
 
                         <g:sortableColumn property="metaKeywords" title="${message(code: 'page.metaKeywords.label', default: 'Meta Keywords')}"/>
 
+                        <g:sortableColumn property="linkText" title="${message(code: 'page.linkText.label', default: 'Link Text')}"/>
+
                         <g:sortableColumn property="dateCreated" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}"/>
 
                         <g:sortableColumn property="isHidden" title="${message(code: 'page.isHidden.label', default: 'Is Hidden')}"/>
 
                         <g:sortableColumn property="isInMenu" title="${message(code: 'page.isInMenu.label', default: 'Is In Menu')}"/>
-
-                        <g:sortableColumn property="isPublished" title="${message(code: 'page.isPublished.label', default: 'Is Published')}"/>
 
                     </tr>
                 </thead>
@@ -48,13 +48,13 @@
 
                             <td>${fieldValue(bean: pageInstance, field: "metaKeywords")}</td>
 
+                            <td>${fieldValue(bean: pageInstance, field: "linkText")}</td>
+
                             <td><g:formatDate date="${pageInstance.dateCreated}"/></td>
 
                             <td><g:formatBoolean boolean="${pageInstance.isHidden}"/></td>
 
                             <td><g:formatBoolean boolean="${pageInstance.isInMenu}"/></td>
-
-                            <td><g:formatBoolean boolean="${pageInstance.isPublished}"/></td>
 
                         </tr>
                     </g:each>
