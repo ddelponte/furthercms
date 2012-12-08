@@ -16,8 +16,7 @@ class SpecificationDataCore extends Specification {
 
     def initPageTypes() {
         def pageTypePropertyList = [
-                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML"],
-                [name: "Review Page Type", controller: "reviewPageType", pageTypeKey: "REVIEW"]]
+                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML", action: "render"]]
 
         pageTypePropertyList.each { properties ->
             if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {

@@ -10,7 +10,8 @@ class RequestDispatchController {
         def category = Category.findByUrlKey(sanitizedPath, [fetch: [page: "join"]])
         PageType pageType = category?.page?.pageType
         def pageTypeController = pageType?.controller
-        forward(controller: pageTypeController, params: params)
+        def pageTypeAction = pageType?.action
+        forward(controller: pageTypeController, action: pageTypeAction, params: params)
     }
 
     def index() { }

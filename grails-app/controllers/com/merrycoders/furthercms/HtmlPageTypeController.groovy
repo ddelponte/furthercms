@@ -2,7 +2,7 @@ package com.merrycoders.furthercms
 
 class HtmlPageTypeController {
 
-    def index() {
+    def render() {
         println params
     }
 }

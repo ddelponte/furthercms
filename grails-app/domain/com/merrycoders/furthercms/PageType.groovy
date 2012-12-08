@@ -3,6 +3,7 @@ package com.merrycoders.furthercms
 class PageType {
     String name
     String controller
+    String action
     String pageTypeKey
     String description = ""
 
