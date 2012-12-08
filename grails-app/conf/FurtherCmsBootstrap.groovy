@@ -11,8 +11,7 @@ class FurtherCmsBootStrap {
 
     def initPageTypes() {
         def pageTypePropertyList = [
-                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML"],
-                [name: "Review Page Type", controller: "reviewPageType", pageTypeKey: "REVIEW"]]
+                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML", action: "renderPage"]]
 
         pageTypePropertyList.each { properties ->
             if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
