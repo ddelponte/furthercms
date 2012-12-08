@@ -3,11 +3,10 @@ package com.merrycoders.furthercms
 import org.apache.commons.lang.StringUtils
 
 class RequestDispatchController {
+    def categoryService
 
     def dispatch() {
-        def sanitizedPath = params?.path as String
-        sanitizedPath = StringUtils.stripEnd(sanitizedPath, "/")
-        def category = Category.findByUrlKey(sanitizedPath, [fetch: [page: "join"]])
+        def category = categoryService.findByUrlKey(params?.path)
         PageType pageType = category?.page?.pageType
         def pageTypeController = pageType?.controller
         def pageTypeAction = pageType?.action

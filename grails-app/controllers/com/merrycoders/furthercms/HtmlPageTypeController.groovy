@@ -1,8 +1,39 @@
 package com.merrycoders.furthercms
 
-class HtmlPageTypeController {
+import org.apache.commons.lang.StringUtils
 
-    def render() {
-        println params
+class HtmlPageTypeController {
+    def categoryService
+
+    /**
+     * Render the full HTML page
+     */
+    def renderPage(String path) {
+        def category = categoryService.findByUrlKey(path)
+        println category
+    }
+
+    def list() {
+
+    }
+
+    def create() {
+
+    }
+
+    def save() {
+
+    }
+
+    def edit() {
+
+    }
+
+    def update() {
+
+    }
+
+    def delete() {
+
     }
 }

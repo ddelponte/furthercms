@@ -7,6 +7,7 @@ import grails.test.mixin.TestFor
 @Mock([Category, Page, PageData, PageType])
 class RequestDispatchControllerSpec extends SpecificationDataCore {
     def setup() {
+        controller.categoryService = new CategoryService()
     }
 
     def "PageType dispatching"() {
@@ -21,10 +22,10 @@ class RequestDispatchControllerSpec extends SpecificationDataCore {
         response.forwardedUrl == forwardedUrl
 
         where:
-        path                | forwardedUrl
-        ""                  | "/grails/htmlPageType/render.dispatch?path="
-        "html"              | "/grails/htmlPageType/render.dispatch?path=html"
-        "html/html-child"   | "/grails/htmlPageType/render.dispatch?path=html%2Fhtml-child"
+        path              | forwardedUrl
+        ""                | "/grails/htmlPageType/renderPage.dispatch?path="
+        "html"            | "/grails/htmlPageType/renderPage.dispatch?path=html"
+        "html/html-child" | "/grails/htmlPageType/renderPage.dispatch?path=html%2Fhtml-child"
 
     }
 }
