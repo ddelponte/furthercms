@@ -1,7 +1,5 @@
 package com.merrycoders.furthercms
 
-import org.apache.commons.lang.StringUtils
-
 class HtmlPageTypeController {
     def categoryService
 
@@ -10,7 +8,8 @@ class HtmlPageTypeController {
      */
     def renderPage(String path) {
         def category = categoryService.findByUrlKey(path)
-        println category
+        def page = category?.page
+        render(view: "/public/${page?.themeLayout}")
     }
 
     def list() {

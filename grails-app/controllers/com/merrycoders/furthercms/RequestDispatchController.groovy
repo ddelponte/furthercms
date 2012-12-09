@@ -1,7 +1,5 @@
 package com.merrycoders.furthercms
 
-import org.apache.commons.lang.StringUtils
-
 class RequestDispatchController {
     def categoryService
 
@@ -12,6 +10,4 @@ class RequestDispatchController {
         def pageTypeAction = pageType?.action
         forward(controller: pageTypeController, action: pageTypeAction, params: params)
     }
-
-    def index() { }
 }

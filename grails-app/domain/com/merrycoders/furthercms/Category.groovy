@@ -56,4 +56,8 @@ class Category {
         }
         return list
     }
+
+    String toString() {
+        name
+    }
 }

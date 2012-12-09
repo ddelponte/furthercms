@@ -9,6 +9,7 @@ class Page {
     Boolean isPublished = false // If true, category is viewable by the public
     Boolean isInMenu = true // If true, category is displayed in the main menu
     Boolean isHidden = false // If false, category is not automatically displayed in generated listings
+    String themeLayout
     Date dateCreated
     Date lastUpdated
 

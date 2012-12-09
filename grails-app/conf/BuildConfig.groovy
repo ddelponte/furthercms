@@ -35,14 +35,14 @@ grails.project.dependency.resolution = {
             export = false
         }
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.8.0"
-        runtime ":jquery-ui:1.8.15"
+        runtime ":jquery:1.8.3"
+        runtime ":jquery-ui:1.8.24"
         runtime ":resources:1.2.RC2"
 
         compile ":mail:latest.integration"
         compile ":svn:1.0.2"
         compile ":platform-core:1.0.RC1"
-        compile ":platform-ui:1.0.RC1"
+        compile ":platform-ui:1.0.RC2"
 
         test ":spock:0.7"
 //        test ':codenarc:latest.integration'
