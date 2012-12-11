@@ -9,38 +9,41 @@
     <body>
 
         <theme:zone name="navigation">
-            <ui:h1 text="sidebar.page.navigation.heading"/>
-            <ul>
-                <li>Home</li>
-                <li>Stuff</li>
+            <ul class="nav">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
         </theme:zone>
 
         <theme:zone name="secondary-navigation">
-            <ui:h1 text="sidebar.page.secondary-navigation.heading"/>
-            <ul>
-                <li>Secondary Home</li>
-                <li>Secondary Stuff</li>
+            <ul class="nav nav-pills">
+                <li><a href="#">Cool Stuff</a></li>
+                <li class="active"><a href="#">Awesome Stuff</a></li>
             </ul>
         </theme:zone>
 
         <theme:zone name="body">
+            <ui:displayMessage/>
             <ui:h1 text="sidebar.page.body.heading"/>
-            <p><p:dummyText/></p>
+            <p>Main Content</p>
         </theme:zone>
 
         <theme:zone name="sidebar">
-            <ui:h1 text="sidebar.page.sidebar.heading"/>
-            <p><p:dummyText/></p>
+            <ui:block title="Your profile">
+                <ui:avatar user="marc@anyware.co.uk" size="50"/>
+                <p>Not everybody is this ugly</p>
+            </ui:block>
         </theme:zone>
 
         <theme:zone name="user-navigation">
-            <ui:h1 text="sidebar.page.user-navigation.heading"/>
-            <p><p:dummyText/></p>
+            <ul class="nav secondary">
+                <li><a href="#">Log in</a></li>
+                <li><a href="#">Sign up</a></li>
+            </ul>
         </theme:zone>
 
         <theme:zone name="footer">
-            <ui:h1 text="sidebar.page.footer.heading"/>
             <p><p:dummyText/></p>
         </theme:zone>
     </body>
