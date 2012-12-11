@@ -25,11 +25,11 @@ class Page {
     }
 
     def beforeDelete() {
-        PageData.withNewSession { pageDatas*.delete() }
+        PagePageTypeData.withNewSession { pageDatas*.delete() }
     }
 
     def getPageDatas() {
-        PageData.findAllByPage(this, [sort: "name"])
+        PagePageTypeData.findAllByPage(this, [sort: "name"])
     }
 
     String toString() {

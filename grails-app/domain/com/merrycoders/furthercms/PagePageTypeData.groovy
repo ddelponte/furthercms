@@ -1,7 +1,8 @@
 package com.merrycoders.furthercms
 
-class PageData {
+class PagePageTypeData {
     Page page
+    PageType pageType
     String name
     String dataValue
     Date dateCreated

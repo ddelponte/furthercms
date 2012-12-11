@@ -32,14 +32,14 @@ class SpecificationDataCore extends Specification {
     def initPages() {
         if (!PageType.count()) initPageTypes()
         def htmlPageType = PageType.findByPageTypeKey("HTML")
-        def homePage = new Page(title: homePageTitle, pageType: htmlPageType)
-        def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType)
-        def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType)
+        def homePage = new Page(title: homePageTitle, pageType: htmlPageType, themeLayout: "home")
+        def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
         saveDomainObjects([homePage, htmlPage, htmlChildPage])
 
-        def homePageData = new PageData(page: homePage, name: "content", dataValue: "<p>Home page content</p>")
-        def htmlPageData = new PageData(page: htmlPage, name: "content", dataValue: "<p>HTML page content</p>")
-        def htmlChildPageData = new PageData(page: htmlChildPage, name: "content", dataValue: "<p>HTML child page content</p>")
+        def homePageData = new PagePageTypeData(page: homePage, pageType: homePage.pageType, name: "content", dataValue: "<p>Home page content</p>")
+        def htmlPageData = new PagePageTypeData(page: htmlPage, pageType: htmlPage.pageType, name: "content", dataValue: "<p>HTML page content</p>")
+        def htmlChildPageData = new PagePageTypeData(page: htmlChildPage, pageType: htmlChildPage.pageType, name: "content", dataValue: "<p>HTML child page content</p>")
         saveDomainObjects([homePageData, htmlPageData, htmlChildPageData])
     }
 

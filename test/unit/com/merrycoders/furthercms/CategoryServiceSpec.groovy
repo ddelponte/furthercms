@@ -4,7 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(CategoryService)
-@Mock([Category, PageType, Page, PageData])
+@Mock([Category, PageType, Page, PagePageTypeData])
 class CategoryServiceSpec extends SpecificationDataCore {
 
     def setup() {
