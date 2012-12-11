@@ -1,12 +1,27 @@
+import com.merrycoders.furthercms.Category
+import com.merrycoders.furthercms.Page
+import com.merrycoders.furthercms.PagePageTypeData
 import com.merrycoders.furthercms.PageType
+import grails.util.Environment
 
 class FurtherCmsBootStrap {
+    def homePageTitle = "Home Title"
+    def htmlPageTitle = "HTML Title"
+    def htmlChildPageTitle = "HTML Child Title"
 
     def init = { servletContext ->
-        initPageTypes()
+        if (Environment.developmentMode || Environment.current == Environment.TEST) {
+            initAllData()
+        } else {
+            initPageTypes()
+        }
     }
 
     def destroy = {
+    }
+
+    def initAllData() {
+        initCategories()
     }
 
     def initPageTypes() {
@@ -20,6 +35,38 @@ class FurtherCmsBootStrap {
                 if (!pageType.save(flush: true)) {
                     log.error "Unable to save PageType ${pageType} due to errors: ${pageType?.errors?.fieldErrors}"
                 }
+            }
+        }
+    }
+
+    def initPages() {
+        if (!PageType.count()) initPageTypes()
+        def htmlPageType = PageType.findByPageTypeKey("HTML")
+        def homePage = new Page(title: homePageTitle, pageType: htmlPageType, themeLayout: "home")
+        def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        saveDomainObjects([homePage, htmlPage, htmlChildPage])
+
+        def homePageData = new PagePageTypeData(page: homePage, pageType: homePage.pageType, name: "content", dataValue: "<p>Home page content</p>")
+        def htmlPageData = new PagePageTypeData(page: htmlPage, pageType: htmlPage.pageType, name: "content", dataValue: "<p>HTML page content</p>")
+        def htmlChildPageData = new PagePageTypeData(page: htmlChildPage, pageType: htmlChildPage.pageType, name: "content", dataValue: "<p>HTML child page content</p>")
+        saveDomainObjects([homePageData, htmlPageData, htmlChildPageData])
+    }
+
+    def initCategories() {
+        if (Page.count() == 0) {
+            initPages()
+            def home = new Category(name: "Home", urlKey: "", page: Page.findByTitle(homePageTitle))
+            def html = new Category(name: "HTML", parent: home, urlKey: "html", page: Page.findByTitle(htmlPageTitle))
+            def htmlChild = new Category(name: "HTML Child", parent: html, urlKey: "html/html-child", page: Page.findByTitle(htmlChildPageTitle))
+            saveDomainObjects([home, html, htmlChild])
+        }
+    }
+
+    private saveDomainObjects(List domainObjects) {
+        domainObjects.each { object ->
+            if (!object.save()) {
+                println object.errors.fieldErrors
             }
         }
     }

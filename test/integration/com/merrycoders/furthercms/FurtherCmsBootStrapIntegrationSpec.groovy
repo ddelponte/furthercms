@@ -10,5 +10,10 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
         expect:
         PageType.count() == 1
         PageType.countByPageTypeKey("HTML") == 1
+
+        Page.count() == 3
+        PagePageTypeData.count() == 3
+
+        Category.count() == 3
     }
 }
