@@ -12,7 +12,8 @@ class Category {
     String urlKey
     Page page
     Boolean isPublished = false // If true, it's viewable by the public
-    Boolean isInMenu = false // If true, it's displayed in the main menu
+    Boolean isInPrimaryNavigation = false
+    Boolean isInSecondaryNavigation = false
     Date dateCreated
     Date lastUpdated
 

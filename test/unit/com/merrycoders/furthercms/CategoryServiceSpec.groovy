@@ -31,7 +31,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         category.page == page
         category.parent == parentCategory
         category.isPublished == false
-        category.isInMenu == false
+        category.isInPrimaryNavigation == false
 
         where:
         urlKey            | name         | description | parentUrlKey | pageTitle
