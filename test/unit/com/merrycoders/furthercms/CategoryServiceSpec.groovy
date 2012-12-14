@@ -13,7 +13,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "find by URL key"() {
         given:
         initCategories()
 
@@ -31,13 +31,13 @@ class CategoryServiceSpec extends SpecificationDataCore {
         category.page == page
         category.parent == parentCategory
         category.isPublished == false
-        category.isInPrimaryNavigation == false
+        category.isInPrimaryNavigation == isInPrimaryNavigation
 
         where:
-        urlKey            | name         | description | parentUrlKey | pageTitle
-        ""                | "Home"       | null        | null         | "Home Title"
-        "html"            | "HTML"       | null        | ""           | "HTML Title"
-        "html/html-child" | "HTML Child" | null        | "html"       | "HTML Child Title"
+        urlKey            | name         | description | parentUrlKey | pageTitle          | isInPrimaryNavigation
+        ""                | "Home"       | null        | null         | "Home Title"       | true
+        "html"            | "HTML"       | null        | ""           | "HTML Title"       | false
+        "html/html-child" | "HTML Child" | null        | "html"       | "HTML Child Title" | false
 
 
     }

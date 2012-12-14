@@ -9,11 +9,13 @@
     <body>
 
         <theme:zone name="navigation">
-            <ul class="nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
+            <nav:primary custom="true" scope="plugin.furthercms.app">
+                <li>
+                    <p:callTag tag="g:link" attrs="${[url: "http://www.google.com"]}">
+                        <nav:title item="${[titleMessageCode: "code", titleDefault: 'blah']}"/>
+                    </p:callTag>
+                </li>
+            </nav:primary>
         </theme:zone>
 
         <theme:zone name="secondary-navigation">
