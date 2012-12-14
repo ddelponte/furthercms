@@ -8,15 +8,7 @@
 
     <body>
 
-        <theme:zone name="navigation">
-            <nav:primary custom="true" scope="plugin.furthercms.app">
-                <li>
-                    <p:callTag tag="g:link" attrs="${[url: "http://www.google.com"]}">
-                        <nav:title item="${[titleMessageCode: "code", titleDefault: 'blah']}"/>
-                    </p:callTag>
-                </li>
-            </nav:primary>
-        </theme:zone>
+        <g:render template="/public/navigation/primary"/>
 
         <theme:zone name="secondary-navigation">
             <ul class="nav nav-pills">

@@ -1,9 +1,9 @@
-<ul class="nav">
-    <g:each in="${primaryCategoryInstanceList}" var="category">
-        <li class="${category == activePrimaryCategory ? 'active' : ''}">
-            <g:link controller="requestDispatch" action="dispatch" params="[path: category.urlKey]">
-                ${category}
-            </g:link>
+<theme:zone name="navigation">
+    <nav:primary custom="true" scope="plugin.furthercms.app">
+        <li class="active">
+            <p:callTag tag="g:link" attrs="${[url: "urlKey"]}">
+                <nav:title item="${[titleMessageCode: "code", titleDefault: 'blah']}"/>
+            </p:callTag>
         </li>
-    </g:each>
-</ul>
+    </nav:primary>
+</theme:zone>
