@@ -10,12 +10,7 @@
 
         <g:render template="/public/navigation/primary"/>
 
-        <theme:zone name="secondary-navigation">
-            <ul class="nav nav-pills">
-                <li><a href="#">Cool Stuff</a></li>
-                <li class="active"><a href="#">Awesome Stuff</a></li>
-            </ul>
-        </theme:zone>
+        <g:render template="/public/navigation/secondary"/>
 
         <theme:zone name="body">
             <ui:displayMessage/>

@@ -1,9 +1,13 @@
-<theme:zone name="user-navigation">
-    <nav:secondary custom="true" scope="plugin.furthercms.app">
+<theme:zone name="secondary-navigation">
+%{--<nav:secondary path="plugin.furthercms/htmlPageType">--}%
+    <nav:menu custom="true" scope="plugin.furthercms.app" class="nav nav-pills">
         <li class="active">
             <p:callTag tag="g:link" attrs="${[url: "urlKey"]}">
-                <nav:title item="${[titleMessageCode: "code", titleDefault: 'blah']}"/>
+                <span>
+                    <nav:title item="${[titleMessageCode: "code", titleDefault: 'secondary']}"/>
+                </span>
             </p:callTag>
         </li>
-    </nav:secondary>
+    </nav:menu>
+%{--</nav:secondary>--}%
 </theme:zone>
