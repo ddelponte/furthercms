@@ -38,11 +38,12 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.8.3"
         runtime ":jquery-ui:1.8.24"
         runtime ":resources:1.2.RC2"
+        runtime ':bootstrap-theme:1.0.RC3'
 
         compile ":mail:latest.integration"
         compile ":svn:1.0.2"
-        compile ":platform-core:1.0.RC1"
-        compile ":platform-ui:1.0.RC2"
+        compile ":platform-core:1.0.RC2"
+        compile ":platform-ui:1.0.RC3"
 
         test ":spock:0.7"
 //        test ':codenarc:latest.integration'
