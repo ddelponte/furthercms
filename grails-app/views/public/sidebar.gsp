@@ -8,7 +8,7 @@
 
     <body>
 
-        <g:render template="/public/navigation/primary"/>
+        <fc:primaryNav categoryInstance="${categoryInstance}"/>
 
         <g:render template="/public/navigation/secondary"/>
 
