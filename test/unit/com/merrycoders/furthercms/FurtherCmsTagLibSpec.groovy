@@ -13,7 +13,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "primary nav construction"() {
         given:
         initCategories()
         def categoryInstance = Category.findByName("HTML Child")
@@ -22,6 +22,8 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.primaryNav([categoryInstance: categoryInstance])
 
         then:
-        results.contains("<div id=\"yeppers\"")
+        results.contains("<li class=\"active\">")
+        results.contains("<ul>")
+        results.contains("<nav:title item=\"{titleMessageCode=code, titleDefault=Home}")
     }
 }
