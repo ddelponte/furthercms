@@ -33,6 +33,16 @@ class Category {
     }
 
     /**
+     * Primary Categories are displayed in the primary navigation area of the UI.  This returns a list of all PrimaryCategory instances that this category
+     * is a child of
+     * @return List < Category >
+     */
+    List<Category> getPrimaryCategories() {
+        def ancestorCategoryInstanceList = this.ancestry
+        return PrimaryCategory.findAllByCategoryInList(ancestorCategoryInstanceList)?.category
+    }
+
+    /**
      *
      * @return List containing this Category and it's ancestors.  For example, [GrandParentCategory, ParentCategory, ThisCategory
      */

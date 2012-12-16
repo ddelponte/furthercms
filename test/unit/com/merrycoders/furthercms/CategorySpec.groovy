@@ -45,4 +45,25 @@ class CategorySpec extends SpecificationDataCore {
         "HTML"       | ["HTML Child"]
         "HTML Child" | []
     }
+
+    def "getPrimaryCategories"() {
+        given:
+        initCategories()
+        def childCategory = Category.findByName("HTML Child")
+
+        when:
+        def primaryCategoryInstanceList = childCategory.primaryCategories
+
+        then:
+        primaryCategoryInstanceList.size() == 1
+        primaryCategoryInstanceList.name == ["Home"]
+
+        where:
+        childCategoryName | expectedResults
+        "HTML Child"      | ["Home"]
+        "HTML"            | ["Home"]
+        "Home"            | ["Home"]
+        "DNE"             | []
+
+    }
 }
