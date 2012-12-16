@@ -35,6 +35,20 @@ class Category {
 
     /**
      *
+     * @return List containing this Category and it's ancestors.  For example, [GrandParentCategory, ParentCategory, ThisCategory
+     */
+    List<Category> getAncestry() {
+        def categoryInstanceList
+
+        if (parent) categoryInstanceList = parent.getAncestry()
+        else categoryInstanceList = new LinkedList<Category>()
+
+        categoryInstanceList << this
+        return categoryInstanceList
+    }
+
+    /**
+     *
      * @return List of immediate children
      */
     List<Category> getChildren() {
@@ -44,18 +58,18 @@ class Category {
 
     /**
      *
-     * @return List of all children at all levels
+     * @return List of this category and all of its children at all levels
      */
     List<Category> getDescendants() {
-        def list = []
+        def categoryInstanceList = []
 
         def children = getChildren()
-        list.addAll(children)
+        categoryInstanceList.addAll(children)
 
         children.each { child ->
-            list.addAll(child.getDescendants())
+            categoryInstanceList.addAll(child.getDescendants())
         }
-        return list
+        return categoryInstanceList
     }
 
     String toString() {

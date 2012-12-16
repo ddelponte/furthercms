@@ -6,9 +6,9 @@ import spock.lang.Specification
  * This acts as a central test data repository for all Specification tests.  The goal is to reduce code duplication.
  */
 class SpecificationDataCore extends Specification {
-    def homePageTitle = "Home Title"
-    def htmlPageTitle = "HTML Title"
-    def htmlChildPageTitle = "HTML Child Title"
+    static def homePageTitle = "Home Title"
+    static def htmlPageTitle = "HTML Title"
+    static def htmlChildPageTitle = "HTML Child Title"
 
     def initAllData() {
         initCategories()
