@@ -4,7 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(RequestDispatchController)
-@Mock([Category, Page, PagePageTypeData, PageType])
+@Mock([Category, CategoryPrimary, Page, PagePageTypeData, PageType])
 class RequestDispatchControllerSpec extends SpecificationDataCore {
     def setup() {
         controller.categoryService = new CategoryService()

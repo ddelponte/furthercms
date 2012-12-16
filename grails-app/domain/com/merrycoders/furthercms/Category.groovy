@@ -12,7 +12,6 @@ class Category {
     String urlKey
     Page page
     Boolean isPublished = false // If true, it's viewable by the public
-    Boolean isInPrimaryNavigation = false
     Boolean isInSecondaryNavigation = false
     Date dateCreated
     Date lastUpdated
@@ -30,7 +29,7 @@ class Category {
 
     static mapping = {
         cache true
-        urlKey column: 'url_key', index: 'UrlKey_Idx'
+        urlKey index: 'UrlKey_Idx'
     }
 
     /**

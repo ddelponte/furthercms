@@ -2,7 +2,7 @@ package com.merrycoders.furthercms
 
 import grails.test.mixin.Mock
 
-@Mock([Category, Page, PageType, PagePageTypeData])
+@Mock([Category, CategoryPrimary, Page, PageType, PagePageTypeData])
 class CategorySpec extends SpecificationDataCore {
     def setup() {
 

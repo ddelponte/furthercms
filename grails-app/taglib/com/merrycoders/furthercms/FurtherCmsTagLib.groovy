@@ -4,6 +4,7 @@ class FurtherCmsTagLib {
     static namespace = "fc"
 
     def primaryNav = { attrs, body ->
+        def categoryInstance = attrs.categoryInstance
         out << render(template: "/public/navigation/primary", model: [:])
         // out << render(template: "/templates/tags/tagIcons", model: [tagsWithIcon: tagsWithIcon, tagsWithoutIcon: tagsWithoutIcon])
     }
