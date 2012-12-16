@@ -1,6 +1,6 @@
 package com.merrycoders.furthercms
 
-class CategoryPrimary {
+class PrimaryCategory {
     Category category
     Integer displayOrder
 

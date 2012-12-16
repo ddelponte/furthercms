@@ -4,7 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(CategoryService)
-@Mock([Category, CategoryPrimary, PageType, Page, PagePageTypeData])
+@Mock([Category, PrimaryCategory, PageType, Page, PagePageTypeData])
 class CategoryServiceSpec extends SpecificationDataCore {
 
     def setup() {
@@ -31,7 +31,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         category.page == page
         category.parent == parentCategory
         category.isPublished == false
-        CategoryPrimary.countByCategory(category) == categoryPrimaryCount
+        PrimaryCategory.countByCategory(category) == categoryPrimaryCount
 
         where:
         urlKey            | name         | description | parentUrlKey | pageTitle          | categoryPrimaryCount

@@ -49,7 +49,7 @@ class SpecificationDataCore extends Specification {
             def home = new Category(name: "Home", urlKey: "", page: Page.findByTitle(homePageTitle))
             def html = new Category(name: "HTML", parent: home, urlKey: "html", page: Page.findByTitle(htmlPageTitle), isInSecondaryNavigation: true)
             def htmlChild = new Category(name: "HTML Child", parent: html, urlKey: "html/html-child", page: Page.findByTitle(htmlChildPageTitle))
-            def categoryPrimaryInstance = new CategoryPrimary(category: home, displayOrder: 0)
+            def categoryPrimaryInstance = new PrimaryCategory(category: home, displayOrder: 0)
             saveDomainObjects([home, html, htmlChild, categoryPrimaryInstance])
         }
     }
