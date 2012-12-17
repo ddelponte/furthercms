@@ -9,7 +9,7 @@ class PrimaryCategory {
 
     static mapping = {
         cache true
-        category index: 'Category_Idx'
+        category cache: true, index: 'Category_Idx', fetch: 'join'
     }
 
     String toString() {

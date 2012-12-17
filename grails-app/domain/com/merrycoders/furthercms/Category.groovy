@@ -13,6 +13,7 @@ class Category {
     Page page
     Boolean isPublished = false // If true, it's viewable by the public
     Boolean isInSecondaryNavigation = false
+    String code = "com.merrycoders.furthercms.category" // The code to resolve the message for. Used for custom application messages.
     Date dateCreated
     Date lastUpdated
 
@@ -25,6 +26,7 @@ class Category {
             return v.isValid("http://www.google.com/" + it)
         })
         page nullable: true
+        code nullable: true
     }
 
     static mapping = {

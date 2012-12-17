@@ -23,6 +23,6 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
         then:
         results.contains("<li class=\"active\">")
-        results.contains("<nav:title item=\"{titleMessageCode=code, titleDefault=Home}")
+        results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=Home}")
     }
 }
