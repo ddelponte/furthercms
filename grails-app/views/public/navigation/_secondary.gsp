@@ -1,13 +1,11 @@
 <theme:zone name="secondary-navigation">
-%{--<nav:secondary path="plugin.furthercms/htmlPageType">--}%
     <nav:menu custom="true" scope="plugin.furthercms.app" class="nav nav-pills">
-        <li class="active">
-            <p:callTag tag="g:link" attrs="${[url: "urlKey"]}">
-                <span>
-                    <nav:title item="${[titleMessageCode: "code", titleDefault: 'secondary']}"/>
-                </span>
-            </p:callTag>
-        </li>
+        <g:each in="${secondaryCategoryInstanceList}" var="secondaryCategory">
+            <li ${(secondaryCategory in activeSecondaryNavigationCategoryInstanceList) ? 'class=\"active\"' : ''}>
+                <p:callTag tag="g:link" attrs="${[url: "/${secondaryCategory?.urlKey ?: ''}"]}">
+                    <nav:title item="${[titleMessageCode: secondaryCategory?.code, titleDefault: secondaryCategory?.toString()]}"/>
+                </p:callTag>
+            </li>
+        </g:each>
     </nav:menu>
-%{--</nav:secondary>--}%
 </theme:zone>

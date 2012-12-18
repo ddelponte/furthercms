@@ -10,7 +10,7 @@
 
         <fc:primaryNav categoryInstance="${categoryInstance}"/>
 
-        <g:render template="/public/navigation/secondary"/>
+        <fc:secondaryNav categoryInstance="${categoryInstance}"/>
 
         <theme:zone name="body">
             <ui:displayMessage/>

@@ -52,7 +52,7 @@ class CategorySpec extends SpecificationDataCore {
         def childCategory = Category.findByName("HTML Child")
 
         when:
-        def primaryCategoryInstanceList = childCategory.primaryCategories
+        def primaryCategoryInstanceList = childCategory.activePrimaryCategories
 
         then:
         primaryCategoryInstanceList.size() == 1

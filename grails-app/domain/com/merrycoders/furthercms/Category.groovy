@@ -39,9 +39,18 @@ class Category {
      * is a child of
      * @return List < Category >
      */
-    List<Category> getPrimaryCategories() {
+    List<Category> getActivePrimaryCategories() {
         def ancestorCategoryInstanceList = this.ancestry
         return PrimaryCategory.findAllByCategoryInList(ancestorCategoryInstanceList)?.category
+    }
+
+    /**
+     * Secondary categories are the children of  an active primary category
+     * @return List of categories
+     */
+    List<Category> getSecondaryCategories() {
+        def primaryCategoryInstanceList = getActivePrimaryCategories()
+        return primaryCategoryInstanceList?.first()?.children
     }
 
     /**

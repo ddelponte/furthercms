@@ -9,7 +9,7 @@ class FurtherCmsTagLib {
     def primaryNav = { attrs, body ->
         def categoryInstance = attrs.categoryInstance
         def primaryCategoryInstanceList = PrimaryCategory.list(sort: "displayOrder", order: "asc")
-        def activePrimaryNavigationCategoryInstanceList = categoryInstance.primaryCategories
+        def activePrimaryNavigationCategoryInstanceList = categoryInstance.activePrimaryCategories
         out << render(
                 template: "/public/navigation/primary",
                 model: [
@@ -20,7 +20,16 @@ class FurtherCmsTagLib {
     }
 
     def secondaryNav = { attrs, body ->
-        out << render(template: "/public/navigation/secondary", model: [:])
+        def categoryInstance = attrs.categoryInstance
+        def secondaryCategoryInstanceList = categoryInstance?.getSecondaryCategories() ?: []
+        def activeSecondaryNavigationCategoryIdList = categoryInstance?.ancestry?.id?.intersect(secondaryCategoryInstanceList?.id) ?: []
+        def activeSecondaryNavigationCategoryInstanceList = Category.getAll(activeSecondaryNavigationCategoryIdList)
+        out << render(
+                template: "/public/navigation/secondary",
+                model: [
+                        secondaryCategoryInstanceList: secondaryCategoryInstanceList,
+                        activeSecondaryNavigationCategoryInstanceList: activeSecondaryNavigationCategoryInstanceList
+                ])
     }
 
 }
