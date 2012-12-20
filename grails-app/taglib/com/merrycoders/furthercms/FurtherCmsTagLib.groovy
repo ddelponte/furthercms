@@ -2,6 +2,7 @@ package com.merrycoders.furthercms
 
 class FurtherCmsTagLib {
     static namespace = "fc"
+    def grailsAppllication
 
     /**
      * @attr categoryInstance The Category for the current page being displayed
@@ -10,9 +11,11 @@ class FurtherCmsTagLib {
         def categoryInstance = attrs.categoryInstance
         def primaryCategoryInstanceList = PrimaryCategory.list(sort: "displayOrder", order: "asc")
         def activePrimaryNavigationCategoryInstanceList = categoryInstance.activePrimaryCategories
+        def appContext = grailsApplication.config.grails.furthercms.app.context
         out << render(
                 template: "/public/navigation/primary",
                 model: [
+                        appContext: appContext,
                         categoryInstance: categoryInstance,
                         primaryCategoryInstanceList: primaryCategoryInstanceList,
                         activePrimaryNavigationCategoryInstanceList: activePrimaryNavigationCategoryInstanceList
@@ -22,11 +25,13 @@ class FurtherCmsTagLib {
     def secondaryNav = { attrs, body ->
         def categoryInstance = attrs.categoryInstance
         def secondaryCategoryInstanceList = categoryInstance?.getSecondaryCategories() ?: []
-        def activeSecondaryNavigationCategoryIdList = categoryInstance?.ancestry?.id?.intersect(secondaryCategoryInstanceList?.id) ?: []
-        def activeSecondaryNavigationCategoryInstanceList = Category.getAll(activeSecondaryNavigationCategoryIdList)
+        def activeSecondaryNavigationCategoryIdList = categoryInstance?.ancestry?.id?.intersect(secondaryCategoryInstanceList?.id)?.flatten() ?: []
+        def activeSecondaryNavigationCategoryInstanceList = Category.findAllByIdInList(activeSecondaryNavigationCategoryIdList)
+        def appContext = grailsApplication.config.grails.furthercms.app.context
         out << render(
                 template: "/public/navigation/secondary",
                 model: [
+                        appContext: appContext,
                         secondaryCategoryInstanceList: secondaryCategoryInstanceList,
                         activeSecondaryNavigationCategoryInstanceList: activeSecondaryNavigationCategoryInstanceList
                 ])

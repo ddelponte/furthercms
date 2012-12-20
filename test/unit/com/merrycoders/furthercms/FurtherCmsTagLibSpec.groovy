@@ -13,7 +13,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
     def cleanup() {
     }
 
-    void "primary nav construction"() {
+    def "primary nav construction"() {
         given:
         initCategories()
         def categoryInstance = Category.findByName("HTML Child")
@@ -24,5 +24,23 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         then:
         results.contains("<li class=\"active\">")
         results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=Home}")
+    }
+
+    def "secondary nav construction"() {
+        given:
+        initCategories()
+        def leafCategory = Category.findByName(activeCategoryName)
+
+        when:
+        def results = tagLib.secondaryNav([categoryInstance: leafCategory])
+
+        then:
+        results.contains("class=\"nav nav-pills\"")
+        results.contains("<li class=\"active\">")
+        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/html}\">")
+        results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=HTML}\"></nav:title>")
+
+        where:
+        activeCategoryName << ["HTML Child", "HTML"]
     }
 }
