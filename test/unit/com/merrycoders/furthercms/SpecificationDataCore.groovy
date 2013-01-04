@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import grails.validation.ValidationException
 import spock.lang.Specification
 
 /**
@@ -9,6 +10,11 @@ class SpecificationDataCore extends Specification {
     static def homePageTitle = "Home Title"
     static def htmlPageTitle = "HTML Title"
     static def htmlChildPageTitle = "HTML Child Title"
+    def categoryService
+
+    def setup() {
+        categoryService = new CategoryService()
+    }
 
     def initAllData() {
         initCategories()
@@ -50,7 +56,7 @@ class SpecificationDataCore extends Specification {
             def html = new Category(name: "HTML", parent: home, urlKey: "html", page: Page.findByTitle(htmlPageTitle), isInSecondaryNavigation: true)
             def htmlChild = new Category(name: "HTML Child", parent: html, urlKey: "html/html-child", page: Page.findByTitle(htmlChildPageTitle))
             def categoryPrimaryInstance = new PrimaryCategory(category: home, displayOrder: 0)
-            saveDomainObjects([home, html, htmlChild, categoryPrimaryInstance])
+            saveCategoryInstances([home, html, htmlChild, categoryPrimaryInstance])
         }
     }
 
@@ -58,6 +64,16 @@ class SpecificationDataCore extends Specification {
         domainObjects.each { object ->
             if (!object.save()) {
                 println object.errors.fieldErrors
+            }
+        }
+    }
+
+    private saveCategoryInstances(List categoryInstanceList) {
+        categoryInstanceList.each { category ->
+            try {
+                categoryService.save(category)
+            } catch (ValidationException e) {
+                println e.errors
             }
         }
     }

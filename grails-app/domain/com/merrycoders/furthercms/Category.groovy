@@ -14,6 +14,7 @@ class Category {
     Boolean isPublished = false // If true, it's viewable by the public
     Boolean isInSecondaryNavigation = false
     String code = "com.merrycoders.furthercms.category" // The code to resolve the message for. Used for custom application messages.
+    Integer displayOrder = 0
     Date dateCreated
     Date lastUpdated
 
@@ -90,6 +91,15 @@ class Category {
             categoryInstanceList.addAll(child.getDescendants())
         }
         return categoryInstanceList
+    }
+
+    List<Category> getSiblings() {
+        def siblingCategoryInstanceList = []
+        def parentCategory = this?.parent
+        if (parentCategory && parentCategory?.id) {
+            siblingCategoryInstanceList = parentCategory?.children
+        }
+        return siblingCategoryInstanceList
     }
 
     String toString() {

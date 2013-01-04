@@ -6,6 +6,8 @@ class PageType {
     String action
     String pageTypeKey
     String description = ""
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         name unique: true
