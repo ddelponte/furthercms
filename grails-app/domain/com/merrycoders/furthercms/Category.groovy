@@ -99,7 +99,7 @@ class Category {
         if (parentCategory && parentCategory?.id) {
             siblingCategoryInstanceList = parentCategory?.children
         }
-        return siblingCategoryInstanceList
+        return siblingCategoryInstanceList - this
     }
 
     String toString() {
