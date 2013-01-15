@@ -37,4 +37,24 @@ class FurtherCmsTagLib {
                 ])
     }
 
+    def primaryNavAdmin = { attrs, body ->
+        def appContext = grailsApplication.config.grails.furthercms.app.context
+        out << render(
+                template: "/admin/navigation/primary",
+                model: [
+                        appContext: appContext,
+                        itemList: [[controller: "admin", action: "index", titleMessageCode: "furthercms.admin.primary.navigation.home", titleDefault: "Home"]]
+                ])
+    }
+
+    def secondaryNavAdmin = { attrs, body ->
+        def appContext = grailsApplication.config.grails.furthercms.app.context
+        out << render(
+                template: "/admin/navigation/secondary",
+                model: [
+                        appContext: appContext,
+                        itemList: [[controller: "admin", action: "index", titleMessageCode: "furthercms.admin.primary.navigation.home", titleDefault: "Home", activeItem: null]]
+                ])
+    }
+
 }
