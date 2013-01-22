@@ -11,6 +11,7 @@ class FurtherCmsBootStrap {
             initAllData()
         } else {
             initPageTypes()
+            initPrimaryNavAdminMenuItems()
         }
     }
 
@@ -19,6 +20,7 @@ class FurtherCmsBootStrap {
 
     def initAllData() {
         initCategories()
+        initPrimaryNavAdminMenuItems()
     }
 
     def initPageTypes() {
@@ -51,7 +53,7 @@ class FurtherCmsBootStrap {
     }
 
     def initCategories() {
-        if (Page.count() == 0) {
+        if (!Page.count()) {
             initPages()
             def home = new Category(name: "Home", urlKey: "", page: Page.findByTitle(homePageTitle))
             def html = new Category(name: "HTML", parent: home, urlKey: "html", page: Page.findByTitle(htmlPageTitle), isInSecondaryNavigation: true)
@@ -59,6 +61,19 @@ class FurtherCmsBootStrap {
             def categoryPrimaryInstance = new PrimaryCategory(category: home, displayOrder: 0)
             saveDomainObjects([home, html, htmlChild, categoryPrimaryInstance])
 
+        }
+    }
+
+    def initPrimaryNavAdminMenuItems() {
+        if (!PrimaryNavAdminMenuItem.count()) {
+            def primaryNavAdminMenuItem = new PrimaryNavAdminMenuItem(
+                    titleMessageCode: "furthercms.admin.primary.navigation.home",
+                    titleDefault: "Home",
+                    controller: "admin",
+                    action: "index",
+                    displayOrder: 0
+            )
+            saveDomainObjects([primaryNavAdminMenuItem])
         }
     }
 
