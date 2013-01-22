@@ -18,6 +18,7 @@ class SpecificationDataCore extends Specification {
 
     def initAllData() {
         initCategories()
+        initPrimaryNavAdminMenuItems()
     }
 
     def initPageTypes() {
@@ -75,6 +76,19 @@ class SpecificationDataCore extends Specification {
             } catch (ValidationException e) {
                 println e.errors
             }
+        }
+    }
+
+    def initPrimaryNavAdminMenuItems() {
+        if (!PrimaryNavAdminMenuItem.count()) {
+            def primaryNavAdminMenuItem = new PrimaryNavAdminMenuItem(
+                    titleMessageCode: "furthercms.admin.primary.navigation.home",
+                    titleDefault: "Home",
+                    controller: "admin",
+                    action: "index",
+                    displayOrder: 0
+            )
+            saveDomainObjects([primaryNavAdminMenuItem])
         }
     }
 

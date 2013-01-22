@@ -17,5 +17,7 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
         Category.count() == 3
 
         PrimaryCategory.count() == 1
+
+        PrimaryNavAdminMenuItem.count() == 1
     }
 }
