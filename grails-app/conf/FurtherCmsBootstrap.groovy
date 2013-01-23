@@ -11,7 +11,7 @@ class FurtherCmsBootStrap {
             initAllData()
         } else {
             initPageTypes()
-            initPrimaryNavAdminMenuItems()
+            initNavAdminMenuItems()
         }
     }
 
@@ -20,7 +20,7 @@ class FurtherCmsBootStrap {
 
     def initAllData() {
         initCategories()
-        initPrimaryNavAdminMenuItems()
+        initNavAdminMenuItems()
     }
 
     def initPageTypes() {
@@ -64,7 +64,7 @@ class FurtherCmsBootStrap {
         }
     }
 
-    def initPrimaryNavAdminMenuItems() {
+    def initNavAdminMenuItems() {
         if (!PrimaryNavAdminMenuItem.count()) {
             def primaryNavAdminMenuItem = new PrimaryNavAdminMenuItem(
                     titleMessageCode: "furthercms.admin.primary.navigation.home",
@@ -73,7 +73,17 @@ class FurtherCmsBootStrap {
                     action: "index",
                     displayOrder: 0
             )
-            saveDomainObjects([primaryNavAdminMenuItem])
+
+            def secondaryNavAdminMenuItem = new SecondaryNavAdminMenuItem(
+                    primaryNavAdminMenuItem: primaryNavAdminMenuItem,
+                    titleMessageCode: "furthercms.admin.primary.navigation.pages",
+                    titleDefault: "Pages",
+                    controller: "admin",
+                    action: "pages",
+                    displayOrder: 0
+            )
+
+            saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem])
         }
     }
 
