@@ -65,8 +65,8 @@ class FurtherCmsBootStrap {
     }
 
     def initNavAdminMenuItems() {
-        if (!PrimaryNavAdminMenuItem.count()) {
-            def primaryNavAdminMenuItem = new PrimaryNavAdminMenuItem(
+        if (!PrimaryAdminMenuItem.count()) {
+            def primaryNavAdminMenuItem = new PrimaryAdminMenuItem(
                     titleMessageCode: "furthercms.admin.primary.navigation.home",
                     titleDefault: "Home",
                     controller: "admin",
@@ -74,7 +74,7 @@ class FurtherCmsBootStrap {
                     displayOrder: 0
             )
 
-            def secondaryNavAdminMenuItem = new SecondaryNavAdminMenuItem(
+            def secondaryNavAdminMenuItem = new SecondaryAdminMenuItem(
                     primaryNavAdminMenuItem: primaryNavAdminMenuItem,
                     titleMessageCode: "furthercms.admin.primary.navigation.pages",
                     titleDefault: "Pages",

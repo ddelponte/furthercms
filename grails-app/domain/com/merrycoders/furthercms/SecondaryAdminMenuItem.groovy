@@ -1,6 +1,7 @@
 package com.merrycoders.furthercms
 
-class PrimaryNavAdminMenuItem {
+class SecondaryAdminMenuItem {
+    PrimaryAdminMenuItem primaryNavAdminMenuItem // This is the parent
     String titleMessageCode
     String titleDefault
     String controller = "admin"

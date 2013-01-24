@@ -80,9 +80,9 @@ class SpecificationDataCore extends Specification {
     }
 
     def initNavAdminMenuItems() {
-        if (!PrimaryNavAdminMenuItem.count()) {
+        if (!PrimaryAdminMenuItem.count()) {
 
-            def primaryNavAdminMenuItem = new PrimaryNavAdminMenuItem(
+            def primaryNavAdminMenuItem = new PrimaryAdminMenuItem(
                     titleMessageCode: "furthercms.admin.primary.navigation.home",
                     titleDefault: "Home",
                     controller: "admin",
@@ -90,7 +90,7 @@ class SpecificationDataCore extends Specification {
                     displayOrder: 0
             )
 
-            def secondaryNavAdminMenuItem = new SecondaryNavAdminMenuItem(
+            def secondaryNavAdminMenuItem = new SecondaryAdminMenuItem(
                     primaryNavAdminMenuItem: primaryNavAdminMenuItem,
                     titleMessageCode: "furthercms.admin.primary.navigation.pages",
                     titleDefault: "Pages",

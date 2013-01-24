@@ -41,9 +41,9 @@ class FurtherCmsTagLib {
      * @attr activePrimaryMenuItem The selected PrimaryMenuItemInstance
      */
     def primaryNavAdmin = { attrs, body ->
-        PrimaryNavAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
+        PrimaryAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
         def appContext = grailsApplication.config.grails.furthercms.app.context
-        def itemList = PrimaryNavAdminMenuItem.listOrderByDisplayOrder(order: "asc")
+        def itemList = PrimaryAdminMenuItem.listOrderByDisplayOrder(order: "asc")
         out << render(
                 template: "/admin/navigation/primary",
                 model: [
@@ -54,9 +54,9 @@ class FurtherCmsTagLib {
     }
 
     def secondaryNavAdmin = { attrs, body ->
-        PrimaryNavAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
-        SecondaryNavAdminMenuItem activeSecondaryAdminMenuItem = attrs.activeSecondaryAdminMenuItem
-        def secondaryAdminMenuItemList = SecondaryNavAdminMenuItem.findAllByPrimaryNavAdminMenuItem(activePrimaryAdminMenuItem) ?: []
+        PrimaryAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
+        SecondaryAdminMenuItem activeSecondaryAdminMenuItem = attrs.activeSecondaryAdminMenuItem
+        def secondaryAdminMenuItemList = SecondaryAdminMenuItem.findAllByPrimaryNavAdminMenuItem(activePrimaryAdminMenuItem, [sort: "displayOrder", order: "asc"]) ?: []
         def appContext = grailsApplication.config.grails.furthercms.app.context
         out << render(
                 template: "/admin/navigation/secondary",

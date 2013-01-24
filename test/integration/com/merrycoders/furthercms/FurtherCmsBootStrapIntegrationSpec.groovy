@@ -18,8 +18,8 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
 
         PrimaryCategory.count() == 1
 
-        PrimaryNavAdminMenuItem.count() == 1
+        PrimaryAdminMenuItem.count() == 1
 
-        SecondaryNavAdminMenuItem.count() == 1
+        SecondaryAdminMenuItem.count() == 1
     }
 }
