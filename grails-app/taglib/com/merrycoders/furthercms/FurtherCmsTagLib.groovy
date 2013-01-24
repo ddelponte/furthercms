@@ -41,7 +41,7 @@ class FurtherCmsTagLib {
      * @attr activePrimaryMenuItem The selected PrimaryMenuItemInstance
      */
     def primaryNavAdmin = { attrs, body ->
-        PrimaryNavAdminMenuItem activePrimaryMenuItem = attrs.activePrimaryMenuItem
+        PrimaryNavAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
         def appContext = grailsApplication.config.grails.furthercms.app.context
         def itemList = PrimaryNavAdminMenuItem.listOrderByDisplayOrder(order: "asc")
         out << render(
@@ -49,21 +49,21 @@ class FurtherCmsTagLib {
                 model: [
                         appContext: appContext,
                         itemList: itemList,
-                        activeItem: activePrimaryMenuItem
+                        activeItem: activePrimaryAdminMenuItem
                 ])
     }
 
     def secondaryNavAdmin = { attrs, body ->
-        PrimaryNavAdminMenuItem activePrimaryNavAdminMenuItem = attrs.activePrimaryNavAdminMenuItem
-        SecondaryNavAdminMenuItem activeSecondaryNavAdminMenuItem = attrs.activeSecondaryNavAdminMenuItem
-        def secondaryNavAdminMenuItemList = SecondaryNavAdminMenuItem.findAllByPrimaryNavAdminMenuItem(activePrimaryNavAdminMenuItem) ?: []
+        PrimaryNavAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
+        SecondaryNavAdminMenuItem activeSecondaryAdminMenuItem = attrs.activeSecondaryAdminMenuItem
+        def secondaryAdminMenuItemList = SecondaryNavAdminMenuItem.findAllByPrimaryNavAdminMenuItem(activePrimaryAdminMenuItem) ?: []
         def appContext = grailsApplication.config.grails.furthercms.app.context
         out << render(
                 template: "/admin/navigation/secondary",
                 model: [
                         appContext: appContext,
-                        itemList: secondaryNavAdminMenuItemList,
-                        activeItem: activeSecondaryNavAdminMenuItem
+                        itemList: secondaryAdminMenuItemList,
+                        activeItem: activeSecondaryAdminMenuItem
                 ])
     }
 

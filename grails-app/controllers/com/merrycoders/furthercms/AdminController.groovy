@@ -8,10 +8,10 @@ class AdminController {
 //        } else {
 //            redirect(url: "${s.createLoginLink()}")
 //        }
-        def activePrimaryNavAdminMenuItem = PrimaryNavAdminMenuItem.findByControllerAndAction("admin", "index")
-        def activeSecondaryNavAdminMenuItem = SecondaryNavAdminMenuItem.findByControllerAndAction("admin", "pages")
+        def activePrimaryAdminMenuItem = PrimaryNavAdminMenuItem.findByControllerAndAction("admin", "index")
+        def activeSecondaryAdminMenuItem = SecondaryNavAdminMenuItem.findByControllerAndAction("admin", "pages")
 
-        [activePrimaryMenuItem: activePrimaryNavAdminMenuItem, activeSecondaryMenuItem: activeSecondaryNavAdminMenuItem]
+        [activePrimaryAdminMenuItem: activePrimaryAdminMenuItem, activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem]
     }
 
     def pages() {
