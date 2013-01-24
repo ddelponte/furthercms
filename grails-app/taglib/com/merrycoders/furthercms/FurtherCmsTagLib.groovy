@@ -38,7 +38,7 @@ class FurtherCmsTagLib {
     }
 
     /**
-     * @attr activePrimaryMenuItem The selected PrimaryMenuItemInstance
+     * @attr activePrimaryAdminMenuItem The selected PrimaryAdminMenuItemInstance
      */
     def primaryNavAdmin = { attrs, body ->
         PrimaryAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
@@ -53,6 +53,10 @@ class FurtherCmsTagLib {
                 ])
     }
 
+    /**
+     * @attr activePrimaryAdminMenuItem The selected PrimaryAdminMenuItemInstance
+     * @attr activeSecondaryAdminMenuItem The selected SecondaryAdminMenuItemInstance
+     */
     def secondaryNavAdmin = { attrs, body ->
         PrimaryAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
         SecondaryAdminMenuItem activeSecondaryAdminMenuItem = attrs.activeSecondaryAdminMenuItem

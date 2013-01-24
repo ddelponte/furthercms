@@ -4,7 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(FurtherCmsTagLib)
-@Mock([Category, PrimaryCategory, Page, PageType, PagePageTypeData])
+@Mock([Category, PrimaryCategory, Page, PageType, PagePageTypeData, PrimaryAdminMenuItem, SecondaryAdminMenuItem])
 class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
     def setup() {
@@ -42,5 +42,34 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
         where:
         activeCategoryName << ["HTML Child", "HTML"]
+    }
+
+    def "admin primary nav construction"() {
+        given:
+        initNavAdminMenuItems()
+        def activePrimaryAdminMenuItem = PrimaryAdminMenuItem.findByTitleDefault("Home")
+
+        when:
+        def results = tagLib.primaryNavAdmin([activePrimaryAdminMenuItem: activePrimaryAdminMenuItem])
+
+        then:
+        results.contains("<li class=\"active\">")
+        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/admin/index}\">")
+        results.contains("<nav:title item=\"{titleMessageCode=furthercms.admin.primary.navigation.home, titleDefault=Home}\"></nav:title>")
+    }
+
+    def "admin secondary nav construction"() {
+        given:
+        initNavAdminMenuItems()
+        def activePrimaryAdminMenuItem = PrimaryAdminMenuItem.findByTitleDefault("Home")
+        def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByTitleDefault("Pages")
+
+        when:
+        def results = tagLib.secondaryNavAdmin([activePrimaryAdminMenuItem: activePrimaryAdminMenuItem, activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem])
+
+        then:
+        results.contains("<li class=\"active\">")
+        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/admin/pages}\">")
+        results.contains("<nav:title item=\"{titleMessageCode=furthercms.admin.primary.navigation.pages, titleDefault=Pages}\"></nav:title>")
     }
 }
