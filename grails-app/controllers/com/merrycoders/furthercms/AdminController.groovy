@@ -8,5 +8,13 @@ class AdminController {
 //        } else {
 //            redirect(url: "${s.createLoginLink()}")
 //        }
+        def activePrimaryNavAdminMenuItem = PrimaryNavAdminMenuItem.findByControllerAndAction("admin", "index")
+        def activeSecondaryNavAdminMenuItem = SecondaryNavAdminMenuItem.findByControllerAndAction("admin", "pages")
+
+        [activePrimaryMenuItem: activePrimaryNavAdminMenuItem, activeSecondaryMenuItem: activeSecondaryNavAdminMenuItem]
+    }
+
+    def pages() {
+
     }
 }

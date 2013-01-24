@@ -9,11 +9,11 @@
     <body>
 
         <theme:zone name="navigation">
-            <fc:primaryNavAdmin/>
+            <fc:primaryNavAdmin activePrimaryMenuItem="${activePrimaryMenuItem}"/>
         </theme:zone>
 
         <theme:zone name="secondary-navigation">
-            <fc:secondaryNavAdmin/>
+            <fc:secondaryNavAdmin activePrimaryNavAdminMenuItem="${activePrimaryMenuItem}" activeSecondaryNavAdminMenuItem="${activeSecondaryMenuItem}"/>
         </theme:zone>
 
         <theme:zone name="body">
