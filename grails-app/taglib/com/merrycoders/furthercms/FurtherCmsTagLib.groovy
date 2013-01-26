@@ -71,4 +71,22 @@ class FurtherCmsTagLib {
                 ])
     }
 
+    /**
+     * Renders the pages of the site as a tree for easy navigation
+     * @attr category The root category of the tree
+     */
+    def navTree = { attrs, body ->
+        Category rootCategory = attrs?.category
+        out << render(template: "/admin/navigation/navTree/tree", model: [rootCategory: rootCategory])
+    }
+    /**
+     * Renders the children of the category as a tree
+     * @attr category The root category of the tree
+     */
+    def navTreeChildren = { attrs, body ->
+        Category rootCategory = attrs?.category
+        List children = rootCategory?.children
+        out << render(template: "/admin/navigation/navTree/children", model: [children: children])
+    }
+
 }
