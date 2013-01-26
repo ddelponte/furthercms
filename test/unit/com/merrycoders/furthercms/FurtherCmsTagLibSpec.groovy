@@ -37,7 +37,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         then:
         results.contains("class=\"nav nav-pills\"")
         results.contains("<li class=\"active\">")
-        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/html}\">")
+        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/home/html}\">")
         results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=HTML}\"></nav:title>")
 
         where:

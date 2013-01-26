@@ -61,7 +61,7 @@ class Category {
     List<Category> getAncestry() {
         def categoryInstanceList
 
-        if (parent) categoryInstanceList = parent.getAncestry()
+        if (parent && parent.parent) categoryInstanceList = parent.getAncestry()
         else categoryInstanceList = new LinkedList<Category>()
 
         categoryInstanceList << this

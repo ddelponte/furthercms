@@ -19,11 +19,11 @@ class CategoryServiceSpec extends SpecificationDataCore {
 
         when:
         def category = service.findByUrlKey(urlKey)
+        def page = pageTitle ? Page.findByTitle(pageTitle) : Page.findByTitleIsNull()
+        def parentCategory = null
+        if (parentUrlKey != null) parentCategory = Category.findByUrlKey(parentUrlKey)
 
         then:
-        def page = Page.findByTitle(pageTitle)
-        def parentCategory
-        if (parentUrlKey != null) parentCategory = Category.findByUrlKey(parentUrlKey)
         category.name == name
         category.description == description
         category.parent == parentCategory
@@ -34,10 +34,11 @@ class CategoryServiceSpec extends SpecificationDataCore {
         PrimaryCategory.countByCategory(category) == categoryPrimaryCount
 
         where:
-        urlKey            | name         | description | parentUrlKey | pageTitle          | categoryPrimaryCount
-        ""                | "Home"       | null        | null         | "Home Title"       | 1
-        "html"            | "HTML"       | null        | ""           | "HTML Title"       | 0
-        "html/html-child" | "HTML Child" | null        | "html"       | "HTML Child Title" | 0
+        urlKey                 | name         | description | parentUrlKey | pageTitle          | categoryPrimaryCount
+        ""                     | "Root"       | null        | null         | null               | 0
+        "home"                 | "Home"       | null        | ""           | "Home Title"       | 1
+        "home/html"            | "HTML"       | null        | "home"       | "HTML Title"       | 0
+        "home/html/html-child" | "HTML Child" | null        | "home/html"  | "HTML Child Title" | 0
     }
 
     def "verify diplayOrder of category is properly set when saved"() {

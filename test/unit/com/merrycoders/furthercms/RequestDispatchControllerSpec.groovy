@@ -22,10 +22,10 @@ class RequestDispatchControllerSpec extends SpecificationDataCore {
         response.forwardedUrl == forwardedUrl
 
         where:
-        path              | forwardedUrl
-        ""                | "/grails/htmlPageType/renderPage.dispatch?path="
-        "html"            | "/grails/htmlPageType/renderPage.dispatch?path=html"
-        "html/html-child" | "/grails/htmlPageType/renderPage.dispatch?path=html%2Fhtml-child"
+        path                   | forwardedUrl
+        "home"                 | "/grails/htmlPageType/renderPage.dispatch?path=home"
+        "home/html"            | "/grails/htmlPageType/renderPage.dispatch?path=home%2Fhtml"
+        "home/html/html-child" | "/grails/htmlPageType/renderPage.dispatch?path=home%2Fhtml%2Fhtml-child"
 
     }
 }

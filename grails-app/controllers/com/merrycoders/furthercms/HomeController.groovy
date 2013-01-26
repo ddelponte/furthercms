@@ -3,6 +3,7 @@ package com.merrycoders.furthercms
 class HomeController {
 
     def index() {
-        forward(controller: "requestDispatch", action: "dispatch", params: [path: ""])
+        def categoryInstance = Category.findByUrlKey("home")
+        render(view: "/public/home/index", model: [categoryInstance: categoryInstance])
     }
 }

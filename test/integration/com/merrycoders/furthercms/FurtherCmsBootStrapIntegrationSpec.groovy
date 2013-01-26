@@ -14,7 +14,7 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
         Page.count() == 3
         PagePageTypeData.count() == 3
 
-        Category.count() == 3
+        Category.count() == 4
 
         PrimaryCategory.count() == 1
 
