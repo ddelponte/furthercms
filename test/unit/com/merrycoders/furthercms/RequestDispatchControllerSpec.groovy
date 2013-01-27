@@ -23,7 +23,7 @@ class RequestDispatchControllerSpec extends SpecificationDataCore {
 
         where:
         path                   | forwardedUrl
-        "home"                 | "/grails/htmlPageType/renderPage.dispatch?path=home"
+        "home"                 | "/grails/homePageType/renderPage.dispatch?path=home"
         "home/html"            | "/grails/htmlPageType/renderPage.dispatch?path=home%2Fhtml"
         "home/html/html-child" | "/grails/htmlPageType/renderPage.dispatch?path=home%2Fhtml%2Fhtml-child"
 

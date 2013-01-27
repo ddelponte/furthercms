@@ -8,8 +8,9 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
 
     def "Verify bootstrap objects persisted"() {
         expect:
-        PageType.count() == 1
+        PageType.count() == 2
         PageType.countByPageTypeKey("HTML") == 1
+        PageType.countByPageTypeKey("home") == 1
 
         Page.count() == 3
         PagePageTypeData.count() == 3
