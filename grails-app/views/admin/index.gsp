@@ -16,19 +16,14 @@
             <fc:secondaryNavAdmin activePrimaryAdminMenuItem="${activePrimaryAdminMenuItem}" activeSecondaryAdminMenuItem="${activeSecondaryAdminMenuItem}"/>
         </theme:zone>
 
-        <theme:zone name="body">
-            <ui:displayMessage/>
-            <ui:h1 text="sidebar.page.body.heading"/>
-            <p>Main Content</p>
-        </theme:zone>
+    %{--Render main content area--}%
+        <g:if test="${pageType}">
+            <g:render template="/admin/pageType/${pageType?.controller}/${action}" model="${model}"/>
+        </g:if>
 
-        <theme:zone name="sidebar">
-            <ui:block title="Your profile">
-                <ui:avatar user="marc@anyware.co.uk" size="50"/>
-                <p>Not everybody is this ugly</p>
-                <fc:navTree category="${com.merrycoders.furthercms.Category.findByUrlKey('')}"/>
-            </ui:block>
-        </theme:zone>
+        <g:else>
+            <g:render template="/admin/defaultContent" model="${model}"/>
+        </g:else>
 
         <theme:zone name="user-navigation">
             <ul class="nav secondary">
