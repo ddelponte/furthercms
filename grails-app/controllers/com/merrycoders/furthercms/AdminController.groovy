@@ -10,8 +10,13 @@ class AdminController {
 //        }
         def activePrimaryAdminMenuItem = PrimaryAdminMenuItem.findByControllerAndAction("admin", "index")
         def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByControllerAndAction("admin", "pages")
+        def contentTemplate = "/admin/defaultContent"
 
-        def model = [activePrimaryAdminMenuItem: activePrimaryAdminMenuItem, activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem]
+        def model = [
+                activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
+                activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem,
+                contentTemplate: contentTemplate]
+
         render(view: "/admin/index", model: model)
     }
 
@@ -23,12 +28,14 @@ class AdminController {
         def page = category.page
         def pageType = page.pageType
 
+        def contentTemplate = "/admin/pageType/${pageType?.controller}/edit"
+
         def model = [
                 activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
                 activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem,
+                contentTemplate: contentTemplate,
                 categoryInstance: category,
-                pageType: pageType,
-                action: "edit"]
+                pageType: pageType]
 
         render(view: "/admin/index", model: model)
     }

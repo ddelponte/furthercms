@@ -17,13 +17,7 @@
         </theme:zone>
 
     %{--Render main content area--}%
-        <g:if test="${pageType}">
-            <g:render template="/admin/pageType/${pageType?.controller}/${action}" model="${model}"/>
-        </g:if>
-
-        <g:else>
-            <g:render template="/admin/defaultContent" model="${model}"/>
-        </g:else>
+        <g:render template="${contentTemplate}" model="${model}"/>
 
         <theme:zone name="user-navigation">
             <ul class="nav secondary">
