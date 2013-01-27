@@ -72,4 +72,22 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/admin/pages}\">")
         results.contains("<nav:title item=\"{titleMessageCode=furthercms.admin.primary.navigation.pages, titleDefault=Pages}\"></nav:title>")
     }
+
+    def "navTree construction"() {
+        given:
+        initCategories()
+        def rootCategory = Category.findByUrlKey("")
+
+        when:
+        def results = tagLib.navTree([category: rootCategory])
+
+        then:
+        results.contains("<li id=\"category_2\">")
+        results.contains("<a href=\"home\">Home</a>")
+        results.contains("<li id=\"category_3\">")
+        results.contains("<a href=\"home/html\">HTML</a>")
+        results.contains("<li id=\"category_4\">")
+        results.contains("<a href=\"home/html/html-child\">HTML Child</a>")
+
+    }
 }
