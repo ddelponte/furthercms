@@ -1,6 +1,6 @@
 <r:require modules="navTree"/>
 
-<div id="navTree">
+<div id="navTree" ${style ? "style=\"$style\"" : ""} ${cssClass ? "class=\"$cssClass\"" : ""}>
 
     <g:each in="${children}" var="child">
 
