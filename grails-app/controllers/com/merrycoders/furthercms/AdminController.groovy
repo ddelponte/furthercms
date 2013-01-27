@@ -14,7 +14,7 @@ class AdminController {
         [activePrimaryAdminMenuItem: activePrimaryAdminMenuItem, activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem]
     }
 
-    def pages() {
+    def edit(Long id) {
 
     }
 }

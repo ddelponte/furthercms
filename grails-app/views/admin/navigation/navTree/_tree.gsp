@@ -6,7 +6,7 @@
 
         <ul>
             <li id="category_${child?.id}">
-                <a href="${child?.urlKey}">${child?.name}</a>
+                <a href="${g.createLink(controller: 'admin', action: 'edit', id: child?.id)}">${child?.name}</a>
                 <fc:navTreeChildren category="${child}"/>
             </li>
         </ul>

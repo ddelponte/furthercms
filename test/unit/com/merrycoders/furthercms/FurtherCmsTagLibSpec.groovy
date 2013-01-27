@@ -83,11 +83,11 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
         then:
         results.contains("<li id=\"category_2\">")
-        results.contains("<a href=\"home\">Home</a>")
+        results.contains("<a href=\"/admin/edit/2\">Home</a>")
         results.contains("<li id=\"category_3\">")
-        results.contains("<a href=\"home/html\">HTML</a>")
+        results.contains("<a href=\"/admin/edit/3\">HTML</a>")
         results.contains("<li id=\"category_4\">")
-        results.contains("<a href=\"home/html/html-child\">HTML Child</a>")
+        results.contains("<a href=\"/admin/edit/4\">HTML Child</a>")
 
     }
 }
