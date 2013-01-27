@@ -25,7 +25,8 @@ class FurtherCmsBootStrap {
 
     def initPageTypes() {
         def pageTypePropertyList = [
-                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML", action: "renderPage"]]
+                [name: "HTML Page Type", controller: "htmlPageType", pageTypeKey: "HTML", action: "renderPage"],
+                [name: "Home Page Type", controller: "homePageType", pageTypeKey: "home", action: "renderPage"]]
 
         pageTypePropertyList.each { properties ->
             if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
@@ -40,8 +41,9 @@ class FurtherCmsBootStrap {
 
     def initPages() {
         if (!PageType.count()) initPageTypes()
+        def homePageType = PageType.findByPageTypeKey("home")
         def htmlPageType = PageType.findByPageTypeKey("HTML")
-        def homePage = new Page(title: homePageTitle, pageType: htmlPageType, themeLayout: "home")
+        def homePage = new Page(title: homePageTitle, pageType: homePageType, themeLayout: "home")
         def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
         def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
         saveDomainObjects([homePage, htmlPage, htmlChildPage])
