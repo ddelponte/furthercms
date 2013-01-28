@@ -2,8 +2,8 @@
 <!doctype html>
 <html>
     <head>
-        <theme:layout name="sidebar"/>
-        <theme:title text="sidebar.page.title"></theme:title>
+        <theme:layout name="dataentry"/>
+        <theme:title text="dataentry.page.title"></theme:title>
     </head>
 
     <body>

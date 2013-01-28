@@ -10,7 +10,7 @@ class AdminController {
 //        }
         def activePrimaryAdminMenuItem = PrimaryAdminMenuItem.findByControllerAndAction("admin", "index")
         def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByControllerAndAction("admin", "pages")
-        def contentTemplate = "/admin/defaultContent"
+        def contentTemplate = "/admin/defaultBody"
 
         def model = [
                 activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
