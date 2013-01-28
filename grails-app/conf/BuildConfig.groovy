@@ -46,6 +46,7 @@ grails.project.dependency.resolution = {
         compile ":platform-ui:1.0.RC3"
 
         test ":spock:0.7"
+        test ":code-coverage:1.2.5"
 //        test ':codenarc:latest.integration'
 //        test ':code-coverage:latest.integration'
     }
