@@ -15,7 +15,9 @@
         <theme:zone name="body">
             <ui:displayMessage/>
             <ui:h1 text="sidebar.page.body.heading"/>
-            <p>Main Content</p>
+            <g:each in="${modules?.moduleData?.dataValue}" var="dataValue">
+                ${dataValue.join("")}
+            </g:each>
         </theme:zone>
 
         <theme:zone name="sidebar">
