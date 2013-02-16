@@ -10,6 +10,7 @@ class FurtherCmsBootStrap {
         if (Environment.developmentMode || Environment.current == Environment.TEST) {
             initAllData()
         } else {
+            initModuleTypes()
             initPageTypes()
             initNavAdminMenuItems()
         }
@@ -21,6 +22,23 @@ class FurtherCmsBootStrap {
     def initAllData() {
         initCategories()
         initNavAdminMenuItems()
+    }
+
+    def initModuleTypes() {
+        if (!ModuleType.count()) {
+            def moduleType = new ModuleType(name: "HTML", moduleTypeKey: "html")
+            saveDomainObjects([moduleType])
+        }
+    }
+
+    def initModules(List<Page> pages) {
+        if (!ModuleType.count()) initModuleTypes()
+        pages.each {page ->
+            def moduleType = ModuleType.findByModuleTypeKey("html")
+            def pageModule = Module.create(moduleType: moduleType, page: page, flush: true)
+            def pageModuleData = new ModuleData(module: pageModule, dataKey: "html", dataValue: "<p>Where we going?</p>")
+            saveDomainObjects([pageModuleData])
+        }
     }
 
     def initPageTypes() {
@@ -41,6 +59,7 @@ class FurtherCmsBootStrap {
 
     def initPages() {
         if (!PageType.count()) initPageTypes()
+        if (!ModuleType.count()) initModuleTypes()
         def homePageType = PageType.findByPageTypeKey("home")
         def htmlPageType = PageType.findByPageTypeKey("HTML")
         def homePage = new Page(title: homePageTitle, pageType: homePageType, themeLayout: "home")
@@ -48,10 +67,7 @@ class FurtherCmsBootStrap {
         def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
         saveDomainObjects([homePage, htmlPage, htmlChildPage])
 
-        def homePageData = new PagePageTypeData(page: homePage, pageType: homePage.pageType, name: "content", dataValue: "<p>Home page content</p>")
-        def htmlPageData = new PagePageTypeData(page: htmlPage, pageType: htmlPage.pageType, name: "content", dataValue: "<p>HTML page content</p>")
-        def htmlChildPageData = new PagePageTypeData(page: htmlChildPage, pageType: htmlChildPage.pageType, name: "content", dataValue: "<p>HTML child page content</p>")
-        saveDomainObjects([homePageData, htmlPageData, htmlChildPageData])
+        initModules([homePage, htmlPage, htmlChildPage])
     }
 
     def initCategories() {

@@ -9,7 +9,7 @@ class HtmlPageTypeController {
     def renderPage(String path) {
         def category = categoryService.findByUrlKey(path)
         def page = category?.page
-        render(view: "/public/${page?.themeLayout}", model: [categoryInstance: category])
+        render(view: "/public/${page?.themeLayout}", model: [categoryInstance: category, pageInstance: page, modules: page.modules])
     }
 
     def list() {

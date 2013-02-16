@@ -25,11 +25,11 @@ class Page {
     }
 
     def beforeDelete() {
-        PagePageTypeData.withNewSession { pageDatas*.delete() }
+        Module.withNewSession { modules*.delete() }
     }
 
-    def getPageDatas() {
-        PagePageTypeData.findAllByPage(this, [sort: "name"])
+    def getModules() {
+        Module.findAllByPage(this, [sort: "displayOrder", order: "asc"])
     }
 
     String toString() {

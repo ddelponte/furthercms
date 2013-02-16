@@ -4,7 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(FurtherCmsTagLib)
-@Mock([Category, PrimaryCategory, Page, PageType, PagePageTypeData, PrimaryAdminMenuItem, SecondaryAdminMenuItem])
+@Mock([Category, PrimaryCategory, Page, PageType, PrimaryAdminMenuItem, SecondaryAdminMenuItem, ModuleType, Module, ModuleData])
 class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
     def setup() {
