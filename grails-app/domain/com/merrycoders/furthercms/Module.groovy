@@ -1,6 +1,8 @@
 package com.merrycoders.furthercms
 
 class Module {
+    def moduleService
+
     ModuleType moduleType
     Page page
     Integer displayOrder
@@ -30,6 +32,10 @@ class Module {
         Integer displayOrder = Module.findAllByPage(page)?.displayOrder?.max() ?: 0
         displayOrder++
         new Module(page: page, moduleType: moduleType, displayOrder: displayOrder).save(flush: flush, insert: true)
+    }
+
+    def renderModule() {
+        moduleService.renderPublicView(this)
     }
 
     String toString() {

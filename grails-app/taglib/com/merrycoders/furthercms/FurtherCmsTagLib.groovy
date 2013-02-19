@@ -93,4 +93,13 @@ class FurtherCmsTagLib {
         out << render(template: "/admin/navigation/navTree/children", model: [children: children])
     }
 
+    /**
+     * Takes a list of Module instances and renders them
+     * @modules List of Module instances
+     */
+    def renderModules = { attrs, body ->
+        def modules = attrs?.modules ?: []
+        out << render(template: "/modules/")
+    }
+
 }

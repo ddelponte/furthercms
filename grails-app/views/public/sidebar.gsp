@@ -16,7 +16,9 @@
             <ui:displayMessage/>
             <ui:h1 text="sidebar.page.body.heading"/>
             <g:each in="${modules?.moduleData?.dataValue}" var="dataValue">
-                ${dataValue.join("")}
+                <g:each in="${modules}" var="module">
+                    ${module?.renderModule()}
+                </g:each>
             </g:each>
         </theme:zone>
 
