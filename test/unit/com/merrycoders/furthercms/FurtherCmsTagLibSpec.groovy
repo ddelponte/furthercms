@@ -90,4 +90,19 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         results.contains("<a href=\"/admin/edit/4\">HTML Child</a>")
 
     }
+
+    def "renderPublicModule"() {
+        given:
+        initAllData()
+        def page = Page.findByTitle(htmlPageTitle)
+        def modules = page.modules
+        def module = modules.first()
+        assert modules.size() == 1
+
+        when:
+        def results = tagLib.renderPublicModule([module: module])
+
+        then:
+        results.contains("<p>Where we going?</p>")
+    }
 }

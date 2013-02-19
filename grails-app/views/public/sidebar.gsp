@@ -17,7 +17,7 @@
             <ui:h1 text="sidebar.page.body.heading"/>
             <g:each in="${modules?.moduleData?.dataValue}" var="dataValue">
                 <g:each in="${modules}" var="module">
-                    ${module?.renderModule()}
+                    <fc:renderPublicModule module="${module}"/>
                 </g:each>
             </g:each>
         </theme:zone>
