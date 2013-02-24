@@ -61,6 +61,7 @@ class FurtherCmsTagLib {
         PrimaryAdminMenuItem activePrimaryAdminMenuItem = attrs.activePrimaryAdminMenuItem
         SecondaryAdminMenuItem activeSecondaryAdminMenuItem = attrs.activeSecondaryAdminMenuItem
         def secondaryAdminMenuItemList = SecondaryAdminMenuItem.findAllByPrimaryNavAdminMenuItem(activePrimaryAdminMenuItem, [sort: "displayOrder", order: "asc"]) ?: []
+        secondaryAdminMenuItemList = secondaryAdminMenuItemList.size() > 1 ? secondaryAdminMenuItemList : []
         def appContext = grailsApplication.config.grails.furthercms.app.context
         out << render(
                 template: "/admin/navigation/secondary",
@@ -75,13 +76,16 @@ class FurtherCmsTagLib {
      * Renders the pages of the site as a tree for easy navigation
      * @attr category The root category of the tree
      * @attr style
+     * @attr cssClass
+     * @attr selectedNodeId The id of the Category to highlight in the tree
      */
     def navTree = { attrs, body ->
         Category rootCategory = attrs?.category
         String style = attrs?.style
         String cssClass = attrs?.class
+        String selectedNodeId = attrs?.selectedNodeId
         List children = rootCategory?.children
-        out << render(template: "/admin/navigation/navTree/tree", model: [children: children, style: style, cssClass: cssClass])
+        out << render(template: "/admin/navigation/navTree/tree", model: [children: children, style: style, cssClass: cssClass, selectedNodeId: selectedNodeId])
     }
     /**
      * Renders the children of the category as a tree

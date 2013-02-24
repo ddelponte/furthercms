@@ -22,8 +22,8 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.primaryNav([categoryInstance: categoryInstance])
 
         then:
-        results.contains("<li class=\"active\">")
-        results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=Home}")
+        assert results.contains("<li class=\"active\">")
+        assert results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=Home}")
     }
 
     def "secondary nav construction"() {
@@ -35,10 +35,10 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.secondaryNav([categoryInstance: leafCategory])
 
         then:
-        results.contains("class=\"nav nav-pills\"")
-        results.contains("<li class=\"active\">")
-        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/home/html}\">")
-        results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=HTML}\"></nav:title>")
+        assert results.contains("class=\"nav nav-pills\"")
+        assert results.contains("<li class=\"active\">")
+        assert results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/home/html}\">")
+        assert results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=HTML}\"></nav:title>")
 
         where:
         activeCategoryName << ["HTML Child", "HTML"]
@@ -53,9 +53,9 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.primaryNavAdmin([activePrimaryAdminMenuItem: activePrimaryAdminMenuItem])
 
         then:
-        results.contains("<li class=\"active\">")
-        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/admin/index}\">")
-        results.contains("<nav:title item=\"{titleMessageCode=furthercms.admin.primary.navigation.home, titleDefault=Home}\"></nav:title>")
+        assert results.contains("<li class=\"active\">")
+        assert results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/admin/index}\">")
+        assert results.contains("<nav:title item=\"{titleMessageCode=furthercms.admin.primary.navigation.home, titleDefault=Home}\"></nav:title>")
     }
 
     def "admin secondary nav construction"() {
@@ -63,14 +63,27 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         initNavAdminMenuItems()
         def activePrimaryAdminMenuItem = PrimaryAdminMenuItem.findByTitleDefault("Home")
         def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByTitleDefault("Pages")
+        if (!multipleSecondaryAdminMenuItem) SecondaryAdminMenuItem.list().last().delete()
+        def liTag = '<li class="active">'
+        def pTag = '<p:callTag tag="g:link" attrs="{url=/furthercms/admin/pages}">'
+        def navTag = '<nav:title item="{titleMessageCode=furthercms.admin.primary.navigation.pages, titleDefault=Pages}"></nav:title>'
 
         when:
         def results = tagLib.secondaryNavAdmin([activePrimaryAdminMenuItem: activePrimaryAdminMenuItem, activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem])
 
         then:
-        results.contains("<li class=\"active\">")
-        results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/admin/pages}\">")
-        results.contains("<nav:title item=\"{titleMessageCode=furthercms.admin.primary.navigation.pages, titleDefault=Pages}\"></nav:title>")
+        if (multipleSecondaryAdminMenuItem) {
+            assert results.contains(liTag)
+            assert results.contains(pTag)
+            assert results.contains(navTag)
+        } else {
+            assert !results.contains(liTag)
+            assert !results.contains(pTag)
+            assert !results.contains(navTag)
+        }
+
+        where:
+        multipleSecondaryAdminMenuItem << [false, true]
     }
 
     def "navTree construction"() {
@@ -82,12 +95,12 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.navTree([category: rootCategory])
 
         then:
-        results.contains("<li id=\"category_2\">")
-        results.contains("<a href=\"/admin/edit/2\">Home</a>")
-        results.contains("<li id=\"category_3\">")
-        results.contains("<a href=\"/admin/edit/3\">HTML</a>")
-        results.contains("<li id=\"category_4\">")
-        results.contains("<a href=\"/admin/edit/4\">HTML Child</a>")
+        assert results.contains("<li id=\"category_2\">")
+        assert results.contains("<a href=\"/admin/edit/2\" class=\"\">Home</a>")
+        assert results.contains("<li id=\"category_3\">")
+        assert results.contains("<a href=\"/admin/edit/3\" class=\"\">HTML</a>")
+        assert results.contains("<li id=\"category_4\">")
+        assert results.contains("<a href=\"/admin/edit/4\" class=\"\">HTML Child</a>")
 
     }
 
@@ -103,6 +116,6 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.renderPublicModule([module: module])
 
         then:
-        results.contains("<p>Where we going?</p>")
+        assert results.contains("<p>Where we going?</p>")
     }
 }

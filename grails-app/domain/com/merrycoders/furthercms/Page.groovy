@@ -22,6 +22,7 @@ class Page {
     static mapping = {
         cache true
         pageType fetch: 'join'
+        modules fetch: 'join'
     }
 
     def beforeDelete() {

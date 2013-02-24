@@ -5,10 +5,15 @@
     <g:each in="${children}" var="child">
 
         <ul>
+
             <li id="category_${child?.id}">
-                <a href="${g.createLink(controller: 'admin', action: 'edit', id: child?.id)}">${child?.name}</a>
+
+                <a href="${g.createLink(controller: 'admin', action: 'edit', id: child?.id)}" class="${selectedNodeId == child?.id?.toString() ? 'jstree-clicked' : ''}">${child?.name}</a>
+
                 <fc:navTreeChildren category="${child}"/>
+
             </li>
+
         </ul>
 
     </g:each>

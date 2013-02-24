@@ -116,7 +116,16 @@ class SpecificationDataCore extends Specification {
                     displayOrder: 0
             )
 
-            saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem])
+            def secondaryNavAdminMenuItem2 = new SecondaryAdminMenuItem(
+                    primaryNavAdminMenuItem: primaryNavAdminMenuItem,
+                    titleMessageCode: "furthercms.admin.primary.navigation.pages",
+                    titleDefault: "Admin",
+                    controller: "admin",
+                    action: "admin",
+                    displayOrder: 0
+            )
+
+            saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem, secondaryNavAdminMenuItem2])
         }
     }
 
