@@ -19,13 +19,14 @@ class RequestDispatchControllerSpec extends SpecificationDataCore {
         controller.dispatch()
 
         then:
-        response.forwardedUrl == forwardedUrl
+        view == expectedView
+        model.toString() == expectedModel
 
         where:
-        path                   | forwardedUrl
-        "home"                 | "/grails/homePageType/renderPage.dispatch?path=home"
-        "home/html"            | "/grails/htmlPageType/renderPage.dispatch?path=home%2Fhtml"
-        "home/html/html-child" | "/grails/htmlPageType/renderPage.dispatch?path=home%2Fhtml%2Fhtml-child"
+        path                   | expectedView                   | expectedModel
+        "home"                 | "/homePageType/renderPage.gsp" | "[:]"
+        "home/html"            | "/public/sidebar"              | "[categoryInstance:HTML, pageInstance:HTML Title, modules:[HTML]]"
+        "home/html/html-child" | "/public/sidebar"              | "[categoryInstance:HTML Child, pageInstance:HTML Child Title, modules:[HTML]]"
 
     }
 }

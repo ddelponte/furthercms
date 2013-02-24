@@ -14,9 +14,9 @@
 
     </section>
 
-    <section id="content">
+    <section id="editable_content">
 
-        <p>Main Content</p>
+        <p>${categoryInstance?.page?.modules}</p>
 
     </section>
 

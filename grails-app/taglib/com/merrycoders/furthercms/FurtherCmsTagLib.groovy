@@ -107,4 +107,8 @@ class FurtherCmsTagLib {
         out << render(template: "/modules/${moduleTypeKey}/public", model: [data: module?.moduleData])
     }
 
+    def renderAdminModule = { attrs, body ->
+
+    }
+
 }

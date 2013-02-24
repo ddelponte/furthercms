@@ -9,7 +9,7 @@ class HomePageTypeController {
         def homePageType = PageType.findByPageTypeKey("home")
         def page = Page.findByPageType(homePageType)
         def category = Category.findByPage(page)
-        render(view: "/public/${page?.themeLayout}", model: [categoryInstance: category, pageInstance: page, modules: page.modules])
+        render(view: "/public/home", model: [categoryInstance: category, pageInstance: page, modules: page.modules])
     }
 
     def edit() {

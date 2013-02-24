@@ -35,6 +35,10 @@ class Category {
         urlKey index: 'UrlKey_Idx'
     }
 
+    def beforeDelete() {
+        Page.withNewSession { page.delete() }
+    }
+
     /**
      * Primary Categories are displayed in the primary navigation area of the UI.  This returns a list of all PrimaryCategory instances that this category
      * is a child of
