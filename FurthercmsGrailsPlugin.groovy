@@ -4,15 +4,23 @@ class FurthercmsGrailsPlugin {
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.0 > *"
     // the other plugins this plugin depends on
-    def dependsOn = [:]
+    def dependsOn = [
+            jquery: "1.8 > *",
+            jqueryUi: "1.8 > *",
+            resources: "1.2 > *",
+            mail: "1.0 > *",
+            platformCore: "1.0 > *",
+            platformUi: "1.0 > *",
+            ckeditor: "3.6 > *"
+    ]
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp"
     ]
 
     // TODO Fill in these fields
-    def title = "Furthercms Plugin" // Headline display name of the plugin
-    def author = "Your name"
+    def title = "FurtherCMS Plugin" // Headline display name of the plugin
+    def author = "Dean Del Ponte"
     def authorEmail = ""
     def description = '''\
 Brief summary/description of the plugin.
@@ -24,7 +32,7 @@ Brief summary/description of the plugin.
     // Extra (optional) plugin metadata
 
     // License: one of 'APACHE', 'GPL2', 'GPL3'
-//    def license = "APACHE"
+    def license = "APACHE"
 
     // Details of company behind the plugin (if there is one)
 //    def organization = [ name: "My Company", url: "http://www.my-company.com/" ]

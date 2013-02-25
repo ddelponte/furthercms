@@ -27,6 +27,7 @@ class AdminController {
         def category = Category.findById(id, [fetch: [page: "join"]])
         def page = category.page
         def pageType = page.pageType
+        def modules = page?.modules
 
         def contentTemplate = "/admin/pageType/${pageType?.controller}/edit"
 
@@ -35,7 +36,8 @@ class AdminController {
                 activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem,
                 contentTemplate: contentTemplate,
                 categoryInstance: category,
-                pageType: pageType]
+                pageType: pageType,
+                modules: modules]
 
         render(view: "/admin/index", model: model)
     }

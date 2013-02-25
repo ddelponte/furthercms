@@ -10,6 +10,10 @@
 
         <theme:title text="dataentry.page.title"></theme:title>
 
+        <r:require modules="jquery, jquery-ui"/>
+
+        <ckeditor:resources/>
+
     </head>
 
     <body>
@@ -27,7 +31,38 @@
         </theme:zone>
 
     %{--Render main content area--}%
-        <g:render template="${contentTemplate}" model="${model}"/>
+
+        <theme:zone name="body">
+
+            <ui:displayMessage/>
+
+            <ui:h1 text="dataentry.page.body.heading"/>
+
+            <section id="category_nav">
+
+                <nav>
+
+                    <fc:navTree category="${com.merrycoders.furthercms.Category.findByUrlKey('')}" selectedNodeId="${categoryInstance?.id}"/>
+
+                </nav>
+
+            </section>
+
+            <section id="editable_content">
+
+                <ui:block>
+
+                    <g:each in="${modules}" var="module">
+
+                        <fc:renderModuleEdit module="${module}"/>
+
+                    </g:each>
+
+                </ui:block>
+
+            </section>
+
+        </theme:zone>
 
         <theme:zone name="user-navigation">
 

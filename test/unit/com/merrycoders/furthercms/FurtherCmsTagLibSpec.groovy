@@ -113,7 +113,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         assert modules.size() == 1
 
         when:
-        def results = tagLib.renderPublicModule([module: module])
+        def results = tagLib.renderModule([module: module])
 
         then:
         assert results.contains("<p>Where we going?</p>")

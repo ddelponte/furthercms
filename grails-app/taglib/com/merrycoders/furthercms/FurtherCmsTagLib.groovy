@@ -101,14 +101,25 @@ class FurtherCmsTagLib {
      * Takes a list of Module instances and renders them
      * @module Module instance to be rendered
      */
-    def renderPublicModule = { attrs, body ->
+    def renderModule = { attrs, body ->
         def module = attrs?.module
         def moduleTypeKey = module?.moduleType?.moduleTypeKey
         out << render(template: "/modules/${moduleTypeKey}/public", model: [data: module?.moduleData])
     }
 
-    def renderAdminModule = { attrs, body ->
+    def renderModuleEdit = { attrs, body ->
+        def module = attrs?.module
+        def moduleTypeKey = module?.moduleType?.moduleTypeKey
+        out << render(template: "/modules/${moduleTypeKey}/edit", model: [module: module])
+    }
 
+    def htmlEditor = { attrs, body ->
+        def name = attrs?.name
+        def height = attrs?.height
+        def width = attrs?.width
+        def data = attrs?.data?.dataValue ?: ""
+
+        out << render(template: "/modules/html/editor", model: [name: name, height: height, width: width, data: data])
     }
 
 }

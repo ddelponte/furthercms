@@ -40,10 +40,12 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.RC2"
         runtime ':bootstrap-theme:1.0.RC3'
 
-        compile ":mail:latest.integration"
+        compile ":mail:1.0.1"
         compile ":svn:1.0.2"
         compile ":platform-core:1.0.RC2"
         compile ":platform-ui:1.0.RC3"
+        compile ":ckeditor:3.6.3.0"
+        compile ":rest-client-builder:1.0.2"
 
         test ":spock:0.7"
         test ":code-coverage:1.2.5"
