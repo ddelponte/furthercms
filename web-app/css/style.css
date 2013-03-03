@@ -1,4 +1,12 @@
 #furtherCmsNavTree {
     float: left;
     margin-right: 25px;
+    width: 20%;
+    overflow: scroll;
+    padding-bottom: 15px;
+}
+
+.admin.main-module {
+    float: left;
+    width: 70%;
 }

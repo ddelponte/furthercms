@@ -50,15 +50,11 @@
 
             <section id="editable_content">
 
-                <ui:block>
+                <g:each in="${modules}" var="module">
 
-                    <g:each in="${modules}" var="module">
+                    <fc:renderModuleEdit module="${module}"/>
 
-                        <fc:renderModuleEdit module="${module}"/>
-
-                    </g:each>
-
-                </ui:block>
+                </g:each>
 
             </section>
 

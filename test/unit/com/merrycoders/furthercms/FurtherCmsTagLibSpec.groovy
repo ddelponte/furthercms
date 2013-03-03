@@ -118,4 +118,32 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         then:
         assert results.contains("<p>Where we going?</p>")
     }
+
+    def "renderModuleEdit"() {
+        given:
+        initAllData()
+        def page = Page.findByTitle(htmlPageTitle)
+        def modules = page.modules
+        def module = modules.first()
+        assert modules.size() == 1
+
+        when:
+        def results = tagLib.renderModuleEdit([module: module])
+
+        then:
+        assert results.contains('<ckeditor:editor name="module_2_1" height="100%" width="100%" toolbar="Mytoolbar">')
+    }
+
+    def "htmlEditor"() {
+        given:
+        initAllData()
+        def data = [dataValue: "<p>HTML data</p>"]
+
+        when:
+        def results = tagLib.htmlEditor([name: "Name", data: data, height: "50%", width: "50%"])
+
+        then:
+        assert results.contains('<ckeditor:editor name="Name" height="50%" width="50%" toolbar="Mytoolbar">')
+        assert results.contains('<p>HTML data</p>')
+    }
 }

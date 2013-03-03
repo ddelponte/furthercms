@@ -6,17 +6,17 @@ modules = {
 
     jsTree {
         dependsOn "jquery"
-        resource(url: "/js/jstree-v.pre1.0/jquery.jstree.js")
+        resource(url: "js/jstree-v.pre1.0/jquery.jstree.js")
     }
 
     jqueryCookie {
         dependsOn "jquery"
-        resource(url: "/js/navTree/jquery.cookie.js")
+        resource(url: "js/navTree/jquery.cookie.js")
     }
 
     navTree {
-        dependsOn "jsTree, jqueryCookie"
-        resource(url: "/js/navTree/navTree.js")
-        resource(url: "/css/style.css")
+        dependsOn "jquery, jsTree, jqueryCookie"
+        resource(url: "js/navTree/navTree.js")
+        resource(url: "css/style.css")
     }
 }
