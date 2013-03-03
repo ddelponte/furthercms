@@ -22,3 +22,13 @@
     color: #a9a9a9;
     font-style: italic;
 }
+
+div.control-group label.control-label {
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+
+form div.control-group div.controls {
+    margin-left: 0;
+}

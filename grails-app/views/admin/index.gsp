@@ -50,15 +50,29 @@
 
             <section id="main-editable-content">
 
-                <ui:field name="page.title" type="text" label="category.page.title.label" value="${pageInstance?.title}"/>
+                <ui:form controller="category">
 
-                <div class="plugin.furthercms.category.urlkey.label">${categoryInstance?.urlKey}</div>
+                    <g:hiddenField name="category.id" value="${categoryInstance?.id}"/>
 
-                <g:each in="${modules}" var="module">
+                    <g:hiddenField name="category.version" value="${categoryInstance?.version}"/>
 
-                    <fc:renderModuleEdit module="${module}"/>
+                    <g:hiddenField name="page.id" value="${pageInstance?.id}"/>
 
-                </g:each>
+                    <g:hiddenField name="page.version" value="${pageInstance?.version}"/>
+
+                    <ui:field name="page.title" type="text" label="category.page.title.label" value="${pageInstance?.title}"/>
+
+                    <div class="plugin.furthercms.category.urlkey.label">${categoryInstance?.urlKey}</div>
+
+                    <g:each in="${modules}" var="module">
+
+                        <fc:renderModuleEdit module="${module}"/>
+
+                    </g:each>
+
+                    <ui:button kind="submit" mode="primary" action="update" text="plugin.furthercms.update"/>
+
+                </ui:form>
 
             </section>
 
