@@ -48,7 +48,11 @@
 
             </section>
 
-            <section id="editable_content">
+            <section id="main-editable-content">
+
+                <ui:field name="page.title" type="text" label="category.page.title.label" value="${pageInstance?.title}"/>
+
+                <div class="plugin.furthercms.category.urlkey.label">${categoryInstance?.urlKey}</div>
 
                 <g:each in="${modules}" var="module">
 

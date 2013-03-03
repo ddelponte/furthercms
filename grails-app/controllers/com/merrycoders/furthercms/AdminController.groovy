@@ -36,6 +36,7 @@ class AdminController {
                 activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem,
                 contentTemplate: contentTemplate,
                 categoryInstance: category,
+                pageInstance: page,
                 pageType: pageType,
                 modules: modules]
 

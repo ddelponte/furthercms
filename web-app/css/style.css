@@ -6,7 +6,19 @@
     padding-bottom: 15px;
 }
 
-.admin.main-module {
+#main-editable-content {
     float: left;
     width: 70%;
+}
+
+#main-editable-content input {
+    width: 100%
+}
+
+.plugin\.furthercms\.category\.urlkey\.label {
+    margin-top: -20px;
+    margin-bottom: 10px;
+    font-size: small;
+    color: #a9a9a9;
+    font-style: italic;
 }
