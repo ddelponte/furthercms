@@ -31,6 +31,7 @@ class CategoryController {
         Long pageId = params.long("page.id")
         Long pageVersion = params.long("page.version")
         def pageInstance = Page.get(pageId)
+        pageInstance.properties = params.page
 
         moduleService.convertFormInputToModules(pageInstance, params.modules)
 
@@ -50,7 +51,7 @@ class CategoryController {
             }
         }
 
-        categoryInstance.properties = params
+        categoryInstance.properties = params.category
 
         if (!categoryInstance.save(flush: true)) {
             render(view: "edit", model: [categoryInstance: categoryInstance])
