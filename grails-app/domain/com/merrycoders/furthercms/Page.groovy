@@ -14,9 +14,9 @@ class Page {
     Date lastUpdated
 
     static constraints = {
-        metaDescription nullable: true
-        metaKeywords nullable: true
-        linkText nullable: true
+        metaDescription nullable: true, maxSize: 10000
+        metaKeywords nullable: true, maxSize: 10000
+        linkText nullable: true, maxSize: 10000
     }
 
     static mapping = {

@@ -4,28 +4,29 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(ModuleService)
-@Mock([])
+@Mock([Category, PrimaryCategory, PageType, Page, ModuleType, Module, ModuleData])
 class ModuleServiceSpec extends SpecificationDataCore {
 
     def setup() {}
 
     def "convertFormInputToModules"() {
         given:
-        def x = 1
+        initPages()
+        def pageInstance = Page.findByTitle(htmlChildPageTitle)
 
         when:
-        def moduleList = service.convertFormInputToModules(key, value)
+        def moduleList = service.convertFormInputToModules(pageInstance, ["${key}": value])
 
         then:
-        moduleList.id == [1]
-        moduleList.version == [0]
+        moduleList.id == [pageInstance.id]
+        moduleList.version == [pageInstance.version + 1]
         moduleList.displayOrder == [1]
-        moduleList.dataKey == ["html"]
-        moduleList.dataValue == ["<p>Where we going?</p>"]
+        moduleList.moduleData.dataKey == [["html"]]
+        moduleList.moduleData.dataValue == [[value]]
 
         where:
-        key | value
-        "id_3_version_0_dataKey_html_displayOrder_1" | "<p>Where we going?</p>"
+        key                                                                                            | value
+        "id_3_version_0_displayOrder_1_moduleTypeId_1_moduleDataId_3_moduleDataVersion_0_dataKey_html" | "<p>Where we going?</p>"
 
 
     }

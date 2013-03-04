@@ -45,7 +45,7 @@ class ModuleService {
 
         }
 
-        return moduleInstanceList
+        return moduleInstanceList.sort{it.displayOrder}
 
     }
 }

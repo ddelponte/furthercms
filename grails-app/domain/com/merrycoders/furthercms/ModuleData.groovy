@@ -8,7 +8,7 @@ class ModuleData {
     Date lastUpdated
 
     static constraints = {
-        dataValue nullable: true
+        dataValue nullable: true, maxSize: 1000000
     }
 
     static mapping = {

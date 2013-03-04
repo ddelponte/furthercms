@@ -19,10 +19,10 @@ class Category {
     Date lastUpdated
 
     static constraints = {
-        description nullable: true
+        name maxSize: 10000
+        description nullable: true, maxSize: 10000
         parent nullable: true
-        parent nullable: true
-        urlKey(unique: true, validator: {
+        urlKey(unique: true, maxSize: 2000, validator: {
             UrlValidator v = new UrlValidator()
             return v.isValid("http://www.google.com/" + it)
         })
