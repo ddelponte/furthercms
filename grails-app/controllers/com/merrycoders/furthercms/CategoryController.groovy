@@ -59,7 +59,7 @@ class CategoryController {
         }
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), categoryInstance.id])
-        redirect(action: "show", id: categoryInstance.id)
+        redirect(controller: "admin", action: "edit", id: categoryInstance.id)
     }
 
     def delete(Long id) {

@@ -19,4 +19,9 @@ modules = {
         resource(url: "js/navTree/navTree.js")
         resource(url: "css/style.css")
     }
+
+    urlUtilities {
+        dependsOn "jquery"
+        resource(url: "js/urlUtilities.js")
+    }
 }
