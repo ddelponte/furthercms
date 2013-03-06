@@ -1,9 +1,10 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 
-@Mock([Category, PrimaryCategory, Page, PageType, ModuleType, Module, ModuleData])
+@Mock([Category, PrimaryCategory, Page, PageType, PageTypeModuleType, ModuleType, Module, HtmlModule])
 class CategorySpec extends SpecificationDataCore {
     def setup() {
 

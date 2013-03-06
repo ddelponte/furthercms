@@ -103,21 +103,21 @@ class FurtherCmsTagLib {
      */
     def renderModule = { attrs, body ->
         def module = attrs?.module
-        def moduleTypeKey = module?.moduleType?.moduleTypeKey
-        out << render(template: "/modules/${moduleTypeKey}/public", model: [data: module?.moduleData])
+        def viewFolder = module?.moduleType?.viewFolder
+        out << render(template: "/modules/${viewFolder}/public", model: [module: module])
     }
 
     def renderModuleEdit = { attrs, body ->
         def module = attrs?.module
-        def moduleTypeKey = module?.moduleType?.moduleTypeKey
-        out << render(template: "/modules/${moduleTypeKey}/edit", model: [module: module])
+        def viewFolder = module?.moduleType?.viewFolder
+        out << render(template: "/modules/${viewFolder}/edit", model: [module: module])
     }
 
     def htmlEditor = { attrs, body ->
         def name = attrs?.name
         def height = attrs?.height
         def width = attrs?.width
-        def data = attrs?.data?.dataValue ?: ""
+        def data = attrs?.data ?: ""
 
         out << render(template: "/modules/html/editor", model: [name: name, height: height, width: width, data: data])
     }

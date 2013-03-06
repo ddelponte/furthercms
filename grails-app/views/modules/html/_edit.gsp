@@ -1,9 +1,11 @@
 <div class="admin main-module">
 
-    <g:each in="${module?.moduleData}" var="moduleData">
+    <ui:form name="form_module_${module?.id}">
 
-        <fc:htmlEditor name="modules.id_${module?.id}_version_${module?.version}_displayOrder_${module?.displayOrder}_moduleTypeId_${module?.moduleType?.id}_moduleDataId_${moduleData?.id}_moduleDataVersion_${moduleData?.version}_dataKey_${moduleData?.dataKey}" data="${module?.moduleData?.first()}"/>
+        <fc:htmlEditor
+                name="html"
+                data="${module?.html}"/>
 
-    </g:each>
+    </ui:form>
 
 </div>

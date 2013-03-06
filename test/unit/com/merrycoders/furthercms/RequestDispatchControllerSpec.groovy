@@ -1,11 +1,12 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(RequestDispatchController)
-@Mock([Category, PrimaryCategory, Page, PageType, PrimaryAdminMenuItem, SecondaryAdminMenuItem, ModuleType, Module, ModuleData])
+@Mock([Category, PrimaryCategory, Page, PageType, PageTypeModuleType, PageTypeModuleType, PrimaryAdminMenuItem, SecondaryAdminMenuItem, ModuleType, Module, HtmlModule])
 class RequestDispatchControllerSpec extends SpecificationDataCore {
     def setup() {
         controller.categoryService = new CategoryService()

@@ -1,11 +1,12 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(FurtherCmsTagLib)
-@Mock([Category, PrimaryCategory, Page, PageType, PrimaryAdminMenuItem, SecondaryAdminMenuItem, ModuleType, Module, ModuleData])
+@Mock([Category, PrimaryCategory, Page, PageType, PageTypeModuleType, PrimaryAdminMenuItem, SecondaryAdminMenuItem, ModuleType, Module, HtmlModule])
 class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
     def setup() {
@@ -117,7 +118,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.renderModule([module: module])
 
         then:
-        assert results.contains("<p>Where we going?</p>")
+        assert results.contains("<p>Where are we going?</p>")
     }
 
     def "renderModuleEdit"() {
@@ -132,7 +133,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.renderModuleEdit([module: module])
 
         then:
-        assert results.contains('<ckeditor:editor name="modules.id_2_version_0_displayOrder_1_moduleTypeId_1_moduleDataId_2_moduleDataVersion_0_dataKey_html" height="100%" width="100%" toolbar="Mytoolbar">')
+        assert results.contains('<ckeditor:editor name="html" height="100%" width="100%" toolbar="Mytoolbar">')
     }
 
     def "htmlEditor"() {

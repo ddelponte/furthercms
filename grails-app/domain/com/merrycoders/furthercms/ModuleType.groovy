@@ -1,5 +1,7 @@
 package com.merrycoders.furthercms
 
+import org.apache.commons.lang.StringUtils
+
 class ModuleType {
     String name
     String className
@@ -16,7 +18,16 @@ class ModuleType {
     static mapping = {
         cache: true
         index: 'Name_Idx'
-        moduleTypeKey: "ModuleTypeKey_Idx"
+    }
+
+    /**
+     * Returns the unique view folder name for modules of this type.  The folder name is determined by the simple class name.
+     * @return
+     */
+    String getViewFolder() {
+        def simpleClassName = StringUtils.substringAfterLast(className, ".")
+        def viewFolder = StringUtils.substringBeforeLast(simpleClassName, "Module")?.toLowerCase()
+        return viewFolder
     }
 
     String toString() {

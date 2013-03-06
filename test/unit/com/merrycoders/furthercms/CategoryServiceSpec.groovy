@@ -1,11 +1,12 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(CategoryService)
-@Mock([Category, PrimaryCategory, PageType, Page, ModuleType, Module, ModuleData])
+@Mock([Category, PrimaryCategory, Page, PageType, PageTypeModuleType, Module, ModuleType, HtmlModule])
 class CategoryServiceSpec extends SpecificationDataCore {
 
     def setup() {
