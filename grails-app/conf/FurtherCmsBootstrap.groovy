@@ -1,4 +1,13 @@
-import com.merrycoders.furthercms.*
+import com.merrycoders.furthercms.Category
+import com.merrycoders.furthercms.ModuleType
+import com.merrycoders.furthercms.Page
+import com.merrycoders.furthercms.PageType
+import com.merrycoders.furthercms.PageTypeModuleType
+import com.merrycoders.furthercms.PrimaryAdminMenuItem
+import com.merrycoders.furthercms.PrimaryCategory
+import com.merrycoders.furthercms.SecondaryAdminMenuItem
+import com.merrycoders.furthercms.modules.HtmlModule
+import com.merrycoders.furthercms.modules.Module
 import grails.util.Environment
 
 class FurtherCmsBootStrap {
@@ -26,18 +35,17 @@ class FurtherCmsBootStrap {
 
     def initModuleTypes() {
         if (!ModuleType.count()) {
-            def moduleType = new ModuleType(name: "HTML", moduleTypeKey: "html")
+            def moduleType = new ModuleType(name: "HTML", className: HtmlModule.class.name)
             saveDomainObjects([moduleType])
         }
     }
 
     def initModules(List<Page> pages) {
         if (!ModuleType.count()) initModuleTypes()
-        pages.each {page ->
-            def moduleType = ModuleType.findByModuleTypeKey("html")
-            def pageModule = Module.create(moduleType: moduleType, page: page, flush: true)
-            def pageModuleData = new ModuleData(module: pageModule, dataKey: "html", dataValue: "<p>Where we going?</p>")
-            saveDomainObjects([pageModuleData])
+        pages.each { page ->
+            def moduleType = ModuleType.findByClassName(HtmlModule.class.name)
+            def module = Module.create([moduleType: moduleType, page: page, html: "<p>Where are we going?</p>", flush: true])
+            PageTypeModuleType.create(page.pageType, module.moduleType)
         }
     }
 

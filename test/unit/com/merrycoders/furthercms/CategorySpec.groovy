@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 
 @Mock([Category, PrimaryCategory, Page, PageType, ModuleType, Module, ModuleData])

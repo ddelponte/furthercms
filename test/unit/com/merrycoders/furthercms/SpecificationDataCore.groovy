@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.Module
 import grails.validation.ValidationException
 import spock.lang.Specification
 
@@ -23,7 +24,7 @@ class SpecificationDataCore extends Specification {
 
     def initModuleTypes() {
         if (!ModuleType.count()) {
-            def moduleType = new ModuleType(name: "HTML", moduleTypeKey: "html")
+            def moduleType = new ModuleType(name: "HTML", className: "html")
             saveDomainObjects([moduleType])
         }
     }
@@ -31,7 +32,7 @@ class SpecificationDataCore extends Specification {
     def initModules(List<Page> pages) {
         if (!ModuleType.count()) initModuleTypes()
         pages.each {page ->
-            def moduleType = ModuleType.findByModuleTypeKey("html")
+            def moduleType = ModuleType.findByClassName("html")
             def pageModule = Module.create(moduleType: moduleType, page: page, flush: true)
             def pageModuleData = new ModuleData(module: pageModule, dataKey: "html", dataValue: "<p>Where we going?</p>")
             pageModuleData.save()

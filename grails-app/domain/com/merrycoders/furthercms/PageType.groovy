@@ -22,6 +22,15 @@ class PageType {
         pageTypeKey: "PageTypeKey_Idx"
     }
 
+    def moduleTypes() {
+        if (this.id) {
+            List moduleTypes = PageTypeModuleType.findAllByPageType(this)?.moduleType
+            return moduleTypes.sort { it.name }
+        } else {
+            return null
+        }
+    }
+
     String toString() {
         name
     }

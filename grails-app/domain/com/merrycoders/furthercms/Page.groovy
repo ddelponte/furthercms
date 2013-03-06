@@ -1,5 +1,7 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.Module
+
 class Page {
     String title
     String metaDescription

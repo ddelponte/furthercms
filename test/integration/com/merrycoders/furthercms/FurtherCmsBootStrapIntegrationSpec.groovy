@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.Module
 import grails.plugin.spock.IntegrationSpec
 
 class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
@@ -16,7 +17,8 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
 
         ModuleType.count() == 1
         Module.count() == 3
-        ModuleData.count() == 3
+
+        PageTypeModuleType.count() == 2
 
         Category.count() == 4
 
