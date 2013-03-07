@@ -29,17 +29,19 @@ class AdminController {
         def pageType = page.pageType
         def modules = page?.modules
 
-        def contentTemplate = "/admin/pageType/${pageType?.controller}/edit"
-
         def model = [
                 activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
                 activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem,
-                contentTemplate: contentTemplate,
                 categoryInstance: category,
                 pageInstance: page,
                 pageType: pageType,
                 modules: modules]
 
         render(view: "/admin/index", model: model)
+    }
+
+    def test() {
+        println params.name
+        println params
     }
 }

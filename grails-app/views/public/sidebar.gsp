@@ -21,13 +21,9 @@
 
             <ui:h1 text="sidebar.page.body.heading"/>
 
-            <g:each in="${modules?.moduleData?.dataValue}" var="dataValue">
+            <g:each in="${modules}" var="module">
 
-                <g:each in="${modules}" var="module">
-
-                    <fc:renderModule module="${module}"/>
-
-                </g:each>
+                <fc:renderModule module="${module}"/>
 
             </g:each>
 

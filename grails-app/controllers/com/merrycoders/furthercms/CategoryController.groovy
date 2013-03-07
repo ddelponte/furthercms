@@ -80,4 +80,8 @@ class CategoryController {
             redirect(action: "show", id: id)
         }
     }
+
+    def test() {
+        println params
+    }
 }

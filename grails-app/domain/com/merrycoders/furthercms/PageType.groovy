@@ -2,8 +2,6 @@ package com.merrycoders.furthercms
 
 class PageType {
     String name
-    String controller
-    String action
     String pageTypeKey
     String description = ""
     Date dateCreated
@@ -17,12 +15,11 @@ class PageType {
 
     static mapping = {
         cache: true
-        index: 'Name_Idx'
-        controller: "Controller_Idx"
+        name: 'Name_Idx'
         pageTypeKey: "PageTypeKey_Idx"
     }
 
-    def moduleTypes() {
+    def getModuleTypes() {
         if (this.id) {
             List moduleTypes = PageTypeModuleType.findAllByPageType(this)?.moduleType
             return moduleTypes.sort { it.name }
