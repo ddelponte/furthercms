@@ -10,7 +10,7 @@
 
         <theme:title text="dataentry.page.title"></theme:title>
 
-        <r:require modules="jquery, jquery-ui"/>
+        <r:require modules="jquery, jquery-ui, modulesSave"/>
 
         <ckeditor:resources/>
 
@@ -50,7 +50,9 @@
 
             <section id="main-editable-content">
 
-                <ui:form controller="category">
+                <ui:button kind="anchor" mode="primary" text="plugin.furthercms.update"/>
+
+                <ui:form controller="category" action="update">
 
                     <g:hiddenField name="category.id" value="${categoryInstance?.id}"/>
 

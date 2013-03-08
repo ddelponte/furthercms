@@ -1,3 +1,4 @@
+/*Admin*/
 #furtherCmsNavTree {
     float: left;
     margin-right: 25px;
@@ -31,4 +32,8 @@ div.control-group label.control-label {
 
 form div.control-group div.controls {
     margin-left: 0;
+}
+
+section#main-editable-content a {
+    float: right;
 }

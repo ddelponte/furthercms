@@ -6,22 +6,32 @@ modules = {
 
     jsTree {
         dependsOn "jquery"
-        resource(url: "js/jstree-v.pre1.0/jquery.jstree.js")
+        resource(url: "js/admin/jstree-v.pre1.0/jquery.jstree.js")
     }
 
     jqueryCookie {
         dependsOn "jquery"
-        resource(url: "js/navTree/jquery.cookie.js")
+        resource(url: "js/admin/navTree/jquery.cookie.js")
     }
 
     navTree {
         dependsOn "jquery, jsTree, jqueryCookie"
-        resource(url: "js/navTree/navTree.js")
-        resource(url: "css/style.css")
+        resource(url: "js/admin/navTree/navTree.js")
+        resource(url: "css/admin/style.css")
     }
 
     urlUtilities {
         dependsOn "jquery"
-        resource(url: "js/urlUtilities.js")
+        resource(url: "js/admin/urlUtilities.js")
+    }
+
+    form {
+        dependsOn "jquery"
+        resource(url: "js/jquery.form.js")
+    }
+
+    modulesSave {
+        dependsOn "jquery, form"
+        resource(url: "js/admin/modulesSave.js")
     }
 }
