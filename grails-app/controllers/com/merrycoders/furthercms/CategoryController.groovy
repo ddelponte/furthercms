@@ -33,7 +33,7 @@ class CategoryController {
         def pageInstance = Page.get(pageId)
         pageInstance.properties = params.page
 
-        moduleService.convertFormInputToModules(pageInstance, params.modules)
+        //moduleService.convertFormInputToModules(pageInstance, params.modules)
 
         if (!categoryInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'category.label', default: 'Category'), categoryId])

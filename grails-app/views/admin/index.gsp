@@ -74,38 +74,6 @@
 
                 </g:each>
 
-                <ui:form name="testform" controller="category" action="test">
-                    <ui:field name="test" class="ajaxtest" type="text" label="test" value="test"/>
-                </ui:form>
-
-                <ui:form name="testform2" controller="admin" action="test">
-                    <ui:field name="test2" class="ajaxtest" type="text" label="test" value="test"/>
-                </ui:form>
-
-                <g:javascript>
-                    $("form#testform").change(function () {
-                        var datastring = "name=lala";
-                        // if rows is filled out {
-                        alert("test");
-                        $.ajax({
-                            type: 'post',
-                            url: $("#testform").attr('action'),
-                            data: datastring
-                        })
-                    })
-
-
-                    $("form#testform2").change(function () {
-                        // if rows is filled out {
-                        alert("test");
-                        $.ajax({
-                            type: 'post',
-                            url: $("#testform2").attr('action'),
-                            data: "name=test"
-                        })
-                    })
-                </g:javascript>
-
             </section>
 
         </theme:zone>

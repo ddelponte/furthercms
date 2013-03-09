@@ -76,9 +76,15 @@ class HtmlModuleController {
             render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
             return
         }
+        htmlModuleInstance.save(flush: true)
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), htmlModuleInstance.id])
-        redirect(action: "show", id: htmlModuleInstance.id)
+        if (request.xhr) {
+            response.status = 200
+            render "test"
+        } else {
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), htmlModuleInstance.id])
+            redirect(action: "edit", id: htmlModuleInstance.id)
+        }
     }
 
     def delete(Long id) {

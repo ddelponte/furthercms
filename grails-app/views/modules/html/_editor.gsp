@@ -6,12 +6,6 @@
 %{--Also updates ckeditor data for ajax submission--}%
 <g:javascript>
     delete CKEDITOR.instances[ '${name}' ];
-
-    function CKupdate() {
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-    }
 </g:javascript>
 
 %{--Takes a name and data in the model--}%
