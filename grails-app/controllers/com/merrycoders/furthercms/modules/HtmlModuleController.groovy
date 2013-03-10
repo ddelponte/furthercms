@@ -62,26 +62,27 @@ class HtmlModuleController {
             return
         }
 
-        if (version != null) {
-            if (htmlModuleInstance.version > version) {
-                htmlModuleInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'htmlModule.label', default: 'HtmlModule')] as Object[],
-                        "Another user has updated this HtmlModule while you were editing")
-                if (request.xhr) {
-                    response.status = 200
-                    render "test"
-                } else {
-                    render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
-                }
-                return
-            }
-        }
+        // Ignore version check for now
+//        if (version != null) {
+//            if (htmlModuleInstance.version > version) {
+//                htmlModuleInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+//                        [message(code: 'htmlModule.label', default: 'HtmlModule')] as Object[],
+//                        "Another user has updated this HtmlModule while you were editing")
+//                if (request.xhr) {
+//                    response.status = 200
+//                    render "test"
+//                } else {
+//                    render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
+//                }
+//                return
+//            }
+//        }
 
         htmlModuleInstance.properties = params
 
         if (!htmlModuleInstance.save(flush: true)) {
             if (request.xhr) {
-                response.status = 500
+                response.status = 200
                 render "test"
             } else {
                 render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])

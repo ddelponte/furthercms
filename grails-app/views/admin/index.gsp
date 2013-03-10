@@ -10,7 +10,7 @@
 
         <theme:title text="dataentry.page.title"></theme:title>
 
-        <r:require modules="jquery, jquery-ui, modulesSave"/>
+        <r:require modules="jquery, jquery-ui, modulesSave, hotKeys"/>
 
         <ckeditor:resources/>
 

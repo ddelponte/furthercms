@@ -15,8 +15,8 @@ class SecondaryAdminMenuItem {
 
     static mapping = {
         cache true
-        controller index: "Controller_Idx"
-        action index: "Action_Idx"
+        controller index: "Primary_Nav_Admin_Menu_Item_Controller_Idx"
+        action index: "Primary_Nav_Admin_Menu_Item_Action_Idx"
     }
 
     String toString() {

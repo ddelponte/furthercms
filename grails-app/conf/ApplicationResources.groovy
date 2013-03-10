@@ -34,4 +34,9 @@ modules = {
         dependsOn "jquery, form"
         resource(url: "js/admin/modulesSave.js")
     }
+
+    hotKeys {
+        dependsOn "jquery"
+        resource(url: "js/jquery.hotkeys.js")
+    }
 }
