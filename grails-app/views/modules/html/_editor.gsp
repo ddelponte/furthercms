@@ -2,12 +2,6 @@
 
 <label><g:message code="plugin.furthercms.module.html.label"/></label>
 
-%{--Destroys previous instances of CKEditor.  Without this, ajax responses will not be rendered--}%
-%{--Also updates ckeditor data for ajax submission--}%
-<g:javascript>
-    delete CKEDITOR.instances[ '${name}' ];
-</g:javascript>
-
 %{--Takes a name and data in the model--}%
 <ckeditor:config var="toolbar_Mytoolbar" enterMode="CKEDITOR.ENTER_DIV">
     [

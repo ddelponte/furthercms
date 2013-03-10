@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms.modules
 
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class HtmlModuleController {
@@ -53,6 +54,7 @@ class HtmlModuleController {
     }
 
     def update(Long id, Long version) {
+        log.error params.html
         def htmlModuleInstance = HtmlModule.get(id)
         if (!htmlModuleInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), id])
@@ -65,7 +67,12 @@ class HtmlModuleController {
                 htmlModuleInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                         [message(code: 'htmlModule.label', default: 'HtmlModule')] as Object[],
                         "Another user has updated this HtmlModule while you were editing")
-                render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
+                if (request.xhr) {
+                    response.status = 200
+                    render "test"
+                } else {
+                    render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
+                }
                 return
             }
         }
@@ -73,14 +80,18 @@ class HtmlModuleController {
         htmlModuleInstance.properties = params
 
         if (!htmlModuleInstance.save(flush: true)) {
-            render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
+            if (request.xhr) {
+                response.status = 500
+                render "test"
+            } else {
+                render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
+            }
             return
         }
-        htmlModuleInstance.save(flush: true)
 
         if (request.xhr) {
             response.status = 200
-            render "test"
+            render htmlModuleInstance as JSON
         } else {
             flash.message = message(code: 'default.updated.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), htmlModuleInstance.id])
             redirect(action: "edit", id: htmlModuleInstance.id)

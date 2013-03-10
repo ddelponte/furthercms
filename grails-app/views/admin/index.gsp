@@ -48,7 +48,7 @@
 
             </section>
 
-            <section id="main-editable-content">
+            <section id="modules-edit">
 
                 <ui:button kind="anchor" mode="primary" text="plugin.furthercms.update"/>
 

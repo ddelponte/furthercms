@@ -58,8 +58,13 @@ class CategoryController {
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), categoryInstance.id])
-        redirect(controller: "admin", action: "edit", id: categoryInstance.id)
+        if (request.xhr) {
+            response.status = 200
+            render "test"
+        } else {
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), categoryInstance.id])
+            redirect(controller: "admin", action: "edit", id: categoryInstance.id)
+        }
     }
 
     def delete(Long id) {

@@ -7,12 +7,12 @@
     padding-bottom: 15px;
 }
 
-#main-editable-content {
+#modules-edit {
     float: left;
     width: 70%;
 }
 
-#main-editable-content input {
+#modules-edit input {
     width: 100%
 }
 
@@ -34,6 +34,6 @@ form div.control-group div.controls {
     margin-left: 0;
 }
 
-section#main-editable-content a {
+section#modules-edit a {
     float: right;
 }

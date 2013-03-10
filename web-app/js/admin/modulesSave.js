@@ -1,13 +1,14 @@
 jQuery(document).ready(function () {
 
-    $("section#main-editable-content a.btn").click(function (event) {
+    $("section#modules-edit a.btn").click(function (event) {
         event.preventDefault();
         CKupdate();
-        var moduleForms = jQuery("section#main-editable-content form");
 
+        var moduleForms = jQuery("section#modules-edit form");
         moduleForms.each(function () {
-            alert($(this).attr("action"));
-            jQuery(this).ajaxSubmit({
+            event.preventDefault();
+
+            $(this).ajaxSubmit({
                 success: function () {
                     console.log('success');
                 },
@@ -15,6 +16,7 @@ jQuery(document).ready(function () {
                     console.log('error');
                 }
             });
+
         });
 
     });
@@ -25,7 +27,7 @@ jQuery(document).ready(function () {
         }
     }
 
-//    var moduleFormInputs = jQuery("section#main-editable-content form input");
+//    var moduleFormInputs = jQuery("section#modules-edit form input");
 //    moduleFormInputs.change(function () {
 //        alert($(this).attr("name"));
 //    });
