@@ -12,7 +12,9 @@ class UrlMappings {
         if (Environment.DEVELOPMENT) {
             "500"(view: '/error')
         } else {
-            "500"(controller: "errorPage", action: "serverError")
+            "403"(controller: 'error', action: 'index', params: ['code': '403'])
+            "404"(controller: 'error', action: 'index', params: ['code': '404'])
+            "500"(controller: 'error', action: 'index', params: ['code': '500'])
         }
 
         "/$controller/$action?/$id?" {
