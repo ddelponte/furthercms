@@ -1,10 +1,12 @@
 jQuery(document).ready(function () {
 
+    // When user clicks the save button, submit all module forms
     $("section#modules-edit a.btn").click(function (event) {
         event.preventDefault();
         saveModules();
     });
 
+    // Select all module forms and submit them
     function saveModules() {
         CKupdate();
 
@@ -25,6 +27,7 @@ jQuery(document).ready(function () {
 
     }
 
+    // Submit all module forms when user presses enter
     jQuery("section#modules-edit input").bind('keydown', 'return', function (event) {
         event.preventDefault();
         saveModules();

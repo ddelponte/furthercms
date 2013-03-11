@@ -122,4 +122,10 @@ class FurtherCmsTagLib {
         out << render(template: "/modules/html/editor", model: [name: name, height: height, width: width, data: data])
     }
 
+    def categoryEditor = { attrs, body ->
+        Category category = attrs.category
+        Page page = attrs.page
+        out << render(template: "/modules/category/editor", model: [category: category, page: page])
+    }
+
 }

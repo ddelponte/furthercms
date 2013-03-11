@@ -25,8 +25,8 @@ class AdminController {
         def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByControllerAndAction("admin", "pages")
 
         def category = Category.findById(id, [fetch: [page: "join"]])
-        def page = category.page
-        def pageType = page.pageType
+        def page = category?.page
+        def pageType = page?.pageType
         def modules = page?.modules
 
         def model = [

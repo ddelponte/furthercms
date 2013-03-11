@@ -37,3 +37,7 @@ form div.control-group div.controls {
 section#modules-edit a {
     float: right;
 }
+
+section#modules-edit a.save {
+    margin-left: 1%;
+}

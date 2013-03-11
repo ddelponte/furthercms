@@ -6,6 +6,8 @@ import org.codehaus.groovy.grails.validation.routines.UrlValidator
  * Represents the node of a site's tree, often corresponding to a specific URL and page
  */
 class Category {
+    def utilityService
+
     String name = ""
     String description
     Category parent
@@ -104,6 +106,10 @@ class Category {
             siblingCategoryInstanceList = parentCategory?.children
         }
         return siblingCategoryInstanceList - this
+    }
+
+    String pageTitleToSlug() {
+        utilityService.toSlug(page?.title)
     }
 
     String toString() {

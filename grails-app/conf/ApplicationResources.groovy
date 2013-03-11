@@ -27,16 +27,27 @@ modules = {
 
     form {
         dependsOn "jquery"
-        resource(url: "js/jquery.form.js")
+        resource(url: "js/admin/jquery.form.js")
     }
 
-    modulesSave {
+    modules {
         dependsOn "jquery, form"
-        resource(url: "js/admin/modulesSave.js")
+        resource(url: "js/admin/modules.js")
     }
 
     hotKeys {
         dependsOn "jquery"
-        resource(url: "js/jquery.hotkeys.js")
+        resource(url: "js/admin/jquery.hotkeys.js")
+    }
+
+    changed {
+        dependsOn "jquery"
+        resource(url: "js/admin/jquery.changed.min.js")
+    }
+
+    categoryEditor {
+        dependsOn "jquery,  changed"
+        resource(url: "js/admin/modules/category/editor.js")
+        resource(url: "js/admin/urlUtilities.js")
     }
 }

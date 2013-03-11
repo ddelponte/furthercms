@@ -10,7 +10,7 @@
 
         <theme:title text="dataentry.page.title"></theme:title>
 
-        <r:require modules="jquery, jquery-ui, modulesSave, hotKeys"/>
+        <r:require modules="jquery, jquery-ui, modules, hotKeys"/>
 
         <ckeditor:resources/>
 
@@ -50,23 +50,11 @@
 
             <section id="modules-edit">
 
-                <ui:button kind="anchor" mode="primary" text="plugin.furthercms.update"/>
+                <ui:button class="save" kind="anchor" mode="primary" text="plugin.furthercms.update"/>
 
-                <ui:form controller="category" action="update">
+                <ui:button kind="anchor" mode="danger" text="plugin.furthercms.delete"/>
 
-                    <g:hiddenField name="category.id" value="${categoryInstance?.id}"/>
-
-                    <g:hiddenField name="category.version" value="${categoryInstance?.version}"/>
-
-                    <g:hiddenField name="page.id" value="${pageInstance?.id}"/>
-
-                    <g:hiddenField name="page.version" value="${pageInstance?.version}"/>
-
-                    <ui:field name="page.title" type="text" label="category.page.title.label" value="${pageInstance?.title}"/>
-
-                    <div class="plugin.furthercms.category.urlkey.label">${categoryInstance?.urlKey}</div>
-
-                </ui:form>
+                <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
 
                 <g:each in="${modules}" var="module">
 
