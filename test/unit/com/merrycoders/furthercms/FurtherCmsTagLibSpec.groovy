@@ -39,7 +39,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         then:
         assert results.contains("class=\"nav nav-pills\"")
         assert results.contains("<li class=\"active\">")
-        assert results.contains("<p:callTag tag=\"g:link\" attrs=\"{url=/furthercms/home/html}\">")
+        assert results.contains('<p:callTag tag="g:link" attrs="{url=/furthercms/home-title/html-title}">')
         assert results.contains("<nav:title item=\"{titleMessageCode=com.merrycoders.furthercms.category, titleDefault=HTML}\"></nav:title>")
 
         where:

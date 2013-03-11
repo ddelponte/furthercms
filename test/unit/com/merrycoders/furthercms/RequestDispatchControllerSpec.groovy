@@ -25,10 +25,10 @@ class RequestDispatchControllerSpec extends SpecificationDataCore {
         model.toString() == expectedModel
 
         where:
-        path                   | expectedView                   | expectedModel
-        "home"                 | "/homePageType/renderPage.gsp" | "[:]"
-        "home/html"            | "/public/sidebar"              | "[categoryInstance:HTML, pageInstance:HTML Title, modules:[HTML]]"
-        "home/html/html-child" | "/public/sidebar"              | "[categoryInstance:HTML Child, pageInstance:HTML Child Title, modules:[HTML]]"
+        path                                     | expectedView                   | expectedModel
+        "home-title"                             | "/homePageType/renderPage.gsp" | "[:]"
+        "home-title/html-title"                  | "/public/sidebar"              | "[categoryInstance:HTML, pageInstance:HTML Title, modules:[HTML]]"
+        "home-title/html-title/html-child-title" | "/public/sidebar"              | "[categoryInstance:HTML Child, pageInstance:HTML Child Title, modules:[HTML]]"
 
     }
 }

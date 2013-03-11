@@ -36,18 +36,18 @@ class CategoryServiceSpec extends SpecificationDataCore {
         PrimaryCategory.countByCategory(category) == categoryPrimaryCount
 
         where:
-        urlKey                 | name         | description | parentUrlKey | pageTitle          | categoryPrimaryCount
-        ""                     | "Root"       | null        | null         | null               | 0
-        "home"                 | "Home"       | null        | ""           | "Home Title"       | 1
-        "home/html"            | "HTML"       | null        | "home"       | "HTML Title"       | 0
-        "home/html/html-child" | "HTML Child" | null        | "home/html"  | "HTML Child Title" | 0
+        urlKey                                   | name         | description | parentUrlKey            | pageTitle          | categoryPrimaryCount
+        ""                                       | "Root"       | null        | null                    | null               | 0
+        "home-title"                             | "Home"       | null        | ""                      | "Home Title"       | 1
+        "home-title/html-title"                  | "HTML"       | null        | "home-title"            | "HTML Title"       | 0
+        "home-title/html-title/html-child-title" | "HTML Child" | null        | "home-title/html-title" | "HTML Child Title" | 0
     }
 
     def "verify diplayOrder of category is properly set when saved"() {
         given:
         initCategories()
         def parentCategoryInstance = Category.findByName("HTML")
-        def newCategoryInstance = new Category(name: "New Category Instnace", parent: parentCategoryInstance, urlKey: "html/new-category-instance", page: Page.findByTitle(htmlChildPageTitle))
+        def newCategoryInstance = new Category(name: "New Category Instance", parent: parentCategoryInstance, urlKey: "html/new-category-instance", page: Page.findByTitle(htmlChildPageTitle))
         assert newCategoryInstance.displayOrder == 0
 
         when:
