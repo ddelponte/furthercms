@@ -1,7 +1,7 @@
 jQuery(document).ready(function () {
 
     // When user clicks the save button, submit all module forms
-    $("section#modules-edit a.btn").click(function (event) {
+    jQuery("section#modules-edit a.btn").click(function (event) {
         event.preventDefault();
         saveModules();
     });
@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
         moduleForms.each(function () {
             event.preventDefault();
 
-            $(this).ajaxSubmit({
+            jQuery(this).ajaxSubmit({
                 success: function () {
                     console.log('success');
                 },
