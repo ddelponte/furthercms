@@ -16,12 +16,19 @@
     width: 100%
 }
 
-.plugin\.furthercms\.category\.urlkey\.label {
-    margin-top: -20px;
-    margin-bottom: 10px;
+section#modules-edit div#button-status {
+    visibility: hidden;
+}
+
+.plugin\.furthercms\.category\.urlkey\.label, section#modules-edit div#button-status {
     font-size: small;
     color: #a9a9a9;
     font-style: italic;
+}
+
+.plugin\.furthercms\.category\.urlkey\.label {
+    margin-top: -20px;
+    margin-bottom: 10px;
 }
 
 div.control-group label.control-label {
@@ -40,4 +47,10 @@ section#modules-edit a {
 
 section#modules-edit a.save {
     margin-left: 1%;
+}
+
+section#modules-edit div#button-status {
+    float: right;
+    clear: right;
+    margin-right: 1%;
 }

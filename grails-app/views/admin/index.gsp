@@ -54,6 +54,8 @@
 
                 <ui:button kind="anchor" mode="danger" text="plugin.furthercms.delete"/>
 
+                <div id="button-status"><g:message code="plugin.furthercms.saving" default="Saving..."/></div>
+
                 <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
 
                 <g:each in="${modules}" var="module">

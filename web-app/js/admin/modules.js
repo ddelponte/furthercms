@@ -1,4 +1,5 @@
 jQuery(document).ready(function () {
+    var buttonStatus = jQuery("section#modules-edit div#button-status");
 
     // When user clicks the save button, submit all module forms
     jQuery("section#modules-edit a.btn").click(function (event) {
@@ -10,21 +11,33 @@ jQuery(document).ready(function () {
     function saveModules() {
         CKupdate();
 
+        buttonStatus.attr("style", "visibility: visible");
         var moduleForms = jQuery("section#modules-edit form");
-        moduleForms.each(function () {
+        var totalModuleForms = moduleForms.size();
+
+        moduleForms.each(function (index, element) {
             event.preventDefault();
 
             jQuery(this).ajaxSubmit({
                 success: function () {
+                    updateButtonSaveStatus(totalModuleForms, index);
                     console.log('success');
                 },
                 error: function () {
+                    updateButtonSaveStatus(totalModuleForms, index);
                     console.log('error');
                 }
             });
 
         });
 
+    }
+
+    // Display 'Saving...' under the buttons.  Clear it when done.
+    function updateButtonSaveStatus(totalModuleForms, index) {
+        if (totalModuleForms == (index + 1)) {
+            buttonStatus.attr("style", "visibility: none");
+        }
     }
 
     // Submit all module forms when user presses enter
