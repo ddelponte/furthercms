@@ -20,17 +20,12 @@ jQuery(document).ready(function () {
 
             jQuery(this).ajaxSubmit({
                 success: function (jsonData) {
-
                     updateButtonSaveStatus(totalModuleForms, index);
 
                     if (jsonData.success) {
-
                         console.log('success');
-
                     } else {
-
                         showErrors(jsonData.errors);
-
                     }
 
                 },
@@ -50,9 +45,7 @@ jQuery(document).ready(function () {
     function updateButtonSaveStatus(totalModuleForms, index) {
 
         if (totalModuleForms == (index + 1)) {
-
             buttonStatus.attr("style", "visibility: none");
-
         }
     }
 
@@ -61,38 +54,27 @@ jQuery(document).ready(function () {
         var errorList = $("<ul>");
 
         for (field in errors) {
-
             errorList.append("<li>" + errors[field] + "</li>");
             $('input[name=\"' + field + '\"]').addClass('error');
-
         }
 
         if (!element) {
-
             $(".errors").html("").append(errorList).show(500);
-
         } else {
-
             $(element).html("").append(errorList).show(500);
-
         }
     }
 
     // Submit all module forms when user presses enter
     jQuery("section#modules-edit input").bind('keydown', 'return', function (event) {
-
         event.preventDefault();
         saveModules();
-
     });
 
     // Allow ajax submission of ckeditor
     function CKupdate() {
-
         for (instance in CKEDITOR.instances) {
-
             CKEDITOR.instances[instance].updateElement();
-
         }
     }
 
