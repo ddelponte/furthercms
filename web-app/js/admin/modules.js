@@ -19,14 +19,27 @@ jQuery(document).ready(function () {
             event.preventDefault();
 
             jQuery(this).ajaxSubmit({
-                success: function () {
+                success: function (jsonData) {
+
                     updateButtonSaveStatus(totalModuleForms, index);
-                    console.log('success');
+
+                    if (jsonData.success) {
+
+                        console.log('success');
+
+                    } else {
+
+                        showErrors(jsonData.errors);
+
+                    }
+
                 },
+
                 error: function () {
                     updateButtonSaveStatus(totalModuleForms, index);
                     console.log('error');
                 }
+
             });
 
         });
@@ -35,21 +48,51 @@ jQuery(document).ready(function () {
 
     // Display 'Saving...' under the buttons.  Clear it when done.
     function updateButtonSaveStatus(totalModuleForms, index) {
+
         if (totalModuleForms == (index + 1)) {
+
             buttonStatus.attr("style", "visibility: none");
+
+        }
+    }
+
+    function showErrors(errors, element) {
+
+        var errorList = $("<ul>");
+
+        for (field in errors) {
+
+            errorList.append("<li>" + errors[field] + "</li>");
+            $('input[name=\"' + field + '\"]').addClass('error');
+
+        }
+
+        if (!element) {
+
+            $(".errors").html("").append(errorList).show(500);
+
+        } else {
+
+            $(element).html("").append(errorList).show(500);
+
         }
     }
 
     // Submit all module forms when user presses enter
     jQuery("section#modules-edit input").bind('keydown', 'return', function (event) {
+
         event.preventDefault();
         saveModules();
+
     });
 
     // Allow ajax submission of ckeditor
     function CKupdate() {
+
         for (instance in CKEDITOR.instances) {
+
             CKEDITOR.instances[instance].updateElement();
+
         }
     }
 

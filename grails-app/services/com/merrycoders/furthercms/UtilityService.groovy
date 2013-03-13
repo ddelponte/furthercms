@@ -1,10 +1,14 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.ajax.AjaxPostResponse
+import org.apache.commons.lang.StringUtils
+
 /**
  * A collection of useful methods
  */
 class UtilityService {
     static transactional = false
+    def grailsApplication
 
     /**
      *  A slug is the part of a URL which identifies a page using human-readable keywords [1][2], for example "Slug_(web_publishing)", rather than an opaque
@@ -24,5 +28,32 @@ class UtilityService {
         slug = ("${slug.toLowerCase()}" =~ whiteSpacePattern).replaceAll("-")
         slug = (slug =~ nonAlphaNumericPattern).replaceAll("")
         return slug
+    }
+
+    /**
+     * Turns an instance of a domain class into an object that is friendly to JavaScript on the client
+     * @param domainInstance
+     * @return
+     */
+    def AjaxPostResponse preparePostResponse(List domainInstances) {
+        def g = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib')
+        def ajaxPostResponse = new AjaxPostResponse(domainObjects: domainInstances)
+
+        domainInstances.each { domainInstance ->
+
+            if (domainInstance.hasErrors()) {
+                def simpleClassName = StringUtils.uncapitalise(domainInstance.class.simpleName)
+
+                g.eachError(bean: domainInstance) {
+                    ajaxPostResponse.errors."${simpleClassName}.${it.field}" = g.message(error: it)
+                }
+
+                ajaxPostResponse.success = false
+                ajaxPostResponse.message = "There was an error"
+
+            }
+
+        }
+        return ajaxPostResponse
     }
 }

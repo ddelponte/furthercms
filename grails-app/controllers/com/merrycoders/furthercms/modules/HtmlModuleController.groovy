@@ -54,7 +54,6 @@ class HtmlModuleController {
     }
 
     def update(Long id, Long version) {
-        log.error params.html
         def htmlModuleInstance = HtmlModule.get(id)
         if (!htmlModuleInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), id])

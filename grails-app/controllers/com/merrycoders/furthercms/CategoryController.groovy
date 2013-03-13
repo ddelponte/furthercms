@@ -1,10 +1,10 @@
 package com.merrycoders.furthercms
 
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class CategoryController {
-    def categoryService
-    def moduleService
+    def utilityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -23,7 +23,21 @@ class CategoryController {
         redirect(action: "show", id: categoryInstance.id)
     }
 
-    def update() {
+    def update(CategoryUpdateCommand cmd) {
+        if (!cmd.page.validate() || !cmd.category.validate()) {
+            if (request.xhr) {
+                response.status = 200
+                render utilityService.preparePostResponse([cmd.page, cmd.category]) as JSON
+                return
+            } else {
+                render ""
+                return
+            }
+        }
+//        ui.message([type: "error", text: "Error!"], "")
+//        displayMessage "my.i18n.code"
+//        displayMessage([text: "my.i18n.code", type: "error"])
+
         Long categoryId = params.long("category.id")
         Long categoryVersion = params.long("category.version")
         def categoryInstance = Category.get(categoryId)
@@ -32,8 +46,6 @@ class CategoryController {
         Long pageVersion = params.long("page.version")
         def pageInstance = Page.get(pageId)
         pageInstance.properties = params.page
-
-        //moduleService.convertFormInputToModules(pageInstance, params.modules)
 
         if (!categoryInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'category.label', default: 'Category'), categoryId])
@@ -60,7 +72,7 @@ class CategoryController {
 
         if (request.xhr) {
             response.status = 200
-            render "test"
+            render '{"test":"test"}'
         } else {
             flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), categoryInstance.id])
             redirect(controller: "admin", action: "edit", id: categoryInstance.id)
@@ -86,7 +98,14 @@ class CategoryController {
         }
     }
 
-    def test() {
-        println params
+}
+
+class CategoryUpdateCommand {
+    Page page = new Page()
+    Category category = new Category()
+
+    static constraints = {
+        page nullable: false
+        category nullable: false
     }
 }

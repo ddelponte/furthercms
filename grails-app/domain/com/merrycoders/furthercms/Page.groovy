@@ -16,6 +16,7 @@ class Page {
     Date lastUpdated
 
     static constraints = {
+        title blank: false
         metaDescription nullable: true, maxSize: 10000
         metaKeywords nullable: true, maxSize: 10000
         linkText nullable: true, maxSize: 10000
