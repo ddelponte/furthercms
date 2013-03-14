@@ -1,7 +1,7 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.ajax.AjaxPostResponse
-import org.apache.commons.lang.StringUtils
+import org.apache.commons.lang.WordUtils
 
 /**
  * A collection of useful methods
@@ -42,7 +42,7 @@ class UtilityService {
         domainInstances.each { domainInstance ->
 
             if (domainInstance.hasErrors()) {
-                def simpleClassName = StringUtils.uncapitalise(domainInstance.class.simpleName)
+                def simpleClassName = WordUtils.uncapitalize(domainInstance.class.simpleName)
 
                 g.eachError(bean: domainInstance) {
                     ajaxPostResponse.errors."${simpleClassName}.${it.field}" = g.message(error: it)

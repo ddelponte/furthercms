@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.ajax.AjaxPostResponse
 import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -26,17 +27,21 @@ class CategoryController {
     def update(CategoryUpdateCommand cmd) {
         if (!cmd.page.validate() || !cmd.category.validate()) {
             if (request.xhr) {
+                AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([cmd.page, cmd.category])
+                def errors = ajaxPostResponse?.errors
+
+                errors.each { k, v ->
+                    errors[k] = ui.message([type: "error"], v)
+                }
+
                 response.status = 200
-                render utilityService.preparePostResponse([cmd.page, cmd.category]) as JSON
+                render ajaxPostResponse as JSON
                 return
             } else {
                 render ""
                 return
             }
         }
-//        ui.message([type: "error", text: "Error!"], "")
-//        displayMessage "my.i18n.code"
-//        displayMessage([text: "my.i18n.code", type: "error"])
 
         Long categoryId = params.long("category.id")
         Long categoryVersion = params.long("category.version")
