@@ -56,11 +56,23 @@
 
                 <div id="button-status"><g:message code="plugin.furthercms.saving" default="Saving..."/></div>
 
-                <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
+                <section class="module">
+
+                    <div class="errors" style="display: none;"></div>
+
+                    <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
+
+                </section>
 
                 <g:each in="${modules}" var="module">
 
-                    <fc:renderModuleEdit module="${module}"/>
+                    <section class="module">
+
+                        <div class="errors" style="display: none;"></div>
+
+                        <fc:renderModuleEdit module="${module}"/>
+
+                    </section>
 
                 </g:each>
 

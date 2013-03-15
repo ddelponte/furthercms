@@ -17,15 +17,16 @@ jQuery(document).ready(function () {
 
         moduleForms.each(function (index, element) {
             event.preventDefault();
+            var form = jQuery(this);
 
-            jQuery(this).ajaxSubmit({
+            form.ajaxSubmit({
                 success: function (jsonData) {
                     updateButtonSaveStatus(totalModuleForms, index);
 
                     if (jsonData.success) {
                         console.log('success');
                     } else {
-                        showErrors(jsonData.errors);
+                        showErrors(jsonData.errors, form.prev("div.errors"));
                     }
 
                 },
@@ -51,18 +52,26 @@ jQuery(document).ready(function () {
 
     function showErrors(errors, element) {
 
-        var errorList = $("<ul>");
-
         for (field in errors) {
-            errorList.append("<li>" + errors[field] + "</li>");
+            element.append(errors[field]);
             $('input[name=\"' + field + '\"]').addClass('error');
         }
 
-        if (!element) {
-            $(".errors").html("").append(errorList).show(500);
-        } else {
-            $(element).html("").append(errorList).show(500);
-        }
+        element.show();
+
+
+//        var errorList = $("<ul>");
+//
+//        for (field in errors) {
+//            errorList.append("<li>" + errors[field] + "</li>");
+//            $('input[name=\"' + field + '\"]').addClass('error');
+//        }
+//
+//        if (!element) {
+//            $(".errors").html("").append(errorList).show(500);
+//        } else {
+//            $(element).html("").append(errorList).show(500);
+//        }
     }
 
     // Submit all module forms when user presses enter
