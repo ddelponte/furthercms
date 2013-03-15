@@ -15,6 +15,8 @@ jQuery(document).ready(function () {
         var moduleForms = jQuery("section#modules-edit form");
         var totalModuleForms = moduleForms.size();
 
+        clearErrors();
+
         moduleForms.each(function (index, element) {
             event.preventDefault();
             var form = jQuery(this);
@@ -40,6 +42,12 @@ jQuery(document).ready(function () {
 
         });
 
+    }
+
+    function clearErrors() {
+        $("div.errors").empty();
+        $("div.errors").hide();
+        $("input").removeClass("error");
     }
 
     // Display 'Saving...' under the buttons.  Clear it when done.

@@ -54,3 +54,13 @@ section#modules-edit div#button-status {
     clear: right;
     margin-right: 1%;
 }
+
+/*Errors*/
+section#modules-edit section.module div.errors {
+    clear: right;
+}
+
+input.error, select.error, textarea.error {
+    background: #fff3f3;
+    border-color: #ffaaaa;
+}

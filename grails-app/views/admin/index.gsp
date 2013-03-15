@@ -50,9 +50,13 @@
 
             <section id="modules-edit">
 
-                <ui:button class="save" kind="anchor" mode="primary" text="plugin.furthercms.update"/>
+                <div>
 
-                <ui:button kind="anchor" mode="danger" text="plugin.furthercms.delete"/>
+                    <ui:button class="save" kind="anchor" mode="primary" text="plugin.furthercms.update"/>
+
+                    <ui:button kind="anchor" mode="danger" text="plugin.furthercms.delete"/>
+
+                </div>
 
                 <div id="button-status"><g:message code="plugin.furthercms.saving" default="Saving..."/></div>
 
