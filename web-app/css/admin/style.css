@@ -16,14 +16,20 @@
     width: 100%
 }
 
-section#modules-edit div#button-status {
+section#modules-edit div#button-status, section#modules-edit div#last-saved {
     visibility: hidden;
 }
 
-.plugin\.furthercms\.category\.urlkey\.label, section#modules-edit div#button-status {
+.plugin\.furthercms\.category\.urlkey\.label, section#modules-edit div#button-status, section#modules-edit div#last-saved {
     font-size: small;
     color: #a9a9a9;
     font-style: italic;
+}
+
+section#modules-edit div#button-status, section#modules-edit div#last-saved {
+    float: right;
+    clear: right;
+    margin-right: 1%;
 }
 
 .plugin\.furthercms\.category\.urlkey\.label {
@@ -47,12 +53,6 @@ section#modules-edit a {
 
 section#modules-edit a.save {
     margin-left: 1%;
-}
-
-section#modules-edit div#button-status {
-    float: right;
-    clear: right;
-    margin-right: 1%;
 }
 
 /*Errors*/

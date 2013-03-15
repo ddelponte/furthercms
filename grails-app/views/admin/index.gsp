@@ -58,7 +58,9 @@
 
                 </div>
 
-                <div id="button-status"><g:message code="plugin.furthercms.saving" default="Saving..."/></div>
+                <div id="button-status" style="display: none;"><g:message code="plugin.furthercms.saving" default="Saving..."/></div>
+
+                <div id="last-saved"><g:message code="plugin.furthercms.saved.at" default="Saved at"/><span></span></div>
 
                 <section class="module">
 

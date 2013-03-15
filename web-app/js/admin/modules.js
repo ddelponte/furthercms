@@ -45,12 +45,17 @@ jQuery(document).ready(function () {
     }
 
     function clearErrors() {
-        $("div.errors").empty();
-        $("div.errors").hide();
-        $("input").removeClass("error");
+        var errorsElement = jQuery("div.errors");
+        errorsElement.hide();
+        errorsElement.empty();
+        jQuery("input").removeClass("error");
     }
 
-    // Display 'Saving...' under the buttons.  Clear it when done.
+    /**
+     * Display 'Saving...' under the buttons.  Clear it when done.
+     * @param totalModuleForms Total number of forms being submitted
+     * @param index Is this the 1, 2, 3... form to save
+     */
     function updateButtonSaveStatus(totalModuleForms, index) {
 
         if (totalModuleForms == (index + 1)) {
@@ -58,28 +63,20 @@ jQuery(document).ready(function () {
         }
     }
 
+    /**
+     *
+     * @param errors A map of form fields and their error messages
+     * @param element The element in which the errors should be displayed
+     */
     function showErrors(errors, element) {
 
         for (field in errors) {
             element.append(errors[field]);
-            $('input[name=\"' + field + '\"]').addClass('error');
+            jQuery('input[name=\"' + field + '\"]').addClass('error');
         }
 
         element.show();
 
-
-//        var errorList = $("<ul>");
-//
-//        for (field in errors) {
-//            errorList.append("<li>" + errors[field] + "</li>");
-//            $('input[name=\"' + field + '\"]').addClass('error');
-//        }
-//
-//        if (!element) {
-//            $(".errors").html("").append(errorList).show(500);
-//        } else {
-//            $(element).html("").append(errorList).show(500);
-//        }
     }
 
     // Submit all module forms when user presses enter
