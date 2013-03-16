@@ -12,6 +12,8 @@ jQuery(document).ready(function () {
         CKupdate();
 
         buttonStatus.attr("style", "visibility: visible");
+        buttonStatus.text(buttonStatus.attr("data-saving-message"));
+
         var moduleForms = jQuery("section#modules-edit form");
         var totalModuleForms = moduleForms.size();
 
@@ -52,6 +54,17 @@ jQuery(document).ready(function () {
     }
 
     /**
+     *
+     * @return {string} The current date and time.  For example Mar 15, 2525 at 10:00 PM
+     */
+    function getFormattedDateAndTime() {
+        var now = new Date();
+        var formattedDate = now.format("mmm dd, yyyy");
+        var formattedTime = now.format("h:MM TT")
+        return formattedDate + " at " + formattedTime;
+    }
+
+    /**
      * Display 'Saving...' under the buttons.  Clear it when done.
      * @param totalModuleForms Total number of forms being submitted
      * @param index Is this the 1, 2, 3... form to save
@@ -59,8 +72,9 @@ jQuery(document).ready(function () {
     function updateButtonSaveStatus(totalModuleForms, index) {
 
         if (totalModuleForms == (index + 1)) {
-            buttonStatus.attr("style", "visibility: none");
+            buttonStatus.text(buttonStatus.attr("data-saved-message") + " " + getFormattedDateAndTime());
         }
+
     }
 
     /**

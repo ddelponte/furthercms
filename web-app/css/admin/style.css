@@ -16,10 +16,6 @@
     width: 100%
 }
 
-section#modules-edit div#button-status, section#modules-edit div#last-saved {
-    visibility: hidden;
-}
-
 .plugin\.furthercms\.category\.urlkey\.label, section#modules-edit div#button-status, section#modules-edit div#last-saved {
     font-size: small;
     color: #a9a9a9;

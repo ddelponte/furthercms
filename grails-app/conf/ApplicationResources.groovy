@@ -50,4 +50,8 @@ modules = {
         resource(url: "js/admin/modules/category/editor.js")
         resource(url: "js/admin/urlUtilities.js")
     }
+
+    dateFormatter {
+        resource(url: "js/admin/date.format.js")
+    }
 }

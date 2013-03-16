@@ -10,7 +10,7 @@
 
         <theme:title text="dataentry.page.title"></theme:title>
 
-        <r:require modules="jquery, jquery-ui, modules, hotKeys"/>
+        <r:require modules="jquery, jquery-ui, modules, hotKeys, dateFormatter"/>
 
         <ckeditor:resources/>
 
@@ -58,9 +58,9 @@
 
                 </div>
 
-                <div id="button-status" style="display: none;"><g:message code="plugin.furthercms.saving" default="Saving..."/></div>
-
-                <div id="last-saved"><g:message code="plugin.furthercms.saved.at" default="Saved at"/><span></span></div>
+                <div id="button-status"
+                     data-saving-message="${g.message([code: 'plugin.furthercms.saving', default: 'Saving...'], '')}"
+                     data-saved-message="${g.message([code: 'plugin.furthercms.saved', default: 'Saved'], '')}">&nbsp;</div>
 
                 <section class="module">
 
