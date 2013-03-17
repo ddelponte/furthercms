@@ -13,9 +13,13 @@ class SpecificationDataCore extends Specification {
     static def htmlPageTitle = "HTML Title"
     static def htmlChildPageTitle = "HTML Child Title"
     def categoryService
+    def primaryCategoryService
 
     def setup() {
         categoryService = new CategoryService()
+        categoryService.pageService = new PageService()
+        categoryService.utilityService = new UtilityService()
+        primaryCategoryService = new PrimaryCategoryService()
     }
 
     def initAllData() {
@@ -90,7 +94,12 @@ class SpecificationDataCore extends Specification {
     private saveCategoryInstances(List categoryInstanceList) {
         categoryInstanceList.each { category ->
             try {
-                categoryService.save(category)
+                if (category instanceof Category) {
+                    categoryService.save(category)
+                } else {
+                    primaryCategoryService.save(category)
+                }
+                // Primary Category
             } catch (ValidationException e) {
                 println e.errors
             }

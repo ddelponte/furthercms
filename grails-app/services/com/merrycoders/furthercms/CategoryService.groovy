@@ -4,7 +4,8 @@ import grails.validation.ValidationException
 import org.apache.commons.lang.StringUtils
 
 class CategoryService {
-    static transactional = false
+    def pageService
+    def utilityService
 
     /**
      * Returns the category instance associated with the urlKey
@@ -27,12 +28,19 @@ class CategoryService {
      * @param flush
      * @return The saved Category or PrimaryCategory instance
      */
-    def save(category, flush = false) {
+    public Category save(Category category, Boolean flush = false) {
         if (!category) return null
+
+        pageService.save(category.page, true)
 
         if (!category?.displayOrder) {
             def maxDisplayOrder = category.siblings?.displayOrder ? category.siblings?.displayOrder?.max() + 1 : 0
             category?.displayOrder = maxDisplayOrder
+        }
+
+        if (category.page) {
+            def parentUrlKey = category.parent?.urlKey ? "${category.parent?.urlKey}/" : ""
+            category.urlKey = "${parentUrlKey}${utilityService.toSlug(category.page?.title)}"
         }
 
         if (!category.validate()) {
