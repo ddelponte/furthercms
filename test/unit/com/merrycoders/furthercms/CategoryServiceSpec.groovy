@@ -10,6 +10,8 @@ import grails.test.mixin.TestFor
 class CategoryServiceSpec extends SpecificationDataCore {
 
     def setup() {
+        service.pageService = new PageService()
+        service.utilityService = new UtilityService()
     }
 
     def cleanup() {
@@ -47,14 +49,15 @@ class CategoryServiceSpec extends SpecificationDataCore {
         given:
         initCategories()
         def parentCategoryInstance = Category.findByName("HTML")
-        def newCategoryInstance = new Category(name: "New Category Instance", parent: parentCategoryInstance, urlKey: "html/new-category-instance", page: Page.findByTitle(htmlChildPageTitle))
+        def page = new Page(title: "New Category Instance").save(flush: true)
+        def newCategoryInstance = new Category(name: "New Category Instance", parent: parentCategoryInstance, urlKey: "html/new-category-instance", page: page)
         assert newCategoryInstance.displayOrder == 0
 
         when:
         def savedCategory = service.save(newCategoryInstance)
         def newPrimaryCategoryInstance = new PrimaryCategory(category: newCategoryInstance)
         assert newPrimaryCategoryInstance.displayOrder == null
-        def savedPrimaryCategory = service.save(newPrimaryCategoryInstance)
+        def savedPrimaryCategory = new PrimaryCategoryService().save(newPrimaryCategoryInstance)
 
         then:
         savedCategory.displayOrder == 1
