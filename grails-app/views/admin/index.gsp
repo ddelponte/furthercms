@@ -60,7 +60,8 @@
 
                 <div id="button-status"
                      data-saving-message="${g.message([code: 'plugin.furthercms.saving', default: 'Saving...'], '')}"
-                     data-saved-message="${g.message([code: 'plugin.furthercms.saved', default: 'Saved'], '')}">&nbsp;</div>
+                     data-saved-message="${g.message([code: 'plugin.furthercms.saved', default: 'Saved'], '')}"
+                     data-error-saving-message="${g.message([code: 'plugin.furthercms.error.saving', default: 'Saved'], '')}">&nbsp;</div>
 
                 <section class="module">
 

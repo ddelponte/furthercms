@@ -42,7 +42,7 @@ grails.project.dependency.resolution = {
 
         compile ":mail:1.0.1"
         compile ":svn:1.0.2"
-        compile ":platform-core:1.0.RC2"
+        compile ":platform-core:1.0.RC5"
         compile ":platform-ui:1.0.RC3"
         compile ":ckeditor:3.6.3.0"
         compile ":rest-client-builder:1.0.2"

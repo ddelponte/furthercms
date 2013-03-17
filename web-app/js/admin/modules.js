@@ -1,9 +1,11 @@
 jQuery(document).ready(function () {
     var buttonStatus = jQuery("section#modules-edit div#button-status");
+    var totalErrors = 0;
 
     // When user clicks the save button, submit all module forms
     jQuery("section#modules-edit a.btn").click(function (event) {
         event.preventDefault();
+        totalErrors = 0;
         saveModules();
     });
 
@@ -25,13 +27,15 @@ jQuery(document).ready(function () {
 
             form.ajaxSubmit({
                 success: function (jsonData) {
-                    updateButtonSaveStatus(totalModuleForms, index);
 
                     if (jsonData.success) {
                         console.log('success');
                     } else {
+                        totalErrors++;
                         showErrors(jsonData.errors, form.prev("div.errors"));
                     }
+
+                    updateButtonSaveStatus(totalModuleForms, index);
 
                 },
 
@@ -60,7 +64,7 @@ jQuery(document).ready(function () {
     function getFormattedDateAndTime() {
         var now = new Date();
         var formattedDate = now.format("mmm dd, yyyy");
-        var formattedTime = now.format("h:MM TT")
+        var formattedTime = now.format("h:MM TT");
         return formattedDate + " at " + formattedTime;
     }
 
@@ -71,9 +75,14 @@ jQuery(document).ready(function () {
      */
     function updateButtonSaveStatus(totalModuleForms, index) {
 
-        if (totalModuleForms == (index + 1)) {
+        if (totalModuleForms == (index + 1) && totalErrors == 0) {
             buttonStatus.text(buttonStatus.attr("data-saved-message") + " " + getFormattedDateAndTime());
             buttonStatus.effect("highlight", {}, 3000);
+        }
+
+        if (totalErrors > 0) {
+            buttonStatus.text(buttonStatus.attr("data-error-saving-message") + " " + getFormattedDateAndTime());
+            buttonStatus.effect("highlight", {color: "#f2dede"}, 3000);
         }
 
     }
