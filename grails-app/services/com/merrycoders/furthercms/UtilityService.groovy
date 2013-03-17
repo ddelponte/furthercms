@@ -37,7 +37,10 @@ class UtilityService {
      */
     def AjaxPostResponse preparePostResponse(List domainInstances) {
         def g = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib')
+        def ui = grailsApplication.mainContext.getBean('org.grails.plugin.platform.UITagLib')
+
         def ajaxPostResponse = new AjaxPostResponse(domainObjects: domainInstances)
+        def errors = ajaxPostResponse?.errors
 
         domainInstances.each { domainInstance ->
 
@@ -45,7 +48,13 @@ class UtilityService {
                 def simpleClassName = WordUtils.uncapitalize(domainInstance.class.simpleName)
 
                 g.eachError(bean: domainInstance) {
+
                     ajaxPostResponse.errors."${simpleClassName}.${it.field}" = g.message(error: it)
+
+                    ajaxPostResponse.errors.each { k, v ->
+                        errors[k] = ui.message([type: "error"], v)
+                    }
+
                 }
 
                 ajaxPostResponse.success = false

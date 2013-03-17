@@ -54,12 +54,6 @@ class CategoryController {
 
     private renderAjaxResponse(CategoryUpdateCommand cmd) {
         AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([cmd.page, cmd.category])
-        def errors = ajaxPostResponse?.errors
-
-        errors.each { k, v ->
-            errors[k] = ui.message([type: "error"], v)
-        }
-
         response.status = 200
         render ajaxPostResponse as JSON
         return

@@ -1,11 +1,14 @@
 package com.merrycoders.furthercms.modules
 
+import com.merrycoders.furthercms.ajax.AjaxPostResponse
 import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class HtmlModuleController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+    def utilityService
 
     def index() {
         redirect(action: "list", params: params)
@@ -81,8 +84,7 @@ class HtmlModuleController {
 
         if (!htmlModuleInstance.save(flush: true)) {
             if (request.xhr) {
-                response.status = 200
-                render "test"
+                renderAjaxResponse(htmlModuleInstance)
             } else {
                 render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
             }
@@ -90,12 +92,18 @@ class HtmlModuleController {
         }
 
         if (request.xhr) {
-            response.status = 200
-            render htmlModuleInstance as JSON
+            renderAjaxResponse(htmlModuleInstance)
         } else {
             flash.message = message(code: 'default.updated.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), htmlModuleInstance.id])
             redirect(action: "edit", id: htmlModuleInstance.id)
         }
+    }
+
+    private renderAjaxResponse(HtmlModule htmlModuleInstance) {
+        AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([htmlModuleInstance])
+        response.status = 200
+        render ajaxPostResponse as JSON
+        return
     }
 
     def delete(Long id) {

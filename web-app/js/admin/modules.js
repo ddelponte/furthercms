@@ -73,6 +73,7 @@ jQuery(document).ready(function () {
 
         if (totalModuleForms == (index + 1)) {
             buttonStatus.text(buttonStatus.attr("data-saved-message") + " " + getFormattedDateAndTime());
+            buttonStatus.effect("highlight", {}, 3000);
         }
 
     }
