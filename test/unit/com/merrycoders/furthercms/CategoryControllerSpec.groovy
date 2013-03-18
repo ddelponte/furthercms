@@ -62,7 +62,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         where:
         title          | isSuccessful | urlKey
         "My new title" | true         | "home-title/html-title/my-new-title"
-        ""             | true         | "home-title/html-title/"
+        ""             | true         | "home-title/html-title/html-child-title"
 
     }
 }
