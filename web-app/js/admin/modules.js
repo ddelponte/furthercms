@@ -1,11 +1,13 @@
 jQuery(document).ready(function () {
     var buttonStatus = jQuery("section#modules-edit div#button-status");
     var totalErrors = 0;
+    var totalSavedForms = 0;
 
     // When user clicks the save button, submit all module forms
     jQuery("section#modules-edit a.btn").click(function (event) {
         event.preventDefault();
         totalErrors = 0;
+        totalSavedForms = 0;
         saveModules();
     });
 
@@ -29,18 +31,22 @@ jQuery(document).ready(function () {
                 success: function (jsonData) {
 
                     if (jsonData.success) {
+                        totalSavedForms++;
                         console.log('success');
                     } else {
+                        totalSavedForms++;
                         totalErrors++;
                         showErrors(jsonData.errors, form.prev("div.errors"));
                     }
 
-                    updateButtonSaveStatus(totalModuleForms, index);
+                    updateButtonSaveStatus(totalModuleForms);
 
                 },
 
                 error: function () {
-                    updateButtonSaveStatus(totalModuleForms, index);
+                    totalSavedForms++;
+                    totalErrors++;
+                    updateButtonSaveStatus(totalModuleForms);
                     console.log('error');
                 }
 
@@ -71,18 +77,17 @@ jQuery(document).ready(function () {
     /**
      * Display 'Saving...' under the buttons.  Clear it when done.
      * @param totalModuleForms Total number of forms being submitted
-     * @param index Is this the 1, 2, 3... form to save
      */
-    function updateButtonSaveStatus(totalModuleForms, index) {
+    function updateButtonSaveStatus(totalModuleForms) {
 
-        if (totalModuleForms == (index + 1) && totalErrors == 0) {
-            buttonStatus.text(buttonStatus.attr("data-saved-message") + " " + getFormattedDateAndTime());
-            buttonStatus.effect("highlight", {}, 3000);
-        }
-
-        if (totalErrors > 0) {
-            buttonStatus.text(buttonStatus.attr("data-error-saving-message") + " " + getFormattedDateAndTime());
-            buttonStatus.effect("highlight", {color: "#f2dede"}, 3000);
+        if (totalModuleForms == totalSavedForms) {
+            if (totalErrors == 0) {
+                buttonStatus.text(buttonStatus.attr("data-saved-message") + " " + getFormattedDateAndTime());
+                buttonStatus.effect("highlight", {}, 3000);
+            } else {
+                buttonStatus.text(buttonStatus.attr("data-error-saving-message") + " " + getFormattedDateAndTime());
+                buttonStatus.effect("highlight", {color: "#f2dede"}, 3000);
+            }
         }
 
     }
