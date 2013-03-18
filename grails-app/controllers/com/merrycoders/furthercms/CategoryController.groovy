@@ -29,6 +29,7 @@ class CategoryController {
         if (!cmd.page.validate() || !cmd.category.validate()) {
             if (request.xhr) {
                 renderAjaxResponse(cmd)
+                return
             } else {
                 render ""
                 return
@@ -46,6 +47,7 @@ class CategoryController {
 
         if (request.xhr) {
             renderAjaxResponse(cmd)
+            return
         } else {
             flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), categoryInstance.id])
             redirect(controller: "admin", action: "edit", id: categoryInstance.id)

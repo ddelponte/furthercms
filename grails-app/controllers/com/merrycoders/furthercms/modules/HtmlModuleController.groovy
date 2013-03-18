@@ -85,6 +85,7 @@ class HtmlModuleController {
         if (!htmlModuleInstance.save(flush: true)) {
             if (request.xhr) {
                 renderAjaxResponse(htmlModuleInstance)
+                return
             } else {
                 render(view: "edit", model: [htmlModuleInstance: htmlModuleInstance])
             }
@@ -93,6 +94,7 @@ class HtmlModuleController {
 
         if (request.xhr) {
             renderAjaxResponse(htmlModuleInstance)
+            return
         } else {
             flash.message = message(code: 'default.updated.message', args: [message(code: 'htmlModule.label', default: 'HtmlModule'), htmlModuleInstance.id])
             redirect(action: "edit", id: htmlModuleInstance.id)
