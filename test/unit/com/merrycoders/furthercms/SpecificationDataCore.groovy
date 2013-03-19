@@ -29,7 +29,7 @@ class SpecificationDataCore extends Specification {
 
     def initModuleTypes() {
         if (!ModuleType.count()) {
-            def moduleType = new ModuleType(name: "HTML", className: HtmlModule.class.name)
+            def moduleType = new ModuleType(name: "HTML", className: HtmlModule.class.name, code: "com.merrycoders.furthercms.moduletype.html")
             saveDomainObjects([moduleType])
         }
     }

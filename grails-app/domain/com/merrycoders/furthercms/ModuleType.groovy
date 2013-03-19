@@ -6,6 +6,7 @@ class ModuleType {
     String name
     String className
     String description = ""
+    String code // i18n code representing the name
     Date dateCreated
     Date lastUpdated
 

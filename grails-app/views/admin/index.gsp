@@ -10,7 +10,7 @@
 
         <theme:title text="dataentry.page.title"></theme:title>
 
-        <r:require modules="jquery, jquery-ui, modules, hotKeys, dateFormatter"/>
+        <r:require modules="jquery, jquery-ui, modules, hotKeys, dateFormatter, slidePanel"/>
 
         <ckeditor:resources/>
 
@@ -39,6 +39,13 @@
             <ui:h1 text="dataentry.page.body.heading"/>
 
             <section id="category_nav">
+
+                <ui:button
+                        kind="button"
+                        href="${createLink([controller: 'pageType', action: 'listModuleTypes', id: pageInstance?.pageType?.id])}"
+                        data-slidepanel="panel"
+                        mode="secondary"
+                        text="modules"/>
 
                 <nav>
 

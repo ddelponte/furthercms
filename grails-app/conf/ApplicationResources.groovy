@@ -52,6 +52,19 @@ modules = {
     }
 
     dateFormatter {
+        dependsOn "jquery"
         resource(url: "js/admin/date.format.js")
+    }
+
+    slidePanel {
+        dependsOn "jquery"
+        resource(url: "js/admin/slide.panel/css/jquery.slidepanel.css")
+        resource(url: "js/admin/slide.panel/js/jquery.slidepanel.js")
+        resource(url: "js/admin/slide.panel/load.js")
+    }
+
+    moduleTypes {
+        dependsOn "jquery"
+        resource(url: "js/admin/moduleTypes.js")
     }
 }
