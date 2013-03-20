@@ -2,7 +2,8 @@
 jQuery("#available-module-types a").click(function (event) {
 
     event.preventDefault();
-    alert(jQuery(this).attr("data-module-type-id"));
+    var url = jQuery(this).attr("data-render-module-edit-action");
+    jQuery('body').load(url);
 
     // Insert the a new instance of the module editor into the content
 });

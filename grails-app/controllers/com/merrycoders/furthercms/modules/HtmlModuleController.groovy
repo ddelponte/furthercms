@@ -81,6 +81,8 @@ class HtmlModuleController {
 //        }
 
         htmlModuleInstance.properties = params
+        def html = params.find { k, v -> k.startsWith("html_") }?.value ?: ""
+        htmlModuleInstance.html = html
 
         if (!htmlModuleInstance.save(flush: true)) {
             if (request.xhr) {

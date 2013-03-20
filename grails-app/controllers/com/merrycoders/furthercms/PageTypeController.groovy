@@ -1,6 +1,5 @@
 package com.merrycoders.furthercms
 
-import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class PageTypeController {
@@ -102,8 +101,9 @@ class PageTypeController {
     }
 
     def listModuleTypes(Long id) {
+        def pageInstance = Page.get(params.long("page.id"))
         def pageTypeInstance = PageType.get(id)
-        def moduleTypes = PageTypeModuleType.findAllByPageType(pageTypeInstance)?.moduleType?.sort {it?.name}
-        render (template: "/admin/moduleTypes/list", model: [moduleTypes: moduleTypes])
+        def moduleTypes = PageTypeModuleType.findAllByPageType(pageTypeInstance)?.moduleType?.sort { it?.name }
+        render(template: "/admin/moduleTypes/list", model: [pageInstance: pageInstance, moduleTypes: moduleTypes])
     }
 }

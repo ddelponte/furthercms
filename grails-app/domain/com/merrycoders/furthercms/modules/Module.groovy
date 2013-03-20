@@ -31,7 +31,7 @@ class Module {
         Integer displayOrder = Module.findAllByPage(page)?.displayOrder?.max() ?: 0
         displayOrder++
         data.displayOrder = displayOrder
-        def module = Class.forName(moduleType.className, true, Thread.currentThread().contextClassLoader).newInstance()
+        def module = moduleType.module
         data.each { k, v ->
             if (module.metaClass.hasProperty(module, k)) {
                 module."${k}" = v

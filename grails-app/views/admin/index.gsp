@@ -42,7 +42,7 @@
 
                 <ui:button
                         kind="button"
-                        href="${createLink([controller: 'pageType', action: 'listModuleTypes', id: pageInstance?.pageType?.id])}"
+                        href="${createLink([controller: 'pageType', action: 'listModuleTypes', id: pageInstance?.pageType?.id, params: ['page.id': pageInstance?.id]])}"
                         data-slidepanel="panel"
                         mode="secondary"
                         text="modules"/>

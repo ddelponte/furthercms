@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.Module
 import org.apache.commons.lang.StringUtils
 
 class ModuleType {
@@ -29,6 +30,17 @@ class ModuleType {
         def simpleClassName = StringUtils.substringAfterLast(className, ".")
         def viewFolder = StringUtils.substringBeforeLast(simpleClassName, "Module")?.toLowerCase()
         return viewFolder
+    }
+
+    /**
+     * Returns a new instance of the Module associated with this ModuleType
+     * @return Module
+     */
+    Module getModule() {
+        if (!this?.id) return null
+        def module = Class.forName(this.className, true, Thread.currentThread().contextClassLoader).newInstance()
+        module.moduleType = this
+        return module
     }
 
     String toString() {

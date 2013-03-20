@@ -133,7 +133,8 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.renderModuleEdit([module: module])
 
         then:
-        assert results.contains('<ckeditor:editor name="html" height="100%" width="100%" toolbar="Mytoolbar">')
+        assert results.contains('<ckeditor:editor name="html')
+        assert results.contains('" height="100%" width="100%" toolbar="Mytoolbar">')
     }
 
     def "htmlEditor"() {
@@ -145,7 +146,8 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def results = tagLib.htmlEditor([name: "Name", data: data, height: "50%", width: "50%"])
 
         then:
-        assert results.contains('<ckeditor:editor name="Name" height="50%" width="50%" toolbar="Mytoolbar">')
+        assert results.contains('<ckeditor:editor name="Name')
+        assert results.contains('" height="50%" width="50%" toolbar="Mytoolbar">')
         assert results.contains('<p>HTML data</p>')
     }
 }
