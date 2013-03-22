@@ -121,9 +121,33 @@ jQuery(document).ready(function () {
         }
     }
 
+    // Sortable modules
+    var sortableModules = jQuery("#modules-edit ul.sortable");
+    sortableModules.sortable({
+        placeholder: 'highlight',
+        forcePlaceholderSize: true,
+        axis: 'y',
+        start: function (event, ui) {
+
+            for (name in CKEDITOR.instances) {
+                CKEDITOR.instances[name].destroy();
+            }
+
+            jQuery(this).sortable('refreshPositions');
+        },
+        stop: function (event, ui) {
+
+            for (name in CKEDITOR.instances) {
+                CKEDITOR.instances[name].ckeditor();
+            }
+        }
+    });
+    sortableModules.disableSelection();
+
 //    var moduleFormInputs = jQuery("section#modules-edit form input");
 //    moduleFormInputs.change(function () {
 //        alert($(this).attr("name"));
 //    });
 
-});
+})
+;

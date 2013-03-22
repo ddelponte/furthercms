@@ -80,13 +80,22 @@
 
                 <g:each in="${modules}" var="module">
 
-                    <section class="module">
+                    <ul class="sortable">
 
-                        <div class="errors" style="display: none;"></div>
+                        <li>
 
-                        <fc:renderModuleEdit module="${module}"/>
+                            <section class="module">
 
-                    </section>
+                                <div class="errors" style="display: none;"></div>
+
+                                <fc:renderModuleEdit module="${module}"/>
+
+                            </section>
+
+                        </li>
+                        <li>put stuf fhere</li>
+
+                    </ul>
 
                 </g:each>
 
