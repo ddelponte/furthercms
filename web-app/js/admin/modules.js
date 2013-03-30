@@ -123,6 +123,7 @@ jQuery(document).ready(function () {
 
     // Sortable modules
     var sortableModules = jQuery("#modules-edit ul.sortable");
+
     sortableModules.sortable({
         placeholder: 'highlight',
         forcePlaceholderSize: true,
@@ -130,7 +131,7 @@ jQuery(document).ready(function () {
         start: function (event, ui) {
 
             for (name in CKEDITOR.instances) {
-                CKEDITOR.instances[name].destroy();
+                delete CKEDITOR.instances[name];
             }
 
             jQuery(this).sortable('refreshPositions');
@@ -138,10 +139,11 @@ jQuery(document).ready(function () {
         stop: function (event, ui) {
 
             for (name in CKEDITOR.instances) {
-                CKEDITOR.instances[name].ckeditor();
+                CKEDITOR.replace(name);
             }
         }
     });
+
     sortableModules.disableSelection();
 
 //    var moduleFormInputs = jQuery("section#modules-edit form input");

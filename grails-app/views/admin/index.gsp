@@ -70,17 +70,21 @@
                      data-saved-message="${g.message([code: 'plugin.furthercms.saved', default: 'Saved'], '')}"
                      data-error-saving-message="${g.message([code: 'plugin.furthercms.error.saving', default: 'Saved'], '')}">&nbsp;</div>
 
-                <section class="module">
+                <ul class="sortable">
 
-                    <div class="errors" style="display: none;"></div>
+                    <li>
 
-                    <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
+                        <section class="module">
 
-                </section>
+                            <div class="errors" style="display: none;"></div>
 
-                <g:each in="${modules}" var="module">
+                            <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
 
-                    <ul class="sortable">
+                        </section>
+
+                    </li>
+
+                    <g:each in="${modules}" var="module">
 
                         <li>
 
@@ -93,11 +97,12 @@
                             </section>
 
                         </li>
-                        <li>put stuf fhere</li>
 
-                    </ul>
+                    </g:each>
 
-                </g:each>
+                    <li>put stuf fhere</li>
+
+                </ul>
 
             </section>
 

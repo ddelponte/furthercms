@@ -18,6 +18,10 @@
     width: 100%
 }
 
+#modules-edit ul li {
+    list-style: none;
+}
+
 .plugin\.furthercms\.category\.urlkey\.label, section#modules-edit div#button-status, section#modules-edit div#last-saved {
     font-size: small;
     color: #a9a9a9;
