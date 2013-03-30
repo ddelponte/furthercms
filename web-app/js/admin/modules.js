@@ -129,8 +129,10 @@ jQuery(document).ready(function () {
         forcePlaceholderSize: true,
         axis: 'y',
         start: function (event, ui) {
+            alert($(this).html());
 
             for (name in CKEDITOR.instances) {
+                //alert(CKEDITOR.instances[name].getData());
                 delete CKEDITOR.instances[name];
             }
 
