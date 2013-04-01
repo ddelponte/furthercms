@@ -129,29 +129,61 @@ jQuery(document).ready(function () {
         forcePlaceholderSize: true,
         axis: 'y',
         start: function (event, ui) {
-            alert($(this).html());
-
-            for (name in CKEDITOR.instances) {
-                //alert(CKEDITOR.instances[name].getData());
-                delete CKEDITOR.instances[name];
-            }
+            var dataModuleName = getDataModuleName(ui);
+            var functionName = dataModuleName + "StartSort";
+            callModuleSortMethod(functionName, ui);
 
             jQuery(this).sortable('refreshPositions');
         },
         stop: function (event, ui) {
-
-            for (name in CKEDITOR.instances) {
-                CKEDITOR.replace(name);
-            }
+            var dataModuleName = getDataModuleName(ui);
+            var functionName = dataModuleName + "StopSort";
+            callModuleSortMethod(functionName, ui);
         }
     });
 
     sortableModules.disableSelection();
+
+    /**
+     * Returns the name of the module instance being moved.  This is equivalent to calling the Module.toString() method, except the returned string is not
+     * capitalized
+     * @param ui
+     * @return {*|jQuery}
+     */
+    function getDataModuleName(ui) {
+        var dataModuleName = $(ui.item).find("section.module").attr("data-module-name");
+        return dataModuleName;
+    }
 
 //    var moduleFormInputs = jQuery("section#modules-edit form input");
 //    moduleFormInputs.change(function () {
 //        alert($(this).attr("name"));
 //    });
 
-})
-;
+});
+
+/**
+ *
+ * @param ui The sortable ui element.  Usually a list item
+ * @return The unique name of the HTML editor as defined in the DOM
+ */
+function getHtmlEditorName(ui) {
+    var ckedname = $(ui.item).find("div.html_ckeditor").find("span").attr("id");
+    if (ckedname) {
+        var ckedname_arr = ckedname.split("_");
+        ckedname = ckedname_arr[1] + "_" + ckedname_arr[2];
+    }
+    return ckedname;
+}
+
+/**
+ * Every module has JavaScript functions which handle start sorting and end sorting.  This calls them.
+ * @param functionName
+ * @param ui
+ */
+function callModuleSortMethod(functionName, ui) {
+    var fn = window[functionName];
+    if (typeof fn === 'function') {
+        fn(ui);
+    }
+}

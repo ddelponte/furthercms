@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.apache.commons.lang.WordUtils" contentType="text/html;charset=UTF-8" %>
 
 <!doctype html>
 
@@ -70,25 +70,21 @@
                      data-saved-message="${g.message([code: 'plugin.furthercms.saved', default: 'Saved'], '')}"
                      data-error-saving-message="${g.message([code: 'plugin.furthercms.error.saving', default: 'Saved'], '')}">&nbsp;</div>
 
+                <section class="module">
+
+                    <div class="errors" style="display: none;"></div>
+
+                    <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
+
+                </section>
+
                 <ul class="sortable">
-
-                    <li>
-
-                        <section class="module">
-
-                            <div class="errors" style="display: none;"></div>
-
-                            <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
-
-                        </section>
-
-                    </li>
 
                     <g:each in="${modules}" var="module">
 
                         <li>
 
-                            <section class="module">
+                            <section class="module" data-module-name="${WordUtils.uncapitalize(module?.class?.simpleName)}">
 
                                 <div class="errors" style="display: none;"></div>
 

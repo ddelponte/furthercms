@@ -67,4 +67,10 @@ modules = {
         dependsOn "jquery"
         resource(url: "js/admin/moduleTypes.js")
     }
+
+//    Modules
+    htmlModuleOnSort {
+        dependsOn "jquery"
+        resource(url: "js/admin/modules/html/onSort.js")
+    }
 }

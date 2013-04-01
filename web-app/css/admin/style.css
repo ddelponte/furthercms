@@ -34,6 +34,10 @@ section#modules-edit div#button-status, section#modules-edit div#last-saved {
     margin-right: 1%;
 }
 
+section#modules-edit ul.sortable {
+    margin-left: 0px;
+}
+
 .plugin\.furthercms\.category\.urlkey\.label {
     margin-top: -20px;
     margin-bottom: 10px;
