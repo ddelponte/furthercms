@@ -128,4 +128,9 @@ class HtmlModuleController {
             redirect(action: "show", id: id)
         }
     }
+
+    def renderEditor(String name) {
+        log.info params
+        render(template: "/modules/html/ckeditor", model: [name: name])
+    }
 }

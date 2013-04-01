@@ -163,20 +163,6 @@ jQuery(document).ready(function () {
 });
 
 /**
- *
- * @param ui The sortable ui element.  Usually a list item
- * @return The unique name of the HTML editor as defined in the DOM
- */
-function getHtmlEditorName(ui) {
-    var ckedname = $(ui.item).find("div.html_ckeditor").find("span").attr("id");
-    if (ckedname) {
-        var ckedname_arr = ckedname.split("_");
-        ckedname = ckedname_arr[1] + "_" + ckedname_arr[2];
-    }
-    return ckedname;
-}
-
-/**
  * Every module has JavaScript functions which handle start sorting and end sorting.  This calls them.
  * @param functionName
  * @param ui
