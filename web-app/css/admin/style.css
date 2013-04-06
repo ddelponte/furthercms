@@ -18,6 +18,10 @@
     width: 100%
 }
 
+#modules-edit ul {
+    margin-left: 0px;
+}
+
 #modules-edit ul li {
     list-style: none;
 }
@@ -34,8 +38,22 @@ section#modules-edit div#button-status, section#modules-edit div#last-saved {
     margin-right: 1%;
 }
 
-section#modules-edit ul.sortable {
-    margin-left: 0px;
+div#reorder-modules-dialog-form ul.sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+div#reorder-modules-dialog-form ul.sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    height: 18px;
+}
+
+div#reorder-modules-dialog-form ul.sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
 }
 
 .plugin\.furthercms\.category\.urlkey\.label {
@@ -57,7 +75,7 @@ section#modules-edit a {
     float: right;
 }
 
-section#modules-edit a.save {
+section#modules-edit a.save, section#modules-edit a.reorder {
     margin-left: 1%;
 }
 

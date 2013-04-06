@@ -4,6 +4,8 @@
 
     <g:hiddenField name="version" value="${module?.version}" id="module_${module?.id}_version_${module?.version}"/>
 
+    <g:hiddenField name="displayOrder" value="${module?.displayOrder}" id="module.${module?.id}.displayOrder"/>
+
     <fc:htmlEditor
             name="html"
             data="${module?.html}"/>

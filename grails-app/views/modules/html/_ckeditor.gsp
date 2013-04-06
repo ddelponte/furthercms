@@ -1,4 +1,4 @@
-<r:require modules="jquery, jquery-ui, htmlModuleOnSort"/>
+<r:require modules="jquery, jquery-ui"/>
 
 %{--Takes a name and data in the model--}%
 <ckeditor:config var="toolbar_Mytoolbar" enterMode="CKEDITOR.ENTER_DIV">

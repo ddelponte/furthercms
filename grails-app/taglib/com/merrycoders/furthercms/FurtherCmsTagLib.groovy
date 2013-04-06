@@ -128,4 +128,8 @@ class FurtherCmsTagLib {
         out << render(template: "/modules/category/editor", model: [category: category, page: page])
     }
 
+    def reorderModulesButton = { attrs, body ->
+        out << render(template: "/admin/components/reorderModulesButton")
+    }
+
 }

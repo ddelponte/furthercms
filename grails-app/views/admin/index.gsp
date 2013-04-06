@@ -59,6 +59,8 @@
 
                 <div>
 
+                    <fc:reorderModulesButton/>
+
                     <ui:button class="save" kind="anchor" mode="primary" text="plugin.furthercms.update"/>
 
                     <ui:button kind="anchor" mode="danger" text="plugin.furthercms.delete"/>
@@ -78,7 +80,7 @@
 
                 </section>
 
-                <ul class="sortable">
+                <ul>
 
                     <g:each in="${modules}" var="module">
 
@@ -95,8 +97,6 @@
                         </li>
 
                     </g:each>
-
-                    <li>put stuf fhere</li>
 
                 </ul>
 

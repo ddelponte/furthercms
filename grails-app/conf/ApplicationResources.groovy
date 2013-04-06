@@ -68,9 +68,8 @@ modules = {
         resource(url: "js/admin/moduleTypes.js")
     }
 
-//    Modules
-    htmlModuleOnSort {
-        dependsOn "jquery"
-        resource(url: "js/admin/modules/html/onSort.js")
+    reorderModules {
+        dependsOn "jquery, jquery-ui"
+        resource(url: "js/admin/modules/reorderModules.js")
     }
 }

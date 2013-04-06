@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
     var totalSavedForms = 0;
 
     // When user clicks the save button, submit all module forms
-    jQuery("section#modules-edit a.btn").click(function (event) {
+    jQuery("section#modules-edit a.save").click(function (event) {
         event.preventDefault();
         totalErrors = 0;
         totalSavedForms = 0;
@@ -121,29 +121,6 @@ jQuery(document).ready(function () {
         }
     }
 
-    // Sortable modules
-    var sortableModules = jQuery("#modules-edit ul.sortable");
-
-    sortableModules.sortable({
-        placeholder: 'highlight',
-        forcePlaceholderSize: true,
-        axis: 'y',
-        start: function (event, ui) {
-            var dataModuleName = getDataModuleName(ui);
-            var functionName = dataModuleName + "StartSort";
-            callModuleSortMethod(functionName, ui);
-
-            jQuery(this).sortable('refreshPositions');
-        },
-        stop: function (event, ui) {
-            var dataModuleName = getDataModuleName(ui);
-            var functionName = dataModuleName + "StopSort";
-            callModuleSortMethod(functionName, ui);
-        }
-    });
-
-    sortableModules.disableSelection();
-
     /**
      * Returns the name of the module instance being moved.  This is equivalent to calling the Module.toString() method, except the returned string is not
      * capitalized
@@ -155,21 +132,4 @@ jQuery(document).ready(function () {
         return dataModuleName;
     }
 
-//    var moduleFormInputs = jQuery("section#modules-edit form input");
-//    moduleFormInputs.change(function () {
-//        alert($(this).attr("name"));
-//    });
-
 });
-
-/**
- * Every module has JavaScript functions which handle start sorting and end sorting.  This calls them.
- * @param functionName
- * @param ui
- */
-function callModuleSortMethod(functionName, ui) {
-    var fn = window[functionName];
-    if (typeof fn === 'function') {
-        fn(ui);
-    }
-}
