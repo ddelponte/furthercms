@@ -121,15 +121,4 @@ jQuery(document).ready(function () {
         }
     }
 
-    /**
-     * Returns the name of the module instance being moved.  This is equivalent to calling the Module.toString() method, except the returned string is not
-     * capitalized
-     * @param ui
-     * @return {*|jQuery}
-     */
-    function getDataModuleName(ui) {
-        var dataModuleName = $(ui.item).find("section.module").attr("data-module-name");
-        return dataModuleName;
-    }
-
 });

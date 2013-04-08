@@ -86,7 +86,7 @@
 
                         <li>
 
-                            <section class="module" data-module-name="${WordUtils.uncapitalize(module?.class?.simpleName)}">
+                            <section class="module" data-module-name="${module}" data-module-id="${module?.id}">
 
                                 <div class="errors" style="display: none;"></div>
 
