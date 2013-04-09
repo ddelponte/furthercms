@@ -7,7 +7,7 @@ var sortableModules = jQuery("#modules-edit ul li section.module");
 
 var reorderModulesDialogForm = jQuery("div#reorder-modules-dialog-form");
 
-var sortableModulesList = jQuery("div#reorder-modules-dialog-form ul.sortable");
+var sortableModulesDialogList = jQuery("div#reorder-modules-dialog-form ul.sortable");
 
 /**
  *
@@ -15,13 +15,12 @@ var sortableModulesList = jQuery("div#reorder-modules-dialog-form ul.sortable");
  */
 function openReorderModulesDialog() {
     // update dialog
-    var startTag = '<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
-    var endTag = '</li>'
-    sortableModulesList.html("");
+    sortableModulesDialogList.html("");
 
     jQuery.each(sortableModules, function (key, value) {
-        // update dialog
-        sortableModulesList.append(startTag + jQuery(value).attr("data-module-name") + endTag);
+        var startTag = '<li class="ui-state-default" data-module-id="' + jQuery(value).attr("data-module-id") + '"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
+        var endTag = '</li>'
+        sortableModulesDialogList.append(startTag + jQuery(value).attr("data-module-name") + endTag);
     });
 
     reorderModulesDialogForm.dialog("open");
@@ -38,8 +37,16 @@ reorderModulesDialogForm.dialog({
             $(this).dialog("close");
         },
         "Save": function () {
+            // Update form display order values
+            jQuery.each(sortableModules, function (key, value) {
+                var moduleId = jQuery(value).attr("data-module-id");
+                var displayOrderInput = jQuery('section[data-module-id="' + moduleId + '"] form input[name="displayOrder"]');
+                displayOrderInput.val(key);
+            });
 
-            // Save the module ids as a JSON object in the hidden field in their new sort order
+            reorderModulesDialogForm.dialog("close");
+            saveModules();
+
         }
     },
     close: function () {
@@ -47,7 +54,7 @@ reorderModulesDialogForm.dialog({
     }
 });
 
-sortableModulesList.sortable({
+sortableModulesDialogList.sortable({
     forcePlaceholderSize: true,
     axis: 'y',
     start: function (event, ui) {
@@ -60,4 +67,4 @@ sortableModulesList.sortable({
     }
 });
 
-sortableModulesList.disableSelection();
+sortableModulesDialogList.disableSelection();
