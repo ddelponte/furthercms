@@ -45,7 +45,7 @@ reorderModulesDialogForm.dialog({
             });
 
             reorderModulesDialogForm.dialog("close");
-            saveModules();
+            saveModules(true);
 
         }
     },

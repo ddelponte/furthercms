@@ -3,8 +3,6 @@ jQuery(document).ready(function () {
     // When user clicks the save button, submit all module forms
     jQuery("section#modules-edit a.save").click(function (event) {
         event.preventDefault();
-        totalErrors = 0;
-        totalSavedForms = 0;
         saveModules();
     });
 
@@ -14,8 +12,18 @@ var buttonStatus = jQuery("section#modules-edit div#button-status");
 var totalErrors = 0;
 var totalSavedForms = 0;
 
-// Select all module forms and submit them
-function saveModules() {
+function resetFormSaveTotals() {
+    totalErrors = 0;
+    totalSavedForms = 0;
+}
+
+/**
+ * Select all module forms and submit them
+ * @param reload Reloads the page after all modules are saved, even if there was a validation error on one of the modules
+ */
+function saveModules(reload) {
+    resetFormSaveTotals();
+
     CKupdate();
 
     buttonStatus.attr("style", "visibility: visible");
@@ -42,14 +50,14 @@ function saveModules() {
                     showErrors(jsonData.errors, form.prev("div.errors"));
                 }
 
-                updateButtonSaveStatus(totalModuleForms);
+                updateButtonSaveStatus(totalModuleForms, reload);
 
             },
 
             error: function () {
                 totalSavedForms++;
                 totalErrors++;
-                updateButtonSaveStatus(totalModuleForms);
+                updateButtonSaveStatus(totalModuleForms, reload);
                 console.log('error');
             }
 
@@ -81,7 +89,7 @@ function getFormattedDateAndTime() {
  * Display 'Saving...' under the buttons.  Clear it when done.
  * @param totalModuleForms Total number of forms being submitted
  */
-function updateButtonSaveStatus(totalModuleForms) {
+function updateButtonSaveStatus(totalModuleForms, reload) {
 
     if (totalModuleForms == totalSavedForms) {
         if (totalErrors == 0) {
@@ -90,6 +98,10 @@ function updateButtonSaveStatus(totalModuleForms) {
         } else {
             buttonStatus.text(buttonStatus.attr("data-error-saving-message") + " " + getFormattedDateAndTime());
             buttonStatus.effect("highlight", {color: "#f2dede"}, 3000);
+        }
+
+        if (reload) {
+            location.reload();
         }
     }
 
