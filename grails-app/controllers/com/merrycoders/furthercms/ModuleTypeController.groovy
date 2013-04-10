@@ -32,6 +32,7 @@ class ModuleTypeController {
         }
 
         def moduleEditTag = getModuleEditTag(id)
+        // ToDo: Refactor below into a separate method
         def moduleType = ModuleType.get(id)
         def pageInstance = Page.get(params.long("page.id"))
         def module = Module.create([moduleType: moduleType, page: pageInstance, html: "", flush: true])
