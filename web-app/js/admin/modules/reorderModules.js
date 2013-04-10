@@ -3,11 +3,15 @@ jQuery("a.reorder").click(function (event) {
     openReorderModulesDialog();
 });
 
-var sortableModules = jQuery("#modules-edit ul li section.module");
-
 var reorderModulesDialogForm = jQuery("div#reorder-modules-dialog-form");
 
-var sortableModulesDialogList = jQuery("div#reorder-modules-dialog-form ul.sortable");
+function getSortableModules() {
+    return jQuery("#modules-edit ul li section.module");
+}
+
+function getSortableModulesDialogList() {
+    return jQuery("div#reorder-modules-dialog-form ul.sortable");
+}
 
 /**
  *
@@ -15,7 +19,10 @@ var sortableModulesDialogList = jQuery("div#reorder-modules-dialog-form ul.sorta
  */
 function openReorderModulesDialog() {
     // update dialog
+    var sortableModulesDialogList = getSortableModulesDialogList();
     sortableModulesDialogList.html("");
+
+    var sortableModules = getSortableModules();
 
     jQuery.each(sortableModules, function (key, value) {
         var startTag = '<li class="ui-state-default" data-module-id="' + jQuery(value).attr("data-module-id") + '"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
@@ -38,10 +45,10 @@ reorderModulesDialogForm.dialog({
         },
         "Save": function () {
             // Update form display order values
-            jQuery.each(sortableModules, function (key, value) {
+            jQuery.each(getSortableModulesDialogList().children(), function (key, value) {
                 var moduleId = jQuery(value).attr("data-module-id");
-                var displayOrderInput = jQuery('section[data-module-id="' + moduleId + '"] form input[name="displayOrder"]');
-                alert(displayOrderInput).html();
+                var selector = 'section[data-module-id="' + moduleId + '"] form input[name="displayOrder"]';
+                var displayOrderInput = jQuery(selector);
                 displayOrderInput.val(key);
             });
 
@@ -55,7 +62,7 @@ reorderModulesDialogForm.dialog({
     }
 });
 
-sortableModulesDialogList.sortable({
+getSortableModulesDialogList().sortable({
     forcePlaceholderSize: true,
     axis: 'y',
     start: function (event, ui) {
@@ -68,4 +75,4 @@ sortableModulesDialogList.sortable({
     }
 });
 
-sortableModulesDialogList.disableSelection();
+getSortableModulesDialogList().disableSelection();
