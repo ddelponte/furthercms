@@ -1,22 +1,52 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.Module
 import org.springframework.dao.DataIntegrityViolationException
 
 class ModuleTypeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    /**
+     * Render a ModuleType's edit view
+     * @param id
+     * @return html which renders the ModuleType's edit view
+     */
     def renderModuleEdit(Long id) {
         if (!id) {
             render ""
             return
         }
 
+        render getModuleEditTag(id)
+    }
+
+    /**
+     * Render a ModuleType's edit view wrapped in an li and a section element
+     * @param id
+     */
+    def renderNewModuleEditListItem(Long id) {
+        if (!id) {
+            render ""
+            return
+        }
+
+        def moduleEditTag = getModuleEditTag(id)
+        def moduleType = ModuleType.get(id)
+        def pageInstance = Page.get(params.long("page.id"))
+        def module = Module.create([moduleType: moduleType, page: pageInstance, html: "", flush: true])
+        def sectionElement = "<section class=\"module\" data-module-name=\"${module}\" data-module-id=\"${module?.id}\">"
+        def errorElement = "<div class=\"errors\" style=\"display: none;\"></div>"
+        render "<li>${sectionElement}${errorElement}${moduleEditTag}</section></li>"
+
+    }
+
+    private getModuleEditTag(Long id) {
         def moduleType = ModuleType.get(id)
         def module = moduleType.module
         def pageInstance = Page.get(params.long("page.id"))
         module.page = pageInstance
-        render fc.renderModuleEdit([module: module], "")
+        return fc.renderModuleEdit([module: module], "")
     }
 
     def index() {

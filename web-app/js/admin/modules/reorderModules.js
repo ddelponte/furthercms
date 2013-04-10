@@ -41,6 +41,7 @@ reorderModulesDialogForm.dialog({
             jQuery.each(sortableModules, function (key, value) {
                 var moduleId = jQuery(value).attr("data-module-id");
                 var displayOrderInput = jQuery('section[data-module-id="' + moduleId + '"] form input[name="displayOrder"]');
+                alert(displayOrderInput).html();
                 displayOrderInput.val(key);
             });
 
