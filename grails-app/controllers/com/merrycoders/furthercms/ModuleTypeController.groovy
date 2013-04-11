@@ -26,7 +26,7 @@ class ModuleTypeController {
 
     /**
      * Render a ModuleType's edit view wrapped in an li and a section element
-     * @param id
+     * @param id The ModuleType id
      */
     def renderNewModuleEditListItem(Long id) {
         if (!id) {
@@ -44,6 +44,11 @@ class ModuleTypeController {
 
     }
 
+    /**
+     * Creates a new module for the specified ModuleType and page
+     * @param id The ModuleType id
+     * @return a Map containing the moduleEditTag markup and module instance associated with the tag
+     */
     private getModuleEditTagAndModule(Long id) {
         def moduleType = ModuleType.get(id)
         def pageInstance = Page.get(params.long("page.id"))
