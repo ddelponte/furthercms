@@ -22,6 +22,17 @@ class SpecificationDataCore extends Specification {
         primaryCategoryService = new PrimaryCategoryService()
     }
 
+    def mockFurtherCmsTagLib() {
+
+        def mockTagLib = mockFor(FurtherCmsTagLib)
+        mockTagLib.demand.renderModuleEdit(1..999) { Map attrs, String body ->
+            return [moduleEditTag: attrs.module.toString()]
+        }
+
+        return mockTagLib.createMock()
+
+    }
+
     def initAllData() {
         initCategories()
         initNavAdminMenuItems()

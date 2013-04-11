@@ -10,7 +10,7 @@ class ModuleTypeController {
 
     /**
      * Render a ModuleType's edit view
-     * @param id
+     * @param id ModuleType id
      * @return html which renders the ModuleType's edit view
      */
     def renderModuleEdit(Long id) {
