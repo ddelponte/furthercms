@@ -18,7 +18,10 @@ class ModuleTypeController {
             return
         }
 
-        render getModuleEditTag(id)
+        def moduleData = getModuleEditTagAndModule(id)
+        def moduleEditTag = moduleData.moduleEditTag
+
+        render moduleEditTag
     }
 
     /**
@@ -31,23 +34,24 @@ class ModuleTypeController {
             return
         }
 
-        def moduleEditTag = getModuleEditTag(id)
-        // ToDo: Refactor below into a separate method
-        def moduleType = ModuleType.get(id)
-        def pageInstance = Page.get(params.long("page.id"))
-        def module = Module.create([moduleType: moduleType, page: pageInstance, html: "", flush: true])
+        def moduleData = getModuleEditTagAndModule(id)
+        def moduleEditTag = moduleData.moduleEditTag
+        def module = moduleData.module
         def sectionElement = "<section class=\"module\" data-module-name=\"${module}\" data-module-id=\"${module?.id}\">"
         def errorElement = "<div class=\"errors\" style=\"display: none;\"></div>"
+
         render "<li>${sectionElement}${errorElement}${moduleEditTag}</section></li>"
 
     }
 
-    private getModuleEditTag(Long id) {
+    private getModuleEditTagAndModule(Long id) {
         def moduleType = ModuleType.get(id)
-        def module = moduleType.module
         def pageInstance = Page.get(params.long("page.id"))
+        def module = Module.create([moduleType: moduleType, page: pageInstance, html: "", flush: true])
         module.page = pageInstance
-        return fc.renderModuleEdit([module: module], "")
+        module.save(flush: true)
+
+        return [moduleEditTag: fc.renderModuleEdit([module: module], ""), module: module]
     }
 
     def index() {

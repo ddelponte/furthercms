@@ -20,9 +20,5 @@ jQuery("#available-module-types a").click(function (event) {
             .fail(function () {
                 alert("error");
             })
-            .always(function () {
-                alert("finished");
-            });
 
-    // Insert the a new instance of the module editor into the content
 });
