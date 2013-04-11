@@ -11,6 +11,8 @@ class ModuleService {
      * @return Module instance
      */
     def create(ModuleType moduleTypeInstance, Page pageInstance) {
+        if (!moduleTypeInstance || !pageInstance) return null
+
         def module = Module.create([moduleType: moduleTypeInstance, page: pageInstance, html: "", flush: true])
         module.page = pageInstance
         module.save(flush: true)
