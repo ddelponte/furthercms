@@ -35,4 +35,18 @@ class ModuleTypeControllerSpec extends SpecificationDataCore {
         response.text == "['moduleEditTag':'HTML']"
 
     }
+
+    def "test renderNewModuleEditListItem"() {
+        given:
+        initAllData()
+        populateValidParams(params)
+
+        when:
+        controller.renderNewModuleEditListItem()
+
+        then:
+        assert response.text.contains('<li><section class="module" data-module-name="HTML" data-module-id="4">')
+        assert response.text.contains('<div class="errors" style="display: none;"></div>')
+        assert response.text.contains('[moduleEditTag:HTML]</section></li>')
+    }
 }

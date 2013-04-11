@@ -19,7 +19,7 @@ class ModuleTypeController {
             return
         }
 
-        def moduleData = getModuleEditTagAndModule(id)
+        def moduleData = getModuleEditTagAndCreateModule(id)
         def moduleEditTag = moduleData.moduleEditTag
 
         render moduleEditTag
@@ -35,7 +35,7 @@ class ModuleTypeController {
             return
         }
 
-        def moduleData = getModuleEditTagAndModule(id)
+        def moduleData = getModuleEditTagAndCreateModule(id)
         def moduleEditTag = moduleData.moduleEditTag
         def module = moduleData.module
         def sectionElement = "<section class=\"module\" data-module-name=\"${module}\" data-module-id=\"${module?.id}\">"
@@ -50,7 +50,7 @@ class ModuleTypeController {
      * @param id The ModuleType id
      * @return a Map containing the moduleEditTag markup and module instance associated with the tag
      */
-    private getModuleEditTagAndModule(Long id) {
+    private getModuleEditTagAndCreateModule(Long id) {
         def moduleTypeInstance = ModuleType.get(id)
         def pageInstance = Page.get(params.long("page.id"))
         def module = moduleService.create(moduleTypeInstance, pageInstance)
