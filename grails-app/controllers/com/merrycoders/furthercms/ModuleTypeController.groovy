@@ -1,11 +1,12 @@
 package com.merrycoders.furthercms
 
-import com.merrycoders.furthercms.modules.Module
 import org.springframework.dao.DataIntegrityViolationException
 
 class ModuleTypeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+    def moduleService
 
     /**
      * Render a ModuleType's edit view
@@ -50,11 +51,9 @@ class ModuleTypeController {
      * @return a Map containing the moduleEditTag markup and module instance associated with the tag
      */
     private getModuleEditTagAndModule(Long id) {
-        def moduleType = ModuleType.get(id)
+        def moduleTypeInstance = ModuleType.get(id)
         def pageInstance = Page.get(params.long("page.id"))
-        def module = Module.create([moduleType: moduleType, page: pageInstance, html: "", flush: true])
-        module.page = pageInstance
-        module.save(flush: true)
+        def module = moduleService.create(moduleTypeInstance, pageInstance)
 
         return [moduleEditTag: fc.renderModuleEdit([module: module], ""), module: module]
     }
