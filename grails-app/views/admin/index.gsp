@@ -78,6 +78,8 @@
 
                     <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
 
+                    <g:hiddenField name="modulesToDelete" value="{}"/>
+
                 </section>
 
                 <ul>
@@ -87,6 +89,8 @@
                         <li>
 
                             <section class="module" data-module-name="${module}" data-module-id="${module?.id}">
+
+                                <fc:deleteModuleIcon/>
 
                                 <div class="errors" style="display: none;"></div>
 

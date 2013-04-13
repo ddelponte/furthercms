@@ -69,11 +69,17 @@ modules = {
     }
 
     reorderModules {
-        dependsOn "jquery, jquery-ui, json2, modules"
-        resource(url: "js/admin/modules/reorderModules.js")
+        dependsOn "jquery, jquery-ui, modules"
+        resource(url: "js/admin/components/reorderModules.js")
     }
 
     json2 {
         resource(url: "js/admin/json2.js")
+    }
+
+    deleteModuleIcon {
+        dependsOn "jquery"
+        resource(url: "css/admin/components/deleteModuleIcon.css")
+        resource(url: "js/admin/components/deleteModuleIcon.js")
     }
 }

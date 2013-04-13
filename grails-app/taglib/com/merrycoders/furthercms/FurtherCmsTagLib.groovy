@@ -132,4 +132,8 @@ class FurtherCmsTagLib {
         out << render(template: "/admin/components/reorderModulesButton")
     }
 
+    def deleteModuleIcon = { attrs, body ->
+        out << render(template: "/admin/components/deleteModuleIcon")
+    }
+
 }
