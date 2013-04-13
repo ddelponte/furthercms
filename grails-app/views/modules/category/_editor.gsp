@@ -10,6 +10,8 @@
 
     <g:hiddenField name="page.version" value="${page?.version}"/>
 
+    <g:hiddenField name="modulesToDelete" value="{}"/>
+
     <ui:field name="page.title" type="text" label="category.page.title.label" value="${page?.title}"/>
 
     <div class="plugin.furthercms.category.urlkey.label">${category?.parent?.urlKey}/<span>${category?.pageTitleToSlug()}</span></div>

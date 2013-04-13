@@ -78,8 +78,6 @@
 
                     <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
 
-                    <g:hiddenField name="modulesToDelete" value="{}"/>
-
                 </section>
 
                 <ul>

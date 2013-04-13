@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException
 class CategoryController {
     def utilityService
     def categoryService
+    def moduleService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -41,6 +42,9 @@ class CategoryController {
 
         try {
             categoryService.save(cmd.category, true)
+            def modulesToDeleteMap = JSON.parse(cmd.modulesToDelete)
+            def moduleIdsToDelete = modulesToDeleteMap.keySet()*.toLong()
+            moduleService.delete(moduleIdsToDelete)
         } catch (Exception ex) {
             log.error("Error save category $categoryInstance with page ${categoryInstance.page}")
         }
@@ -85,6 +89,7 @@ class CategoryController {
 class CategoryUpdateCommand {
     Page page = new Page()
     Category category = new Category()
+    String modulesToDelete
 
     static constraints = {
         page nullable: false

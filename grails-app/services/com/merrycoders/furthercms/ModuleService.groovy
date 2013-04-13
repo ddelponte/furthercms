@@ -19,4 +19,11 @@ class ModuleService {
 
         return module
     }
+
+    def delete(List<Long> ids) {
+        ids.each { id ->
+            def module = Module.get(id)
+            module.delete(flush: true)
+        }
+    }
 }
