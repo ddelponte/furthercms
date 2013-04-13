@@ -18,7 +18,7 @@ class ModuleServiceSpec extends SpecificationDataCore {
     def cleanup() {
     }
 
-    void "test module creation"() {
+    def "test module creation"() {
         given:
         initAllData()
         def moduleTypeInstance = ModuleType.findByName(moduleTypeName)

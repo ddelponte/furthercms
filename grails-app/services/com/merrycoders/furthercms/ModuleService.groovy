@@ -20,10 +20,16 @@ class ModuleService {
         return module
     }
 
-    def delete(List<Long> ids) {
-        ids.each { id ->
-            def module = Module.get(id)
-            module.delete(flush: true)
+    /**
+     *
+     * @param ids List of Long Module ids
+     */
+    def void delete(List<Long> ids) {
+        if (ids - null) {
+            ids.each { id ->
+                def module = Module.get(id)
+                module.delete(flush: true)
+            }
         }
     }
 }
