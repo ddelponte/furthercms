@@ -172,4 +172,28 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         assert results.contains('<ui:field name="page.title" type="text" label="category.page.title.label" value="HTML Child Title"></ui:field>')
         assert results.contains('<div class="plugin.furthercms.category.urlkey.label">home-title/html-title/<span>slug</span></div>')
     }
+
+    def "reorderModulesButton"() {
+        when:
+        def results = tagLib.reorderModulesButton([:])
+
+        then:
+        assert results.contains('<r:require modules="reorderModules"></r:require>')
+        assert results.contains('<ui:button class="reorder" kind="anchor" mode="secondary" text="plugin.furthercms.reorder"></ui:button>')
+        assert results.contains('<div id="reorder-modules-dialog-form" title="plugin.furthercms.reorder.modules" style="display: none;">')
+        assert results.contains('<p class="validateTips">')
+        assert results.contains('<form action="/" method="post" >')
+        assert results.contains('<ul class="sortable">')
+        assert results.contains('<input type="hidden" name="sortedModules" value="" id="sortedModules" />')
+    }
+
+    def "deleteModuleIcon"() {
+        when:
+        def results = tagLib.deleteModuleIcon([:])
+
+        then:
+        assert results.contains('<r:require modules="deleteModuleIcon"></r:require>')
+        assert results.contains('<a href="#" title="plugin.furthercms.delete.module.icon">')
+        assert results.contains('<img src="/images/icons/delete.png" class="delete" alt-text="plugin.furthercms.delete.module.icon" />')
+    }
 }
