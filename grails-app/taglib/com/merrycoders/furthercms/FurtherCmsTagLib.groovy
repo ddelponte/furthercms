@@ -107,12 +107,20 @@ class FurtherCmsTagLib {
         out << render(template: "/modules/${viewFolder}/public", model: [module: module])
     }
 
+    /**
+     * @attr module Module instance
+     */
     def renderModuleEdit = { attrs, body ->
         def module = attrs?.module
         def viewFolder = module?.moduleType?.viewFolder
         out << render(template: "/modules/${viewFolder}/edit", model: [module: module])
     }
 
+    /**
+     * @attr name unique name of html editor
+     * @attr height height of editor in pixels (px) or percentage (%).  Defaults to 100%.
+     * @attr width width of editor in pixels (px) or percentage(%).  Defaults to 100%.
+     */
     def htmlEditor = { attrs, body ->
         def name = attrs?.name
         def height = attrs?.height
@@ -122,16 +130,28 @@ class FurtherCmsTagLib {
         out << render(template: "/modules/html/editor", model: [name: name, height: height, width: width, data: data])
     }
 
+    /**
+     * @attr category Category instance
+     * @attr page Page instance
+     */
     def categoryEditor = { attrs, body ->
         Category category = attrs.category
         Page page = attrs.page
         out << render(template: "/modules/category/editor", model: [category: category, page: page])
     }
 
+    /**
+     * Renders a button which opens a dialog that allows backend user to reorder page's modeuls
+     */
     def reorderModulesButton = { attrs, body ->
         out << render(template: "/admin/components/reorderModulesButton")
     }
 
+    /**
+     * Renders an image icon which, when clicked, updates a hidden field with a JSON representation
+     * of it's associated module instance to delete.  For example, {"2":"delete"} where "2" is the
+     * id of the module to delete
+     */
     def deleteModuleIcon = { attrs, body ->
         out << render(template: "/admin/components/deleteModuleIcon")
     }

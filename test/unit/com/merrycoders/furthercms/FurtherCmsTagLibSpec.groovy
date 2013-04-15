@@ -150,4 +150,26 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         assert results.contains('" height="50%" width="50%" toolbar="Mytoolbar">')
         assert results.contains('<p>HTML data</p>')
     }
+
+    def "categoryEditor"() {
+        given:
+        initAllData()
+        def page = Page.findByTitle(htmlChildPageTitle)
+        def category = Category.findByPage(page)
+        category.metaClass.pageTitleToSlug = {-> return "slug" }
+
+        when:
+        def results = tagLib.categoryEditor([category: category, page: page])
+
+        then:
+        assert results.contains('<r:require modules="categoryEditor"></r:require>')
+        assert results.contains('<ui:form controller="category" action="update">')
+        assert results.contains('<input type="hidden" name="category.id" value="4" id="category.id" />')
+        assert results.contains('<input type="hidden" name="category.version" value="0" id="category.version" />')
+        assert results.contains('<input type="hidden" name="page.id" value="3" id="page.id" />')
+        assert results.contains('<input type="hidden" name="page.version" value="1" id="page.version" />')
+        assert results.contains('<input type="hidden" name="modulesToDelete" value="{}" id="modulesToDelete" />')
+        assert results.contains('<ui:field name="page.title" type="text" label="category.page.title.label" value="HTML Child Title"></ui:field>')
+        assert results.contains('<div class="plugin.furthercms.category.urlkey.label">home-title/html-title/<span>slug</span></div>')
+    }
 }
