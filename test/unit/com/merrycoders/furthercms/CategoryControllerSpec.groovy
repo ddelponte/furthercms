@@ -65,4 +65,5 @@ class CategoryControllerSpec extends SpecificationDataCore {
         ""             | true         | "home-title/html-title/html-child-title"
 
     }
+
 }

@@ -2,7 +2,7 @@ package com.merrycoders.furthercms
 
 class PrimaryCategoryService {
 
-    public PrimaryCategory save(PrimaryCategory primaryCategory, Boolean flush = false) {
+    PrimaryCategory save(PrimaryCategory primaryCategory, Boolean flush = false) {
         if (!primaryCategory) return null
 
         if (!primaryCategory?.displayOrder) {
@@ -12,5 +12,11 @@ class PrimaryCategoryService {
 
         primaryCategory.save(flush: flush)
 
+    }
+
+    void delete(List<PrimaryCategory> primaryCategories) {
+        if (primaryCategories) {
+            primaryCategories*.delete(flush: true)
+        }
     }
 }

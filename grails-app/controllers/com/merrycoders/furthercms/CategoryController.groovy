@@ -9,7 +9,7 @@ class CategoryController {
     def categoryService
     def moduleService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: ["POST", "GET"]]
 
     def create() {
         [categoryInstance: new Category(params)]
@@ -65,22 +65,30 @@ class CategoryController {
         return
     }
 
+    /**
+     * Delete the Category instance and associated Page instance
+     * @param id Category id
+     * @return redirect to the home page editor
+     */
     def delete(Long id) {
         def categoryInstance = Category.get(id)
         if (!categoryInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'category.label', default: 'Category'), id])
-            redirect(action: "list")
+            displayFlashMessage([text: 'default.not.found.message', type: "warning", args: [message(code: 'category.label', default: 'Category'), id]])
+            redirect(controller: "admin", action: "index")
             return
         }
 
+        def url = categoryInstance.urlKey
+
         try {
-            categoryInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'category.label', default: 'Category'), id])
-            redirect(action: "list")
+            categoryService.delete(categoryInstance)
+            displayFlashMessage([text: "category.delete.success", args: [url]])
+            redirect(controller: "admin", action: "index")
         }
         catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'category.label', default: 'Category'), id])
-            redirect(action: "show", id: id)
+            log.error("Unable to delete category with id of ${id}", e)
+            displayFlashMessage([text: 'default.not.deleted.message', type: "error", args: [message(code: 'category.label', default: 'Category'), id]])
+            redirect(controller: "admin", action: "edit", id: categoryInstance?.id)
         }
     }
 

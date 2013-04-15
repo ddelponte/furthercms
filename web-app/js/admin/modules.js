@@ -1,3 +1,6 @@
+/**
+ * Provides functionality when editing pages like saving, deleting, showing errors and updating the page status
+ */
 jQuery(document).ready(function () {
 
     // When user clicks the save button, submit all module forms
@@ -6,8 +9,15 @@ jQuery(document).ready(function () {
         saveModules();
     });
 
+    // When user clicks the save button, submit all module forms
+    jQuery(categoryDeleteButtonSelector).click(function (event) {
+        event.preventDefault();
+        deletePage();
+    });
+
 });
 
+var categoryDeleteButtonSelector = "section#modules-edit a.delete";
 var buttonStatus = jQuery("section#modules-edit div#button-status");
 var totalErrors = 0;
 var totalSavedForms = 0;
@@ -65,6 +75,11 @@ function saveModules(reload) {
 
     });
 
+}
+
+function deletePage() {
+    var url = jQuery(categoryDeleteButtonSelector).attr("data-url");
+    document.location.href = url;
 }
 
 function clearErrors() {

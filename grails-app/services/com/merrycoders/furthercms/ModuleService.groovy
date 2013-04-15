@@ -22,12 +22,23 @@ class ModuleService {
 
     /**
      *
+     * @param modules List of Module instances
+     */
+    void deleteModules(List<Module> modules) {
+        modules.each { module ->
+            module.delete(flush: true)
+        }
+    }
+
+    /**
+     *
      * @param ids List of Long Module ids
      */
-    def void delete(List<Long> ids) {
+    void delete(List<Long> ids) {
         if (ids - null) {
             ids.each { id ->
                 def module = Module.get(id)
+                module.page = null
                 module.delete(flush: true)
             }
         }

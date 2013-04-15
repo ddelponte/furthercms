@@ -34,8 +34,6 @@
 
         <theme:zone name="body">
 
-            <ui:displayMessage/>
-
             <ui:h1 text="dataentry.page.body.heading"/>
 
             <section id="category_nav">
@@ -57,13 +55,17 @@
 
             <section id="modules-edit">
 
+                <ui:displayMessage/>
+
                 <div>
 
                     <fc:reorderModulesButton/>
 
                     <ui:button class="save" kind="anchor" mode="primary" text="plugin.furthercms.update"/>
 
-                    <ui:button kind="anchor" mode="danger" text="plugin.furthercms.delete"/>
+                    <ui:button class="delete" kind="anchor" mode="danger"
+                               data-url="${createLink([controller: 'category', action: 'delete', params: [id: categoryInstance?.id]])}"
+                               text="plugin.furthercms.delete"/>
 
                 </div>
 

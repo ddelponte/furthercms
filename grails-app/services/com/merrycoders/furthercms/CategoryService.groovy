@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils
 
 class CategoryService {
     def pageService
+    def primaryCategoryService
     def utilityService
 
     /**
@@ -28,7 +29,7 @@ class CategoryService {
      * @param flush
      * @return The saved Category or PrimaryCategory instance
      */
-    public Category save(Category category, Boolean flush = false) {
+    Category save(Category category, Boolean flush = false) {
         if (!category) return null
 
         pageService.save(category.page, true)
@@ -48,5 +49,26 @@ class CategoryService {
         }
 
         category.save(flush: flush)
+    }
+
+    /**
+     * Delete the Category instance as well as its associated PrimaryCategory, Page and Module instances
+     * @param category
+     */
+    void delete(Category category) {
+        if (category) {
+            category.children.each{ childCategory -> delete(childCategory)}
+
+            def page = category.page
+            category.page = null
+            category.delete(flush: true)
+
+            pageService.delete(page)
+
+            def primaryCategories = PrimaryCategory.findAllByCategory(category)
+            primaryCategoryService.delete(primaryCategories)
+
+
+        }
     }
 }

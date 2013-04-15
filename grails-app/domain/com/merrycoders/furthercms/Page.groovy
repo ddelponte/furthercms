@@ -28,10 +28,6 @@ class Page {
         modules fetch: 'join'
     }
 
-    def beforeDelete() {
-        Module.withNewSession { modules*.delete() }
-    }
-
     def getModules() {
         Module.findAllByPage(this, [sort: "displayOrder", order: "asc"])
     }
