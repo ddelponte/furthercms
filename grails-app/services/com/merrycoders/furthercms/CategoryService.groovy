@@ -59,14 +59,14 @@ class CategoryService {
         if (category) {
             category.children.each{ childCategory -> delete(childCategory)}
 
+            def primaryCategories = PrimaryCategory.findAllByCategory(category)
+            primaryCategoryService.delete(primaryCategories)
+
             def page = category.page
             category.page = null
             category.delete(flush: true)
 
             pageService.delete(page)
-
-            def primaryCategories = PrimaryCategory.findAllByCategory(category)
-            primaryCategoryService.delete(primaryCategories)
 
 
         }

@@ -15,8 +15,9 @@ class PrimaryCategoryService {
     }
 
     void delete(List<PrimaryCategory> primaryCategories) {
-        if (primaryCategories) {
-            primaryCategories*.delete(flush: true)
+        primaryCategories.each { primaryCategory ->
+            primaryCategory.category = null
+            primaryCategory.delete(flush: true)
         }
     }
 }
