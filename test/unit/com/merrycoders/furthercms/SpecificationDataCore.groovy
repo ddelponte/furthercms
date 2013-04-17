@@ -16,10 +16,18 @@ class SpecificationDataCore extends Specification {
     def primaryCategoryService
 
     def setup() {
+        categoryService = initCategoryService()
+    }
+
+    def initCategoryService() {
         categoryService = new CategoryService()
-        categoryService.pageService = new PageService()
+        def pageService = new PageService()
+        pageService.moduleService = new ModuleService()
+        categoryService.pageService = pageService
         categoryService.utilityService = new UtilityService()
         primaryCategoryService = new PrimaryCategoryService()
+        categoryService.primaryCategoryService = primaryCategoryService
+        return categoryService
     }
 
     def mockFurtherCmsTagLib() {

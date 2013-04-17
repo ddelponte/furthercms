@@ -10,8 +10,10 @@ import grails.test.mixin.TestFor
 class CategoryServiceSpec extends SpecificationDataCore {
 
     def setup() {
-        service.pageService = new PageService()
-        service.utilityService = new UtilityService()
+        def categoryService = initCategoryService()
+        service.pageService = categoryService.pageService
+        service.utilityService = categoryService.utilityService
+        service.primaryCategoryService = categoryService.primaryCategoryService
     }
 
     def cleanup() {
