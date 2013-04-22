@@ -21,4 +21,4 @@
 
 </div>
 
-<div data-category-move-action="${appContext}/admin/category/move" style="visibility: hidden"></div>
+<div data-category-move-action="${createLink(controller: 'category', action: 'move')}" style="visibility: hidden"></div>

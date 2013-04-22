@@ -84,8 +84,7 @@ class FurtherCmsTagLib {
         String style = attrs?.style
         String cssClass = attrs?.class
         String selectedNodeId = attrs?.selectedNodeIdchildren
-        def appContext = grailsApplication.config.grails.furthercms.app.context
-        out << render(template: "/admin/navigation/navTree/tree", model: [nodes: [rootCategory], style: style, cssClass: cssClass, selectedNodeId: selectedNodeId, appContext: appContext])
+        out << render(template: "/admin/navigation/navTree/tree", model: [nodes: [rootCategory], style: style, cssClass: cssClass, selectedNodeId: selectedNodeId])
     }
     /**
      * Renders the children of the category as a tree
