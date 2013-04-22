@@ -1,5 +1,5 @@
 // configuration for plugin testing - will not be included in the plugin zip
-grails.furthercms.app.context = "furthercms"
+grails.furthercms.app.context = "/furthercms"
 log4j = {
     // Example of changing the log pattern for the default console
     // appender:

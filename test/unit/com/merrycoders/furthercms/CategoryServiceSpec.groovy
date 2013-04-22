@@ -41,7 +41,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
 
         where:
         urlKey                                   | name         | description | parentUrlKey            | pageTitle          | categoryPrimaryCount
-        ""                                       | "Root"       | null        | null                    | null               | 0
+        ""                                       | "Site"       | null        | null                    | null               | 0
         "home-title"                             | "Home"       | null        | ""                      | "Home Title"       | 1
         "home-title/html-title"                  | "HTML"       | null        | "home-title"            | "HTML Title"       | 0
         "home-title/html-title/html-child-title" | "HTML Child" | null        | "home-title/html-title" | "HTML Child Title" | 0

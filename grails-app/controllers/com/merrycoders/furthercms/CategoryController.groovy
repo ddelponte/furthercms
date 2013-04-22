@@ -92,6 +92,10 @@ class CategoryController {
         }
     }
 
+    def move(Long id, Long parentId) {
+        render "$id $parentId"
+    }
+
 }
 
 class CategoryUpdateCommand {
