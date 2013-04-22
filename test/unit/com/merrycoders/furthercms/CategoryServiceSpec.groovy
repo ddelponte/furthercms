@@ -67,4 +67,28 @@ class CategoryServiceSpec extends SpecificationDataCore {
         savedPrimaryCategory.displayOrder == 1
         savedPrimaryCategory.siblings.size() == 1
     }
+
+    def "move"() {
+        given:
+        initCategories()
+        def category = Category.findByName(childName)
+        def parentCategory = Category.findByName(parentName)
+
+        when:
+        def results = service.move(category, parentCategory)
+
+        then:
+        results?.urlKey == expectedUrlKey
+
+        where:
+        childName    | parentName   | expectedUrlKey
+        "Home"       | "HTML"       | null
+        "Home"       | "HTML Child" | null
+        "HTML"       | "Home"       | "home-title/html-title"
+        "HTML"       | "HTML Child" | null
+        "HTML Child" | "Home"       | "home-title/html-child-title"
+        "HTML Child" | "HTML"       | "home-title/html-title/html-child-title"
+        "Home"       | "Home"       | null
+
+    }
 }

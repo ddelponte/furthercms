@@ -29,7 +29,7 @@ class CategoryController {
     def update(CategoryUpdateCommand cmd) {
         if (!cmd.page.validate() || !cmd.category.validate()) {
             if (request.xhr) {
-                renderAjaxResponse(cmd)
+                renderAjaxResponse([cmd.page, cmd.category])
                 return
             } else {
                 render ""
@@ -50,7 +50,7 @@ class CategoryController {
         }
 
         if (request.xhr) {
-            renderAjaxResponse(cmd)
+            renderAjaxResponse([cmd.page, cmd.category])
             return
         } else {
             flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), categoryInstance.id])
@@ -58,8 +58,8 @@ class CategoryController {
         }
     }
 
-    private renderAjaxResponse(CategoryUpdateCommand cmd) {
-        AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([cmd.page, cmd.category])
+    private renderAjaxResponse(List domainObjects) {
+        AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse(domainObjects)
         response.status = 200
         render ajaxPostResponse as JSON
         return
@@ -92,8 +92,19 @@ class CategoryController {
         }
     }
 
+    /**
+     * Assigns a new parent Category associated with the parentId to the Category associated with the id.  All children of the Category have their urlKey
+     * updated to reflect the change
+     * @param id
+     * @param parentId
+     * @return an AjaxResponseObject
+     */
     def move(Long id, Long parentId) {
-        render "$id $parentId"
+        def category = Category.get(id)
+        def parentCategory = Category.get(parentId)
+        categoryService.move(category, parentCategory)
+        renderAjaxResponse([category, parentCategory])
+        return
     }
 
 }

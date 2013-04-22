@@ -27,9 +27,10 @@ class CategoryService {
      * Saves both Category and PrimaryCategory instances and ensures their displayOrder is properly set
      * @param category
      * @param flush
+     * @throws ValidationException
      * @return The saved Category or PrimaryCategory instance
      */
-    Category save(Category category, Boolean flush = false) {
+    Category save(Category category, Boolean flush = false) throws ValidationException {
         if (!category) return null
 
         pageService.save(category.page, true)
@@ -57,7 +58,7 @@ class CategoryService {
      */
     void delete(Category category) {
         if (category) {
-            category.children.each{ childCategory -> delete(childCategory)}
+            category.children.each { childCategory -> delete(childCategory) }
 
             def primaryCategories = PrimaryCategory.findAllByCategory(category)
             primaryCategoryService.delete(primaryCategories)
@@ -70,5 +71,26 @@ class CategoryService {
 
 
         }
+    }
+
+    /**
+     * Assigns the parent to the category, updating the urlKeys of the category's children.
+     * Users are not allowed to move a Category to one of it's children, thereby making the child its parent.
+     * @param category
+     * @param parent
+     * @throws ValidationException
+     * @return The category instance with the new parent
+     */
+    Category move(Category category, Category parent) throws ValidationException {
+        if (!category || !parent || category?.descendants?.contains(parent) || category == parent) return null
+
+        category.parent = parent
+        save(category)
+
+        for (child in category.children) {
+            save(child)
+        }
+
+        return category
     }
 }
