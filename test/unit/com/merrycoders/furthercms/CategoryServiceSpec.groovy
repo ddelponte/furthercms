@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.exceptions.InvalidCategoryMoveException
 import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
@@ -68,7 +69,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         savedPrimaryCategory.siblings.size() == 1
     }
 
-    def "move"() {
+    def "Valid category moves"() {
         given:
         initCategories()
         def category = Category.findByName(childName)
@@ -82,13 +83,30 @@ class CategoryServiceSpec extends SpecificationDataCore {
 
         where:
         childName    | parentName   | expectedUrlKey
-        "Home"       | "HTML"       | null
-        "Home"       | "HTML Child" | null
         "HTML"       | "Home"       | "home-title/html-title"
-        "HTML"       | "HTML Child" | null
         "HTML Child" | "Home"       | "home-title/html-child-title"
         "HTML Child" | "HTML"       | "home-title/html-title/html-child-title"
-        "Home"       | "Home"       | null
 
+    }
+
+    def "Invalid category moves"() {
+        given:
+        initCategories()
+        def category = Category.findByName(childName)
+        def parentCategory = Category.findByName(parentName)
+
+        when:
+        service.move(category, parentCategory)
+
+        then:
+        InvalidCategoryMoveException ex = thrown()
+        ex.message == "Invalid Move"
+
+        where:
+        childName | parentName   | expectedUrlKey
+        "Home"    | "HTML"       | null
+        "Home"    | "HTML Child" | null
+        "HTML"    | "HTML Child" | null
+        "Home"    | "Home"       | null
     }
 }

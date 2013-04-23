@@ -1,7 +1,9 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.ajax.AjaxPostResponse
+import com.merrycoders.furthercms.exceptions.InvalidCategoryMoveException
 import grails.converters.JSON
+import grails.validation.ValidationException
 import org.springframework.dao.DataIntegrityViolationException
 
 class CategoryController {
@@ -42,7 +44,7 @@ class CategoryController {
 
         try {
             categoryService.save(cmd.category, true)
-            def modulesToDeleteMap = JSON.parse(cmd.modulesToDelete)
+            def modulesToDeleteMap = JSON.parse(cmd.modulesToDelete ?: "{}")
             def moduleIdsToDelete = modulesToDeleteMap.keySet()*.toLong()
             moduleService.delete(moduleIdsToDelete)
         } catch (Exception ex) {
@@ -60,8 +62,12 @@ class CategoryController {
 
     private renderAjaxResponse(List domainObjects) {
         AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse(domainObjects)
+        renderAjaxPostResponseObject(ajaxPostResponse)
+    }
+
+    private renderAjaxPostResponseObject(AjaxPostResponse ajaxPostResponseInstance) {
         response.status = 200
-        render ajaxPostResponse as JSON
+        render ajaxPostResponseInstance as JSON
         return
     }
 
@@ -102,7 +108,19 @@ class CategoryController {
     def move(Long id, Long parentId) {
         def category = Category.get(id)
         def parentCategory = Category.get(parentId)
-        categoryService.move(category, parentCategory)
+        try {
+
+            categoryService.move(category, parentCategory)
+
+        } catch (ValidationException e) {
+            category = Category.read(id)
+            category.errors = e.errors
+        } catch (InvalidCategoryMoveException e) {
+            def ajaxPostResponse = new AjaxPostResponse(success: false, message: e.message, errors: g.message(code: "invalid.category.move"))
+            renderAjaxPostResponseObject(ajaxPostResponse)
+            return
+        }
+
         renderAjaxResponse([category, parentCategory])
         return
     }

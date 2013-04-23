@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.exceptions.InvalidCategoryMoveException
 import grails.validation.ValidationException
 import org.apache.commons.lang.StringUtils
 
@@ -81,8 +82,10 @@ class CategoryService {
      * @throws ValidationException
      * @return The category instance with the new parent
      */
-    Category move(Category category, Category parent) throws ValidationException {
-        if (!category || !parent || category?.descendants?.contains(parent) || category == parent) return null
+    Category move(Category category, Category parent) throws ValidationException, InvalidCategoryMoveException {
+        if (!category || !parent || category?.descendants?.contains(parent) || category == parent) {
+            throw new InvalidCategoryMoveException(category: category, parent: parent)
+        }
 
         category.parent = parent
         save(category)

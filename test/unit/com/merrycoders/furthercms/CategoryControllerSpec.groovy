@@ -18,6 +18,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         }
         controller.utilityService = utilityService
         controller.categoryService = categoryService
+        controller.moduleService = new ModuleService()
     }
 
     def "update"() {
@@ -27,7 +28,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         page.title = title
         def category = Category.findByPage(page)
         category.utilityService = utilityService
-        def categoryUpdateCommand = new CategoryUpdateCommand(category: category, page: page)
+        def categoryUpdateCommand = new CategoryUpdateCommand(category: category, page: page, modulesToDelete: "{}")
         def parentCategory = category.parent
         request.method = "POST"
         request.makeAjaxRequest()
