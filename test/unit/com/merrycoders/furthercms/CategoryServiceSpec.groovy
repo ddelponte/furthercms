@@ -5,6 +5,7 @@ import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import grails.validation.ValidationException
 
 @TestFor(CategoryService)
 @Mock([Category, PrimaryCategory, Page, PageType, PageTypeModuleType, Module, ModuleType, HtmlModule])
@@ -82,20 +83,20 @@ class CategoryServiceSpec extends SpecificationDataCore {
         results?.urlKey == expectedUrlKey
 
         where:
-        childName    | parentName   | expectedUrlKey
-        "HTML"       | "Home"       | "home-title/html-title"
-        "HTML Child" | "Home"       | "home-title/html-child-title"
-        "HTML Child" | "HTML"       | "home-title/html-title/html-child-title"
+        childName    | parentName | expectedUrlKey
+        "HTML"       | "Home"     | "home-title/html-title"
+        "HTML Child" | "Home"     | "home-title/html-child-title"
+        "HTML Child" | "HTML"     | "home-title/html-title/html-child-title"
 
     }
 
-    def "Invalid category moves"() {
+    def "Invalid category moves, moving parent to child"() {
         given:
         initCategories()
         def category = Category.findByName(childName)
         def parentCategory = Category.findByName(parentName)
 
-        when:
+        when: "The user moves a category to one of its children"
         service.move(category, parentCategory)
 
         then:
@@ -108,5 +109,20 @@ class CategoryServiceSpec extends SpecificationDataCore {
         "Home"    | "HTML Child" | null
         "HTML"    | "HTML Child" | null
         "Home"    | "Home"       | null
+    }
+
+    def "Invalid category moves, move would result in duplicate URLs"() {
+        given:
+        initCategories()
+        def parentCategory = Category.findByName("Home")
+        def newCategory = new Category(name: "HTML", parent: Category.findByName("HTML Child"), urlKey: "home-title/html-title/html-child-title/html-title", page: Page.findByTitle(htmlPageTitle))
+        newCategory.save()
+
+        when:
+        service.move(newCategory, parentCategory)
+
+        then: "This move results in duplicate url keys"
+        ValidationException ex = thrown()
+        ex.message.contains("urlKey.unique.error")
     }
 }

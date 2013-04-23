@@ -43,21 +43,41 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         def jsonObject = JSON.parse(controller.response?.text)
 
         then:
-        assert jsonObject?.class == responseClass
+        assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
         assert jsonObject?.domainObjects?.size() == domainObjectsSize
         assert jsonObject.firstError?.first() == firstError
         assert jsonObject?.message == message
         assert jsonObject?.success == success
 
         where:
-        childName    | parentName   | expectedUrlKey                           | responseClass                                      | domainObjectsSize | firstError | message        | success
-        "Home"       | "HTML"       | null                                     | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 0                 | null       | "Invalid Move" | false
-        "Home"       | "HTML Child" | null                                     | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 0                 | null       | "Invalid Move" | false
-        "HTML"       | "Home"       | "home-title/html-title"                  | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 2                 | null       | "Success"      | true
-        "HTML"       | "HTML Child" | null                                     | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 0                 | null       | "Invalid Move" | false
-        "HTML Child" | "Home"       | "home-title/html-child-title"            | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 2                 | null       | "Success"      | true
-        "HTML Child" | "HTML"       | "home-title/html-title/html-child-title" | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 2                 | null       | "Success"      | true
-        "Home"       | "Home"       | null                                     | "com.merrycoders.furthercms.ajax.AjaxPostResponse" | 0                 | null       | "Invalid Move" | false
+        childName    | parentName   | expectedUrlKey                           | domainObjectsSize | firstError | message        | success
+        "Home"       | "HTML"       | null                                     | 0                 | null       | "Invalid Move" | false
+        "Home"       | "HTML Child" | null                                     | 0                 | null       | "Invalid Move" | false
+        "HTML"       | "Home"       | "home-title/html-title"                  | 2                 | null       | "Success"      | true
+        "HTML"       | "HTML Child" | null                                     | 0                 | null       | "Invalid Move" | false
+        "HTML Child" | "Home"       | "home-title/html-child-title"            | 2                 | null       | "Success"      | true
+        "HTML Child" | "HTML"       | "home-title/html-title/html-child-title" | 2                 | null       | "Success"      | true
+        "Home"       | "Home"       | null                                     | 0                 | null       | "Invalid Move" | false
+
+    }
+
+    def "Invalid move resulting in duplicate url key"() {
+        given:
+        def controller = new CategoryController()
+        def parentCategory = Category.findByName("Home")
+        def newCategory = new Category(name: "HTML", parent: Category.findByName("HTML Child"), urlKey: "home-title/html-title/html-child-title/html-title", page: Page.findByTitle("HTML Title"))
+        newCategory.save()
+
+        when:
+        controller.move(newCategory.id, parentCategory.id)
+        def jsonObject = JSON.parse(controller.response?.text)
+
+        then:
+        assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
+        assert jsonObject?.domainObjects?.size() == 2
+        assert jsonObject.firstError?.first() == null
+        assert jsonObject?.message.contains("There was an error")
+        assert jsonObject?.success == false
 
     }
 
