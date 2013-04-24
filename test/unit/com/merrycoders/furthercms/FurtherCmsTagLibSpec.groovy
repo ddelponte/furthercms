@@ -98,11 +98,11 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
 
         then:
         assert results.contains("<li id=\"category_2\">")
-        assert results.contains("<a href=\"/admin/edit/2\" class=\"\">Home</a>")
+        assert results.contains("<a href=\"/admin/edit/2\" class=\"\">Home Title</a>")
         assert results.contains("<li id=\"category_3\">")
-        assert results.contains("<a href=\"/admin/edit/3\" class=\"\">HTML</a>")
+        assert results.contains("<a href=\"/admin/edit/3\" class=\"\">HTML Title</a>")
         assert results.contains("<li id=\"category_4\">")
-        assert results.contains("<a href=\"/admin/edit/4\" class=\"\">HTML Child</a>")
+        assert results.contains("<a href=\"/admin/edit/4\" class=\"\">HTML Child Title</a>")
 
     }
 

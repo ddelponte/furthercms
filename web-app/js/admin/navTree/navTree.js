@@ -19,18 +19,11 @@ jQuery("#furtherCmsNavTree").jstree({
             var movedNodeId = movedNode.attr("id");
             var id = movedNodeId.substr(movedNodeId.indexOf("_") + 1);
 
-            var oldParentNode = data.rslt.op;
-            var oldParentNodeId = oldParentNode.attr("id");
-            var oldParentId = oldParentNodeId.substr(oldParentNodeId.indexOf("_") + 1);
-
             var newParentNode = data.rslt.r;
             var newParentNodeId = newParentNode.attr("id");
             var parentId = newParentNodeId.substr(newParentNodeId.indexOf("_") + 1);
 
-            moveCategory(id, parentId, oldParentId);
-
-            // if move returns false, rollback
-            //jQuery.jstree.rollback( data.rlbk ) ;
+            moveCategory(id, parentId, data.rlbk);
 
         });
 
@@ -38,17 +31,21 @@ jQuery("#furtherCmsNavTree").jstree({
  * Makes an ajax call which persists the move in the database
  * @param id id of Category being moved
  * @param parentId id of Category the node is being moved to
+ * @param rollbackObject this object will be used to rollback invalid moves
  */
-function moveCategory(id, parentId, oldParentId) {
+function moveCategory(id, parentId, rollbackObject) {
     var categoryMoveUrl = jQuery("div[data-category-move-action]").attr("data-category-move-action");
     categoryMoveUrl = categoryMoveUrl + "?" + "id=" + id + "&parentId=" + parentId;
 
     jQuery.ajax(categoryMoveUrl)
-            .done(function () {
-                alert("success");
+            .done(function (jsonData) {
+                if (!jsonData.success) {
+                    alert(jsonData.message)
+                    jQuery.jstree.rollback(rollbackObject);
+                }
             })
-            .fail(function () {
-                alert("error");
-                // jQuery.jstree.rollback(the-object-here);
+            .fail(function (jsonData) {
+                alert(jsonData.message)
+                jQuery.jstree.rollback(rollbackObject);
             })
 }
