@@ -83,7 +83,7 @@ class FurtherCmsTagLib {
         Category rootCategory = attrs?.category
         String style = attrs?.style
         String cssClass = attrs?.class
-        String selectedNodeId = attrs?.selectedNodeIdchildren
+        String selectedNodeId = attrs?.selectedNodeId
         out << render(template: "/admin/navigation/navTree/tree", model: [nodes: [rootCategory], style: style, cssClass: cssClass, selectedNodeId: selectedNodeId])
     }
     /**
