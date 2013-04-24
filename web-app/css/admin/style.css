@@ -8,6 +8,20 @@
     padding-bottom: 15px;
 }
 
+#furtherCmsNavTree a {
+    white-space: normal !important;
+    height: auto;
+    padding: 1px 2px;
+}
+
+#furtherCmsNavTree li > ins {
+    vertical-align: top;
+}
+
+#furtherCmsNavTree .jstree-hovered, #demo4 .jstree-clicked {
+    border: 0;
+}
+
 /*Modules*/
 #modules-edit {
     float: left;
