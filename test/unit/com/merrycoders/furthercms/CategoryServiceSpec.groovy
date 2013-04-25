@@ -64,7 +64,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         def savedPrimaryCategory = new PrimaryCategoryService().save(newPrimaryCategoryInstance)
 
         then:
-        savedCategory.displayOrder == 1
+        savedCategory.displayOrder == 0
         savedCategory.siblings.size() == 1
         savedPrimaryCategory.displayOrder == 1
         savedPrimaryCategory.siblings.size() == 1
@@ -75,18 +75,22 @@ class CategoryServiceSpec extends SpecificationDataCore {
         initCategories()
         def category = Category.findByName(childName)
         def parentCategory = Category.findByName(parentName)
+        def sibling = new Category(name: "Sibling", parent: parentCategory, urlKey: "${parentCategory?.urlKey}/home-title", page: Page.findByTitle("Home Title"), displayOrder: 99).save()
+        def positions = "{0:${sibling.id}, 1:${category?.id}}"
 
         when:
-        def results = service.move(category, parentCategory)
+        def results = service.move(category, parentCategory, positions)
 
         then:
         results?.urlKey == expectedUrlKey
+        category.displayOrder == catgorydisplayOrder
+        sibling.displayOrder == siblingDisplayOrder
 
         where:
-        childName    | parentName | expectedUrlKey
-        "HTML"       | "Home"     | "home-title/html-title"
-        "HTML Child" | "Home"     | "home-title/html-child-title"
-        "HTML Child" | "HTML"     | "home-title/html-title/html-child-title"
+        childName    | parentName | expectedUrlKey                           | siblingDisplayOrder | catgorydisplayOrder
+        "HTML"       | "Home"     | "home-title/html-title"                  | 0                   | 1
+        "HTML Child" | "Home"     | "home-title/html-child-title"            | 0                   | 1
+        "HTML Child" | "HTML"     | "home-title/html-title/html-child-title" | 0                   | 1
 
     }
 
@@ -95,20 +99,24 @@ class CategoryServiceSpec extends SpecificationDataCore {
         initCategories()
         def category = Category.findByName(childName)
         def parentCategory = Category.findByName(parentName)
+        def sibling = new Category(name: "Sibling", parent: parentCategory, urlKey: "${parentCategory?.urlKey}/home-title", page: Page.findByTitle("Home Title"), displayOrder: 99).save()
+        def positions = "{0:${sibling.id}, 1:${category?.id}}"
 
         when: "The user moves a category to one of its children"
-        service.move(category, parentCategory)
+        service.move(category, parentCategory, positions)
 
         then:
         InvalidCategoryMoveException ex = thrown()
         ex.message == "Invalid Move"
+        category.displayOrder == catgorydisplayOrder
+        sibling.displayOrder == siblingDisplayOrder
 
         where:
-        childName | parentName   | expectedUrlKey
-        "Home"    | "HTML"       | null
-        "Home"    | "HTML Child" | null
-        "HTML"    | "HTML Child" | null
-        "Home"    | "Home"       | null
+        childName | parentName   | expectedUrlKey | siblingDisplayOrder | catgorydisplayOrder
+        "Home"    | "HTML"       | null           | 99                  | 0
+        "Home"    | "HTML Child" | null           | 99                  | 0
+        "HTML"    | "HTML Child" | null           | 99                  | 0
+        "Home"    | "Home"       | null           | 99                  | 0
     }
 
     def "Invalid category moves, move would result in duplicate URLs"() {
@@ -117,12 +125,15 @@ class CategoryServiceSpec extends SpecificationDataCore {
         def parentCategory = Category.findByName("Home")
         def newCategory = new Category(name: "HTML", parent: Category.findByName("HTML Child"), urlKey: "home-title/html-title/html-child-title/html-title", page: Page.findByTitle(htmlPageTitle))
         newCategory.save()
+        def sibling = new Category(name: "Sibling", parent: parentCategory, urlKey: "${parentCategory?.urlKey}/home-title", page: Page.findByTitle("Home Title"), displayOrder: 99).save()
+        def positions = "{0:${sibling.id}, 1:${newCategory?.id}}"
 
         when:
-        service.move(newCategory, parentCategory)
+        service.move(newCategory, parentCategory, positions)
 
         then: "This move results in duplicate url keys"
         ValidationException ex = thrown()
         ex.message.contains("urlKey.unique.error")
+        sibling.displayOrder == 99
     }
 }

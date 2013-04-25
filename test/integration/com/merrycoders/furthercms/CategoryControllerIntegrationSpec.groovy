@@ -44,8 +44,6 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         when:
         controller.move(category.id, parentCategory.id)
         def jsonObject = JSON.parse(controller.response?.text)
-        def modifiedCategory = Category.findByName(childName)
-        def modifiedSibling = Category.findByName("Sibling")
 
         then:
         assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
@@ -53,8 +51,8 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         assert jsonObject.firstError?.first() == firstError
         assert jsonObject?.message == message
         assert jsonObject?.success == success
-        modifiedCategory?.displayOrder == catgorydisplayOrder
-        modifiedSibling?.displayOrder == siblingDisplayOrder
+        category?.displayOrder == catgorydisplayOrder
+        sibling?.displayOrder == siblingDisplayOrder
 
         where:
         childName    | parentName   | expectedUrlKey                           | domainObjectsSize | firstError | message        | success | siblingDisplayOrder | catgorydisplayOrder
