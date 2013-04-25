@@ -1,6 +1,7 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.exceptions.InvalidCategoryMoveException
+import grails.converters.JSON
 import grails.validation.ValidationException
 import org.apache.commons.lang.StringUtils
 
@@ -36,7 +37,7 @@ class CategoryService {
 
         pageService.save(category.page, true)
 
-        if (!category?.displayOrder) {
+        if (category?.displayOrder == null) {
             def maxDisplayOrder = category.siblings?.displayOrder ? category.siblings?.displayOrder?.max() + 1 : 0
             category?.displayOrder = maxDisplayOrder
         }
@@ -79,21 +80,43 @@ class CategoryService {
      * Users are not allowed to move a Category to one of it's children, thereby making the child its parent.
      * @param category
      * @param parent
+     * @param position JSON representation of the moved node and its siblings, properly ordered in the form {position: category.id}.  For example: "{0:1, 1:2, 2:88}"
      * @throws ValidationException
      * @return The category instance with the new parent
      */
-    Category move(Category category, Category parent) throws ValidationException, InvalidCategoryMoveException {
+    Category move(Category category, Category parent, String positions = "{}") throws ValidationException, InvalidCategoryMoveException {
         if (!category || !parent || category?.descendants?.contains(parent) || category == parent) {
             throw new InvalidCategoryMoveException(category: category, parent: parent)
         }
 
         category.parent = parent
         save(category)
+        reorder(positions)
 
         for (child in category.children) {
             save(child)
         }
 
         return category
+    }
+
+    /**
+     *
+     * @param position JSON representation of the moved node and its siblings, properly ordered in the form {position: category.id}.  For example: "{0:1, 1:2, 2:88}"
+     * @return a List of properly order Category instances
+     */
+    List<Category> reorder(String positions = "{}") {
+        def categoryInstanceList = []
+        def jsonObject = JSON.parse(positions)
+
+        jsonObject.each { displayOrder, id ->
+            if (displayOrder && id) {
+                def category = Category.get(id as Long)
+                category.displayOrder = displayOrder as Integer
+                categoryInstanceList << save(category)
+            }
+        }
+
+        return categoryInstanceList
     }
 }

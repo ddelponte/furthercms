@@ -103,14 +103,17 @@ class CategoryController {
      * updated to reflect the change
      * @param id
      * @param parentId
+     * @param position JSON representation of the moved node and its siblings, properly ordered in the form {position: category.id}.  For example: "{0:1, 1:2, 2:88}"
      * @return an AjaxResponseObject
      */
     def move(Long id, Long parentId) {
+        String positions = params.positions ?: "{}"
         def category = Category.get(id)
         def parentCategory = Category.get(parentId)
+
         try {
 
-            categoryService.move(category, parentCategory)
+            categoryService.move(category, parentCategory, positions)
 
         } catch (ValidationException e) {
             category = Category.read(id)

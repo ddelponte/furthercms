@@ -37,10 +37,15 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         def controller = new CategoryController()
         def category = Category.findByName(childName)
         def parentCategory = Category.findByName(parentName)
+        def sibling = new Category(name: "Sibling", parent: parentCategory, urlKey: "${parentCategory?.urlKey}/home-title", page: Page.findByTitle("Home Title"), displayOrder: 99).save()
+        def positions = "{0:${sibling.id}, 1:${category?.id}}"
+        controller.params.positions = positions
 
         when:
         controller.move(category.id, parentCategory.id)
         def jsonObject = JSON.parse(controller.response?.text)
+        def modifiedCategory = Category.findByName(childName)
+        def modifiedSibling = Category.findByName("Sibling")
 
         then:
         assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
@@ -48,16 +53,18 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         assert jsonObject.firstError?.first() == firstError
         assert jsonObject?.message == message
         assert jsonObject?.success == success
+        modifiedCategory?.displayOrder == catgorydisplayOrder
+        modifiedSibling?.displayOrder == siblingDisplayOrder
 
         where:
-        childName    | parentName   | expectedUrlKey                           | domainObjectsSize | firstError | message        | success
-        "Home"       | "HTML"       | null                                     | 0                 | null       | "Invalid Move" | false
-        "Home"       | "HTML Child" | null                                     | 0                 | null       | "Invalid Move" | false
-        "HTML"       | "Home"       | "home-title/html-title"                  | 2                 | null       | "Success"      | true
-        "HTML"       | "HTML Child" | null                                     | 0                 | null       | "Invalid Move" | false
-        "HTML Child" | "Home"       | "home-title/html-child-title"            | 2                 | null       | "Success"      | true
-        "HTML Child" | "HTML"       | "home-title/html-title/html-child-title" | 2                 | null       | "Success"      | true
-        "Home"       | "Home"       | null                                     | 0                 | null       | "Invalid Move" | false
+        childName    | parentName   | expectedUrlKey                           | domainObjectsSize | firstError | message        | success | siblingDisplayOrder | catgorydisplayOrder
+        "Home"       | "HTML"       | null                                     | 0                 | null       | "Invalid Move" | false   | 99                  | 0
+        "Home"       | "HTML Child" | null                                     | 0                 | null       | "Invalid Move" | false   | 99                  | 0
+        "HTML"       | "Home"       | "home-title/html-title"                  | 2                 | null       | "Success"      | true    | 0                   | 1
+        "HTML"       | "HTML Child" | null                                     | 0                 | null       | "Invalid Move" | false   | 99                  | 0
+        "HTML Child" | "Home"       | "home-title/html-child-title"            | 2                 | null       | "Success"      | true    | 0                   | 1
+        "HTML Child" | "HTML"       | "home-title/html-title/html-child-title" | 2                 | null       | "Success"      | true    | 0                   | 1
+        "Home"       | "Home"       | null                                     | 0                 | null       | "Invalid Move" | false   | 99                  | 0
 
     }
 
