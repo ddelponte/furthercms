@@ -15,7 +15,7 @@ modules = {
     }
 
     navTree {
-        dependsOn "jquery, jsTree, jqueryCookie"
+        dependsOn "jquery, jsTree, jqueryCookie, json2"
         resource(url: "js/admin/navTree/navTree.js")
         resource(url: "css/admin/style.css")
     }

@@ -75,7 +75,7 @@ class Category {
      * @return List of immediate children
      */
     List<Category> getChildren() {
-        if (this?.id) Category.findAllByParent(this, [sort: "name"])
+        if (this?.id) Category.findAllByParent(this, [sort: "displayOrder"])
         else return []
     }
 
