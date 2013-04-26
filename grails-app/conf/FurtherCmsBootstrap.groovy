@@ -6,15 +6,12 @@ import com.merrycoders.furthercms.PageTypeModuleType
 import com.merrycoders.furthercms.PrimaryAdminMenuItem
 import com.merrycoders.furthercms.PrimaryCategory
 import com.merrycoders.furthercms.SecondaryAdminMenuItem
+import com.merrycoders.furthercms.bootstrap.Core
 import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.util.Environment
 
 class FurtherCmsBootStrap {
-    def rootPageTitle = "Site"
-    def homePageTitle = "Home Title"
-    def htmlPageTitle = "HTML Title"
-    def htmlChildPageTitle = "HTML Child Title"
 
     def init = { servletContext ->
         if (Environment.developmentMode || Environment.current == Environment.TEST) {
@@ -37,7 +34,7 @@ class FurtherCmsBootStrap {
     def initModuleTypes() {
         if (!ModuleType.count()) {
             def moduleType = new ModuleType(name: "HTML", className: HtmlModule.class.name, code: "com.merrycoders.furthercms.moduletype.html")
-            saveDomainObjects([moduleType])
+            Core.saveDomainObjects([moduleType])
         }
     }
 
@@ -74,11 +71,11 @@ class FurtherCmsBootStrap {
         def homePageType = PageType.findByPageTypeKey("home")
         def htmlPageType = PageType.findByPageTypeKey("HTML")
 
-        def rootPage = new Page(title: rootPageTitle, pageType: rootPageType, themeLayout: "main")
-        def homePage = new Page(title: homePageTitle, pageType: homePageType, themeLayout: "home")
-        def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        saveDomainObjects([rootPage, homePage, htmlPage, htmlChildPage])
+        def rootPage = new Page(title: Core.rootPageTitle, pageType: rootPageType, themeLayout: "main")
+        def homePage = new Page(title: Core.homePageTitle, pageType: homePageType, themeLayout: "home")
+        def htmlPage = new Page(title: Core.htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        def htmlChildPage = new Page(title: Core.htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        Core.saveDomainObjects([rootPage, homePage, htmlPage, htmlChildPage])
 
         initModules([rootPage, homePage, htmlPage, htmlChildPage])
     }
@@ -86,12 +83,12 @@ class FurtherCmsBootStrap {
     def initCategories() {
         if (!Page.count()) {
             initPages()
-            def root = new Category(name: "Site", urlKey: "", page: Page.findByTitle(rootPageTitle))
-            def home = new Category(name: "Home", parent: root, urlKey: "home-title", page: Page.findByTitle(homePageTitle))
-            def html = new Category(name: "HTML", parent: home, urlKey: "home-title/html-title", page: Page.findByTitle(htmlPageTitle), isInSecondaryNavigation: true)
-            def htmlChild = new Category(name: "HTML Child", parent: html, urlKey: "home-title/html-title/html-child-title", page: Page.findByTitle(htmlChildPageTitle))
+            def root = new Category(name: "Site", urlKey: "", page: Page.findByTitle(Core.rootPageTitle))
+            def home = new Category(name: "Home", parent: root, urlKey: "home-title", page: Page.findByTitle(Core.homePageTitle))
+            def html = new Category(name: "HTML", parent: home, urlKey: "home-title/html-title", page: Page.findByTitle(Core.htmlPageTitle), isInSecondaryNavigation: true)
+            def htmlChild = new Category(name: "HTML Child", parent: html, urlKey: "home-title/html-title/html-child-title", page: Page.findByTitle(Core.htmlChildPageTitle))
             def categoryPrimaryInstance = new PrimaryCategory(category: home, displayOrder: 0)
-            saveDomainObjects([root, home, html, htmlChild, categoryPrimaryInstance])
+            Core.saveDomainObjects([root, home, html, htmlChild, categoryPrimaryInstance])
 
         }
     }
@@ -115,15 +112,7 @@ class FurtherCmsBootStrap {
                     displayOrder: 0
             )
 
-            saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem])
-        }
-    }
-
-    private saveDomainObjects(List domainObjects) {
-        domainObjects.each { object ->
-            if (!object.save(flush: true)) {
-                println object.errors.fieldErrors
-            }
+            Core.saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem])
         }
     }
 }
