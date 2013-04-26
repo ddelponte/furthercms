@@ -64,9 +64,9 @@ class FurtherCmsBootStrap {
     def initPages() {
         if (!PageType.count()) initPageTypes()
         if (!ModuleType.count()) initModuleTypes()
-        def rootPageType = PageType.findByPageTypeKey("root")
-        def homePageType = PageType.findByPageTypeKey("home")
-        def htmlPageType = PageType.findByPageTypeKey("HTML")
+        def rootPageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.ROOT.pageTypeKey)
+        def homePageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HOME.pageTypeKey)
+        def htmlPageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
 
         def rootPage = new Page(title: Core.rootPageTitle, pageType: rootPageType, themeLayout: "main")
         def homePage = new Page(title: Core.homePageTitle, pageType: homePageType, themeLayout: "home")
