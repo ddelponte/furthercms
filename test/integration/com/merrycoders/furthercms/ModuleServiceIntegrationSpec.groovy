@@ -11,17 +11,18 @@ class ModuleServiceIntegrationSpec extends IntegrationSpec {
     def "test module deletion"() {
         given:
         def module
+        def originalModuleCount = Module.count()
         if (!isModuleNull) module = Module.list().first()
 
         when:
         moduleService.delete([module?.id])
 
         then:
-        Module.count() == expectedResults
+        Module.count() == originalModuleCount - expectedDeletions
 
         where:
-        isModuleNull | expectedResults
-        false        | 2
-        true         | 3
+        isModuleNull | expectedDeletions
+        false        | 1
+        true         | 0
     }
 }

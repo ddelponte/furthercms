@@ -1,115 +1,16 @@
-import com.merrycoders.furthercms.Category
-import com.merrycoders.furthercms.ModuleType
-import com.merrycoders.furthercms.Page
-import com.merrycoders.furthercms.PageType
-import com.merrycoders.furthercms.PageTypeModuleType
-import com.merrycoders.furthercms.PrimaryAdminMenuItem
-import com.merrycoders.furthercms.PrimaryCategory
-import com.merrycoders.furthercms.SecondaryAdminMenuItem
 import com.merrycoders.furthercms.bootstrap.Core
-import com.merrycoders.furthercms.modules.HtmlModule
-import com.merrycoders.furthercms.modules.Module
 import grails.util.Environment
 
 class FurtherCmsBootStrap {
 
     def init = { servletContext ->
-        if (Environment.developmentMode || Environment.current == Environment.TEST) {
-            initAllData()
+        if (Environment.isDevelopmentMode() || Environment.current == Environment.TEST) {
+            Core.initDevData()
         } else {
-            initModuleTypes()
-            initPageTypes()
-            initNavAdminMenuItems()
+            Core.initProductionData()
         }
     }
 
-    def destroy = {
-    }
+    def destroy = {}
 
-    def initAllData() {
-        initCategories()
-        initNavAdminMenuItems()
-    }
-
-    def initModuleTypes() {
-        if (!ModuleType.count()) {
-            Core.moduleTypePropertyList.each { properties ->
-                def moduleType = new ModuleType()
-                moduleType.properties = properties
-                Core.saveDomainObjects([moduleType])
-            }
-        }
-    }
-
-    def initModules(List<Page> pages) {
-        if (!ModuleType.count()) initModuleTypes()
-        pages.each { page ->
-            def moduleType = ModuleType.findByClassName(HtmlModule.class.name)
-            def module = Module.create([moduleType: moduleType, page: page, html: "<p>Where are we going?</p>", flush: true])
-            PageTypeModuleType.create(page.pageType, module.moduleType)
-        }
-    }
-
-    def initPageTypes() {
-
-        Core.pageTypePropertyList.each { properties ->
-            if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
-                def pageType = new PageType()
-                pageType.properties = properties
-                Core.saveDomainObjects([pageType])
-            }
-        }
-    }
-
-    def initPages() {
-        if (!PageType.count()) initPageTypes()
-        if (!ModuleType.count()) initModuleTypes()
-        def rootPageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.ROOT.pageTypeKey)
-        def homePageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HOME.pageTypeKey)
-        def htmlPageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
-
-        def rootPage = new Page(title: Core.rootPageTitle, pageType: rootPageType, themeLayout: "main")
-        def homePage = new Page(title: Core.homePageTitle, pageType: homePageType, themeLayout: "home")
-        def htmlPage = new Page(title: Core.htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        def htmlChildPage = new Page(title: Core.htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        Core.saveDomainObjects([rootPage, homePage, htmlPage, htmlChildPage])
-
-        initModules([rootPage, homePage, htmlPage, htmlChildPage])
-    }
-
-    def initCategories() {
-        if (!Page.count()) {
-            initPages()
-            def root = new Category(name: Core.rootCategoryName, urlKey: "", page: Page.findByTitle(Core.rootPageTitle))
-            def home = new Category(name: Core.homeCategoryName, parent: root, urlKey: "home-title", page: Page.findByTitle(Core.homePageTitle))
-            def html = new Category(name: Core.htmlCategoryName, parent: home, urlKey: "home-title/html-title", page: Page.findByTitle(Core.htmlPageTitle), isInSecondaryNavigation: true)
-            def htmlChild = new Category(name: Core.htmlChildCategoryName, parent: html, urlKey: "home-title/html-title/html-child-title", page: Page.findByTitle(Core.htmlChildPageTitle))
-            def categoryPrimaryInstance = new PrimaryCategory(category: home, displayOrder: 0)
-            Core.saveDomainObjects([root, home, html, htmlChild, categoryPrimaryInstance])
-
-        }
-    }
-
-    def initNavAdminMenuItems() {
-        if (!PrimaryAdminMenuItem.count()) {
-            def primaryNavAdminMenuItem = new PrimaryAdminMenuItem(
-                    titleMessageCode: "furthercms.admin.primary.navigation.home",
-                    titleDefault: "Home",
-                    controller: "admin",
-                    action: "index",
-                    displayOrder: 0
-            )
-
-            def secondaryNavAdminMenuItem = new SecondaryAdminMenuItem(
-                    primaryNavAdminMenuItem: primaryNavAdminMenuItem,
-                    titleMessageCode: "furthercms.admin.primary.navigation.pages",
-                    titleDefault: "Pages",
-                    controller: "admin",
-                    action: "pages",
-                    displayOrder: 0
-            )
-
-            Core.saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem])
-        }
-    }
 }

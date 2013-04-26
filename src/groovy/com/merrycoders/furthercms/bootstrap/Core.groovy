@@ -3,6 +3,7 @@ package com.merrycoders.furthercms.bootstrap
 import com.merrycoders.furthercms.modules.HtmlModule
 
 class Core {
+
     static rootCategoryName = "Site"
     static homeCategoryName = "Home"
     static htmlCategoryName = "HTML"
@@ -28,6 +29,17 @@ class Core {
                 println object.errors.fieldErrors
             }
         }
+    }
+
+    static initDevData() {
+        CategoryBootstrap.init()
+        NavAdminMenuItemsBootstrap.init()
+    }
+
+    static initProductionData() {
+        ModuleTypeBootstrap.init()
+        PageTypeBootstrap.init()
+        NavAdminMenuItemsBootstrap.init()
     }
 
 }
