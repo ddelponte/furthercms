@@ -3,6 +3,11 @@ package com.merrycoders.furthercms.bootstrap
 import com.merrycoders.furthercms.modules.HtmlModule
 
 class Core {
+    static rootCategoryName = "Site"
+    static homeCategoryName = "Home"
+    static htmlCategoryName = "HTML"
+    static htmlChildCategoryName = "HTML Child"
+
     static rootPageTitle = "Site"
     static homePageTitle = "Home Title"
     static htmlPageTitle = "HTML Title"
