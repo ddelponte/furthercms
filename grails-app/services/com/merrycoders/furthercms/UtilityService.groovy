@@ -41,6 +41,7 @@ class UtilityService {
 
         def ajaxPostResponse = new AjaxPostResponse(domainObjects: domainInstances)
         def errors = ajaxPostResponse?.errors
+        def messages = []
 
         domainInstances.each { domainInstance ->
 
@@ -53,12 +54,15 @@ class UtilityService {
 
                     ajaxPostResponse.errors.each { k, v ->
                         errors[k] = ui.message([type: "error"], v)
+                        messages << g.message(code: v)
                     }
 
                 }
 
                 ajaxPostResponse.success = false
-                ajaxPostResponse.message = "There was an error"
+                if (messages) ajaxPostResponse.message = messages.unique()?.join(". ")
+                else ajaxPostResponse.message = g.message(code: "there.was.an.error")
+
 
             }
 

@@ -81,7 +81,7 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
         assert jsonObject?.domainObjects?.size() == 2
         assert jsonObject.firstError?.first() == null
-        assert jsonObject?.message.contains("There was an error")
+        assert jsonObject?.message.contains("The resulting URL must be unique")
         assert jsonObject?.success == false
 
     }
