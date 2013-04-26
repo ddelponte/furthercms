@@ -11,6 +11,7 @@ import com.merrycoders.furthercms.modules.Module
 import grails.util.Environment
 
 class FurtherCmsBootStrap {
+    def rootPageTitle = "Site"
     def homePageTitle = "Home Title"
     def htmlPageTitle = "HTML Title"
     def htmlChildPageTitle = "HTML Child Title"
@@ -52,7 +53,8 @@ class FurtherCmsBootStrap {
     def initPageTypes() {
         def pageTypePropertyList = [
                 [name: "HTML Page Type", pageTypeKey: "HTML"],
-                [name: "Home Page Type", pageTypeKey: "home"]]
+                [name: "Home Page Type", pageTypeKey: "home"],
+                [name: "Root Page Type", pageTypeKey: "root", description: "Placeholder for a node representing the root node of the website"]]
 
         pageTypePropertyList.each { properties ->
             if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
@@ -68,20 +70,23 @@ class FurtherCmsBootStrap {
     def initPages() {
         if (!PageType.count()) initPageTypes()
         if (!ModuleType.count()) initModuleTypes()
+        def rootPageType = PageType.findByPageTypeKey("root")
         def homePageType = PageType.findByPageTypeKey("home")
         def htmlPageType = PageType.findByPageTypeKey("HTML")
+
+        def rootPage = new Page(title: rootPageTitle, pageType: rootPageType, themeLayout: "main")
         def homePage = new Page(title: homePageTitle, pageType: homePageType, themeLayout: "home")
         def htmlPage = new Page(title: htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
         def htmlChildPage = new Page(title: htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        saveDomainObjects([homePage, htmlPage, htmlChildPage])
+        saveDomainObjects([rootPage, homePage, htmlPage, htmlChildPage])
 
-        initModules([homePage, htmlPage, htmlChildPage])
+        initModules([rootPage, homePage, htmlPage, htmlChildPage])
     }
 
     def initCategories() {
         if (!Page.count()) {
             initPages()
-            def root = new Category(name: "Site", urlKey: "")
+            def root = new Category(name: "Site", urlKey: "", page: Page.findByTitle(rootPageTitle))
             def home = new Category(name: "Home", parent: root, urlKey: "home-title", page: Page.findByTitle(homePageTitle))
             def html = new Category(name: "HTML", parent: home, urlKey: "home-title/html-title", page: Page.findByTitle(htmlPageTitle), isInSecondaryNavigation: true)
             def htmlChild = new Category(name: "HTML Child", parent: html, urlKey: "home-title/html-title/html-child-title", page: Page.findByTitle(htmlChildPageTitle))
