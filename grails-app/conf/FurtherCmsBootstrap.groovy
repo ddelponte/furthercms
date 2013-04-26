@@ -33,8 +33,11 @@ class FurtherCmsBootStrap {
 
     def initModuleTypes() {
         if (!ModuleType.count()) {
-            def moduleType = new ModuleType(name: "HTML", className: HtmlModule.class.name, code: "com.merrycoders.furthercms.moduletype.html")
-            Core.saveDomainObjects([moduleType])
+            Core.moduleTypePropertyList.each { properties ->
+                def moduleType = new ModuleType()
+                moduleType.properties = properties
+                Core.saveDomainObjects([moduleType])
+            }
         }
     }
 
@@ -48,12 +51,8 @@ class FurtherCmsBootStrap {
     }
 
     def initPageTypes() {
-        def pageTypePropertyList = [
-                [name: "HTML Page Type", pageTypeKey: "HTML"],
-                [name: "Home Page Type", pageTypeKey: "home"],
-                [name: "Root Page Type", pageTypeKey: "root", description: "Placeholder for a node representing the root node of the website"]]
 
-        pageTypePropertyList.each { properties ->
+        Core.pageTypePropertyList.each { properties ->
             if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
                 def pageType = new PageType()
                 pageType.properties = properties
