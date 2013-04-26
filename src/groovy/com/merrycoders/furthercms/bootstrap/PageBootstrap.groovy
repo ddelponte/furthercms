@@ -11,11 +11,11 @@ class PageBootstrap {
         def homePageType = com.merrycoders.furthercms.PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HOME.pageTypeKey)
         def htmlPageType = com.merrycoders.furthercms.PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
 
-        def rootPage = new Page(title: Core.rootPageTitle, pageType: rootPageType, themeLayout: "main")
-        def homePage = new Page(title: Core.homePageTitle, pageType: homePageType, themeLayout: "home")
-        def htmlPage = new Page(title: Core.htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        def htmlChildPage = new Page(title: Core.htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
-        Core.saveDomainObjects([rootPage, homePage, htmlPage, htmlChildPage])
+        def rootPage = new Page(title: CoreBootstrap.rootPageTitle, pageType: rootPageType, themeLayout: "main")
+        def homePage = new Page(title: CoreBootstrap.homePageTitle, pageType: homePageType, themeLayout: "home")
+        def htmlPage = new Page(title: CoreBootstrap.htmlPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        def htmlChildPage = new Page(title: CoreBootstrap.htmlChildPageTitle, pageType: htmlPageType, themeLayout: "sidebar")
+        CoreBootstrap.saveDomainObjects([rootPage, homePage, htmlPage, htmlChildPage])
 
         ModuleBootstrap.init([rootPage, homePage, htmlPage, htmlChildPage])
     }

@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.exceptions.InvalidCategoryMoveException
 import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
@@ -32,21 +33,22 @@ class CategoryServiceSpec extends SpecificationDataCore {
         if (parentUrlKey != null) parentCategory = Category.findByUrlKey(parentUrlKey)
 
         then:
-        category.name == name
-        category.description == description
-        category.parent == parentCategory
-        category.urlKey == urlKey
-        category.page == page
-        category.parent == parentCategory
-        category.isPublished == false
+        category?.name == name
+        category?.description == description
+        category?.parent == parentCategory
+        category?.urlKey == urlKey
+        category?.page == page
+        category?.parent == parentCategory
+        category?.isPublished == isPublished
         PrimaryCategory.countByCategory(category) == categoryPrimaryCount
 
         where:
-        urlKey                                   | name         | description | parentUrlKey            | pageTitle          | categoryPrimaryCount
-        ""                                       | "Site"       | null        | null                    | null               | 0
-        "home-title"                             | "Home"       | null        | ""                      | "Home Title"       | 1
-        "home-title/html-title"                  | "HTML"       | null        | "home-title"            | "HTML Title"       | 0
-        "home-title/html-title/html-child-title" | "HTML Child" | null        | "home-title/html-title" | "HTML Child Title" | 0
+        urlKey                                   | name         | description | parentUrlKey            | pageTitle          | categoryPrimaryCount | isPublished
+        null                                     | null         | null        | null                    | null               | 0                    | null
+        ""                                       | "Site"       | null        | null                    | "Site"             | 0                    | false
+        "home-title"                             | "Home"       | null        | ""                      | "Home Title"       | 1                    | false
+        "home-title/html-title"                  | "HTML"       | null        | "home-title"            | "HTML Title"       | 0                    | false
+        "home-title/html-title/html-child-title" | "HTML Child" | null        | "home-title/html-title" | "HTML Child Title" | 0                    | false
     }
 
     def "verify diplayOrder of category is properly set when saved"() {
@@ -123,7 +125,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         given:
         initCategories()
         def parentCategory = Category.findByName("Home")
-        def newCategory = new Category(name: "HTML", parent: Category.findByName("HTML Child"), urlKey: "home-title/html-title/html-child-title/html-title", page: Page.findByTitle(htmlPageTitle))
+        def newCategory = new Category(name: "HTML", parent: Category.findByName("HTML Child"), urlKey: "home-title/html-title/html-child-title/html-title", page: Page.findByTitle(CoreBootstrap.htmlPageTitle))
         newCategory.save()
         def sibling = new Category(name: "Sibling", parent: parentCategory, urlKey: "${parentCategory?.urlKey}/home-title", page: Page.findByTitle("Home Title"), displayOrder: 99).save()
         def positions = "{0:${sibling.id}, 1:${newCategory?.id}}"

@@ -8,12 +8,12 @@ class CategoryBootstrap {
     static init() {
         if (!Page.count()) {
             PageBootstrap.init()
-            def root = new com.merrycoders.furthercms.Category(name: Core.rootCategoryName, urlKey: "", page: Page.findByTitle(Core.rootPageTitle))
-            def home = new com.merrycoders.furthercms.Category(name: Core.homeCategoryName, parent: root, urlKey: "home-title", page: Page.findByTitle(Core.homePageTitle))
-            def html = new com.merrycoders.furthercms.Category(name: Core.htmlCategoryName, parent: home, urlKey: "home-title/html-title", page: Page.findByTitle(Core.htmlPageTitle), isInSecondaryNavigation: true)
-            def htmlChild = new com.merrycoders.furthercms.Category(name: Core.htmlChildCategoryName, parent: html, urlKey: "home-title/html-title/html-child-title", page: Page.findByTitle(Core.htmlChildPageTitle))
+            def root = new com.merrycoders.furthercms.Category(name: CoreBootstrap.rootCategoryName, urlKey: "", page: Page.findByTitle(CoreBootstrap.rootPageTitle))
+            def home = new com.merrycoders.furthercms.Category(name: CoreBootstrap.homeCategoryName, parent: root, urlKey: "home-title", page: Page.findByTitle(CoreBootstrap.homePageTitle))
+            def html = new com.merrycoders.furthercms.Category(name: CoreBootstrap.htmlCategoryName, parent: home, urlKey: "home-title/html-title", page: Page.findByTitle(CoreBootstrap.htmlPageTitle), isInSecondaryNavigation: true)
+            def htmlChild = new com.merrycoders.furthercms.Category(name: CoreBootstrap.htmlChildCategoryName, parent: html, urlKey: "home-title/html-title/html-child-title", page: Page.findByTitle(CoreBootstrap.htmlChildPageTitle))
             def categoryPrimaryInstance = new PrimaryCategory(category: home, displayOrder: 0)
-            Core.saveDomainObjects([root, home, html, htmlChild, categoryPrimaryInstance])
+            CoreBootstrap.saveDomainObjects([root, home, html, htmlChild, categoryPrimaryInstance])
 
         }
     }

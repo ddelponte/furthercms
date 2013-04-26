@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
@@ -33,10 +34,10 @@ class ModuleServiceSpec extends SpecificationDataCore {
         pageInstance?.modules?.size() == moduleCountAfter
 
         where:
-        moduleTypeName | pageInstanceTitle  | moduleCountBefore | moduleCountAfter | displayOrder
-        "HTML"         | htmlChildPageTitle | 1                 | 2                | 2
-        "Invalid"      | htmlChildPageTitle | 1                 | 1                | null
-        "HTML"         | "Invalid"          | null              | null             | null
-        "Invalid"      | "Invalid"          | null              | null             | null
+        moduleTypeName | pageInstanceTitle                | moduleCountBefore | moduleCountAfter | displayOrder
+        "HTML"         | CoreBootstrap.htmlChildPageTitle | 1                 | 2                | 2
+        "Invalid"      | CoreBootstrap.htmlChildPageTitle | 1                 | 1                | null
+        "HTML"         | "Invalid"                        | null              | null             | null
+        "Invalid"      | "Invalid"                        | null              | null             | null
     }
 }

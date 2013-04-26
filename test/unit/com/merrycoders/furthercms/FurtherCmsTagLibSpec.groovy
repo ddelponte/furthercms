@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
@@ -109,7 +110,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
     def "renderPublicModule"() {
         given:
         initAllData()
-        def page = Page.findByTitle(htmlPageTitle)
+        def page = Page.findByTitle(CoreBootstrap.htmlPageTitle)
         def modules = page.modules
         def module = modules.first()
         assert modules.size() == 1
@@ -124,7 +125,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
     def "renderModuleEdit"() {
         given:
         initAllData()
-        def page = Page.findByTitle(htmlPageTitle)
+        def page = Page.findByTitle(CoreBootstrap.htmlPageTitle)
         def modules = page.modules
         def module = modules.first()
         assert modules.size() == 1
@@ -154,7 +155,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
     def "categoryEditor"() {
         given:
         initAllData()
-        def page = Page.findByTitle(htmlChildPageTitle)
+        def page = Page.findByTitle(CoreBootstrap.htmlChildPageTitle)
         def category = Category.findByPage(page)
         category.metaClass.pageTitleToSlug = {-> return "slug" }
 
@@ -166,8 +167,8 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         assert results.contains('<ui:form controller="category" action="update">')
         assert results.contains('<input type="hidden" name="category.id" value="4" id="category.id" />')
         assert results.contains('<input type="hidden" name="category.version" value="0" id="category.version" />')
-        assert results.contains('<input type="hidden" name="page.id" value="3" id="page.id" />')
-        assert results.contains('<input type="hidden" name="page.version" value="1" id="page.version" />')
+        assert results.contains('<input type="hidden" name="page.id" value="4" id="page.id" />')
+        assert results.contains('<input type="hidden" name="page.version" value="0" id="page.version" />')
         assert results.contains('<input type="hidden" name="modulesToDelete" value="{}" id="modulesToDelete" />')
         assert results.contains('<ui:field name="page.title" type="text" label="category.page.title.label" value="HTML Child Title"></ui:field>')
         assert results.contains('class="plugin.furthercms.category.urlkey.label"')

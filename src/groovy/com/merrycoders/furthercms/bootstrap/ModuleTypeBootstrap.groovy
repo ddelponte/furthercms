@@ -5,10 +5,10 @@ class ModuleTypeBootstrap {
     static init() {
 
         if (!com.merrycoders.furthercms.ModuleType.count()) {
-            Core.moduleTypePropertyList.each { properties ->
+            CoreBootstrap.moduleTypePropertyList.each { properties ->
                 def moduleType = new com.merrycoders.furthercms.ModuleType()
                 moduleType.properties = properties
-                Core.saveDomainObjects([moduleType])
+                CoreBootstrap.saveDomainObjects([moduleType])
             }
         }
     }

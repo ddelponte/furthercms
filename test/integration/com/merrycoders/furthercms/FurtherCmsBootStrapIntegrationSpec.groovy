@@ -27,6 +27,6 @@ class FurtherCmsBootStrapIntegrationSpec extends IntegrationSpec {
 
         PrimaryAdminMenuItem.count() == 1
 
-        SecondaryAdminMenuItem.count() == 1
+        SecondaryAdminMenuItem.count() == 2
     }
 }

@@ -2,7 +2,7 @@ package com.merrycoders.furthercms.bootstrap
 
 import com.merrycoders.furthercms.modules.HtmlModule
 
-class Core {
+class CoreBootstrap {
 
     static rootCategoryName = "Site"
     static homeCategoryName = "Home"

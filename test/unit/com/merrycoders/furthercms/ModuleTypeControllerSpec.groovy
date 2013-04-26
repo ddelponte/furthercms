@@ -1,5 +1,6 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
@@ -20,7 +21,7 @@ class ModuleTypeControllerSpec extends SpecificationDataCore {
     def populateValidParams(params) {
         assert params != null
         params["id"] = "${ModuleType.findByName("HTML").id}"
-        params["page.id"] = "${Page.findByTitle(htmlChildPageTitle).id}"
+        params["page.id"] = "${Page.findByTitle(CoreBootstrap.htmlChildPageTitle).id}"
     }
 
     def "test renderModuleEdit"() {
@@ -45,7 +46,7 @@ class ModuleTypeControllerSpec extends SpecificationDataCore {
         controller.renderNewModuleEditListItem()
 
         then:
-        assert response.text.contains('<li><section class="module" data-module-name="HTML" data-module-id="4">')
+        assert response.text.contains('<li><section class="module" data-module-name="HTML" data-module-id="5">')
         assert response.text.contains('<div class="errors" style="display: none;"></div>')
         assert response.text.contains('[moduleEditTag:HTML]</section></li>')
     }

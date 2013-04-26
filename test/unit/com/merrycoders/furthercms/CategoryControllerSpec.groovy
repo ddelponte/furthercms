@@ -1,6 +1,7 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.ajax.AjaxPostResponse
+import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.modules.Module
 import grails.converters.JSON
 import grails.test.mixin.Mock
@@ -24,7 +25,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
     def "update"() {
         given:
         initCategories()
-        def page = Page.findByTitle(htmlChildPageTitle)
+        def page = Page.findByTitle(CoreBootstrap.htmlChildPageTitle)
         page.title = title
         def category = Category.findByPage(page)
         category.utilityService = utilityService
@@ -74,15 +75,16 @@ class CategoryControllerSpec extends SpecificationDataCore {
         def category = Category.findByPage(page)
 
         when:
-        controller.urlKey(category.id)
+        controller.urlKey(category?.id)
 
         then:
         response.text == urlKey
 
         where:
-        title              | urlKey
-        htmlChildPageTitle | "home-title/html-title/html-child-title"
-        "I don't exist"    | ""
+        title                            | urlKey
+        CoreBootstrap.htmlChildPageTitle | "home-title/html-title/html-child-title"
+        "I don't exist"                  | ""
+        CoreBootstrap.rootPageTitle      | ""
 
 
     }

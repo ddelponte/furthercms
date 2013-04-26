@@ -25,7 +25,16 @@ class NavAdminMenuItemsBootstrap {
                     displayOrder: 0
             )
 
-            Core.saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem])
+            def secondaryNavAdminMenuItem2 = new SecondaryAdminMenuItem(
+                    primaryNavAdminMenuItem: primaryNavAdminMenuItem,
+                    titleMessageCode: "furthercms.admin.primary.navigation.pages",
+                    titleDefault: "Admin",
+                    controller: "admin",
+                    action: "admin",
+                    displayOrder: 0
+            )
+
+            CoreBootstrap.saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem, secondaryNavAdminMenuItem2])
         }
 
     }

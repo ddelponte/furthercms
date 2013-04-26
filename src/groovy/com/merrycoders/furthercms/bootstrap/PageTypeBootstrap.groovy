@@ -4,11 +4,11 @@ class PageTypeBootstrap {
 
     static init() {
 
-        Core.pageTypePropertyList.each { properties ->
+        CoreBootstrap.pageTypePropertyList.each { properties ->
             if (!com.merrycoders.furthercms.PageType.findByPageTypeKey(properties.pageTypeKey)) {
                 def pageType = new com.merrycoders.furthercms.PageType()
                 pageType.properties = properties
-                Core.saveDomainObjects([pageType])
+                CoreBootstrap.saveDomainObjects([pageType])
             }
         }
 
