@@ -50,10 +50,35 @@ function moveCategory(id, parentId, rollbackObject, positions) {
                 if (!jsonData.success) {
                     alert(jsonData.message)
                     jQuery.jstree.rollback(rollbackObject);
+                } else {
+                    updateUrlKeyDiv(id);
                 }
             })
             .fail(function (jsonData) {
                 alert(jsonData.message)
                 jQuery.jstree.rollback(rollbackObject);
+            })
+}
+
+/**
+ *
+ * @param id Category instance id
+ * @returns Returns a jQuery object representing the urlKey div element
+ */
+function getUrlKeyDiv(id) {
+    return jQuery("div.plugin\\.furthercms\\.category\\.urlkey\\.label[data-category-id='" + id + "']");
+}
+
+/**
+ * Retrieves the urlKey for the Category instance associated with the id
+ * @param id
+ * @returns {string} The urlKey in the form "my/cool/url"
+ */
+function updateUrlKeyDiv(id) {
+    var urlKeyDiv = getUrlKeyDiv(id);
+    var categoryUrlKeyUrl = urlKeyDiv.attr("data-get-category-url-key-url");
+    jQuery.ajax(categoryUrlKeyUrl)
+            .done(function (urlKey) {
+                urlKeyDiv.html(urlKey);
             })
 }

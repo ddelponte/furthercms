@@ -14,6 +14,11 @@
 
     <ui:field name="page.title" type="text" label="category.page.title.label" value="${page?.title}"/>
 
-    <div class="plugin.furthercms.category.urlkey.label">${category?.parent?.urlKey}/<span>${category?.pageTitleToSlug()}</span></div>
+    <div
+            class="plugin.furthercms.category.urlkey.label"
+            data-category-id="${category?.id}"
+            data-get-category-url-key-url="${g.createLink([controller: 'category', action: 'urlKey', id: category?.id])}">
+        ${category?.parent?.urlKey}/<span>${category?.pageTitleToSlug()}</span>
+    </div>
 
 </ui:form>

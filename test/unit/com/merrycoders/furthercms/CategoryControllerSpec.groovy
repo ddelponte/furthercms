@@ -67,4 +67,24 @@ class CategoryControllerSpec extends SpecificationDataCore {
 
     }
 
+    def "urlKey retrieval"() {
+        given:
+        initCategories()
+        def page = Page.findByTitle(title)
+        def category = Category.findByPage(page)
+
+        when:
+        controller.urlKey(category.id)
+
+        then:
+        response.text == urlKey
+
+        where:
+        title              | urlKey
+        htmlChildPageTitle | "home-title/html-title/html-child-title"
+        "I don't exist"    | ""
+
+
+    }
+
 }

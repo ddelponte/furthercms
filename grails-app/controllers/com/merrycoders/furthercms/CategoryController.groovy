@@ -128,6 +128,22 @@ class CategoryController {
         return
     }
 
+    /**
+     * Render the urlKey for the category with the specified id
+     * @param id
+     * @return
+     */
+    def urlKey(Long id) {
+        if (!id) {
+            render ""
+            return
+        } else {
+            def category = Category.get(id)
+            render category?.urlKey
+            return
+        }
+    }
+
 }
 
 class CategoryUpdateCommand {

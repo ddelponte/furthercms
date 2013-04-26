@@ -170,7 +170,10 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         assert results.contains('<input type="hidden" name="page.version" value="1" id="page.version" />')
         assert results.contains('<input type="hidden" name="modulesToDelete" value="{}" id="modulesToDelete" />')
         assert results.contains('<ui:field name="page.title" type="text" label="category.page.title.label" value="HTML Child Title"></ui:field>')
-        assert results.contains('<div class="plugin.furthercms.category.urlkey.label">home-title/html-title/<span>slug</span></div>')
+        assert results.contains('class="plugin.furthercms.category.urlkey.label"')
+        assert results.contains('data-category-id="4"')
+        assert results.contains('data-get-category-url-key-url="/category/urlKey/4"')
+        assert results.contains('home-title/html-title/<span>slug</span>')
     }
 
     def "reorderModulesButton"() {
