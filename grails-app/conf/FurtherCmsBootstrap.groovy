@@ -56,9 +56,7 @@ class FurtherCmsBootStrap {
             if (!PageType.findByPageTypeKey(properties.pageTypeKey)) {
                 def pageType = new PageType()
                 pageType.properties = properties
-                if (!pageType.save(flush: true)) {
-                    log.error "Unable to save PageType ${pageType} due to errors: ${pageType?.errors?.fieldErrors}"
-                }
+                Core.saveDomainObjects([pageType])
             }
         }
     }
