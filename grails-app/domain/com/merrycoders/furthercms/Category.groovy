@@ -21,7 +21,7 @@ class Category {
     Date lastUpdated
 
     static constraints = {
-        name maxSize: 10000
+        name maxSize: 10000, nullable: true
         description nullable: true, maxSize: 10000
         parent nullable: true
         urlKey(unique: true, maxSize: 2000, validator: {

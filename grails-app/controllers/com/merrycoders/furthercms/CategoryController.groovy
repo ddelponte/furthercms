@@ -10,8 +10,51 @@ class CategoryController {
     def utilityService
     def categoryService
     def moduleService
+    def pageService
 
     static allowedMethods = [save: "POST", update: "POST", delete: ["POST", "GET"]]
+
+    /**
+     * Create and save a new category instance.  The new Category instance will be assigned the parent Category associated with the id.
+     * @param id parent Category id
+     * @return redirects to the edit page of the newly created Category or renders an Ajax response for an ajax request
+     */
+    def createAndSave(Long id) {
+        if (id == null) id = Category.findByUrlKey("").id
+        def parent = Category.get(id)
+        def title = params.title ?: "New Page"
+        def pageType = params.pageType ?: PageType.findByPageTypeKey("HTML")
+        def page, category
+
+        try {
+
+            page = pageService.save(new Page(title: title, pageType: pageType, themeLayout: parent?.page?.themeLayout), true)
+            def urlKey = "${parent.urlKey}/${utilityService.toSlug(title)}}"
+            category = new Category(parent: parent, urlKey: urlKey, page: page)
+            categoryService.save(category, true)
+
+        } catch (ValidationException ex) {
+            if (request.xhr) {
+                renderAjaxResponse([page, category])
+                return
+            } else {
+                redirect(action: "edit", id: parent.id)
+                return
+            }
+        }
+
+        if (request.xhr) {
+
+            renderAjaxResponse([page, category])
+            return
+
+        } else {
+
+            redirect(action: "edit", id: category.id)
+            return
+        }
+
+    }
 
     def create() {
         [categoryInstance: new Category(params)]

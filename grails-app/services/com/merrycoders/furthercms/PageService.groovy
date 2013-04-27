@@ -1,12 +1,18 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.modules.Module
+import grails.validation.ValidationException
 
 class PageService {
     def moduleService
 
-    Page save(Page page, Boolean flush = false) {
+    Page save(Page page, Boolean flush = false) throws ValidationException {
         if (!page) return null
+
+        if (!page.validate()) {
+            throw new ValidationException("Page is not valid", page.errors)
+        }
+
         page.save(flush: flush)
         return page
     }

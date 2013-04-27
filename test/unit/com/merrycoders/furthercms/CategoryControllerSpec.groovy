@@ -20,6 +20,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         controller.utilityService = utilityService
         controller.categoryService = categoryService
         controller.moduleService = new ModuleService()
+        controller.pageService = new PageService()
     }
 
     def "update"() {
@@ -86,6 +87,30 @@ class CategoryControllerSpec extends SpecificationDataCore {
         "I don't exist"                  | ""
         CoreBootstrap.rootPageTitle      | ""
 
+
+    }
+
+    def "createAndSave"() {
+        given:
+        initCategories()
+        def parent = Category.findByName(CoreBootstrap.htmlCategoryName)
+        def pageType = parent.page.pageType
+        def title = "New Page"
+        def originalChildCount = parent.children.size()
+        def originalPageCount = Page.count()
+        params.pageType = pageType
+        params.title = title
+        request.method = "POST"
+        request.makeAjaxRequest()
+
+        when:
+        controller.createAndSave(parent.id)
+        def results = JSON.parse(response.text)
+
+        then:
+        parent.children.size() == originalChildCount + 1
+        Page.count() == originalPageCount + 1
+        results.success == true
 
     }
 
