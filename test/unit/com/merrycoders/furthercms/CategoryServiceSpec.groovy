@@ -138,4 +138,61 @@ class CategoryServiceSpec extends SpecificationDataCore {
         ex.message.contains("urlKey.unique.error")
         sibling.displayOrder == 99
     }
+
+    def "valid createAndSave"() {
+        given:
+        initCategories()
+        def parent = Category.findByName(parentName)
+        def pageType = pageTypeName ? PageType.findByName(pageTypeName) : null
+        def title = pageTitle
+        def originalChildCount = parent?.children?.size() ?: 0
+        def originalPageCount = Page.count()
+        def originalModuleCount = Module.count()
+        def properties = [page: [title: title, pageType: pageType, themeLayout: "sidebar"], category: [parent: parent], flush: true]
+
+        when:
+        def results = service.createAndSave(properties)
+
+        then:
+        parent?.children?.size() ?: Category.findByUrlKey("")?.children?.size() == originalChildCount + childCountIncrement
+        Page.count() == originalPageCount + pageCountIncrement
+        Module.count() == originalModuleCount + moduleCountIncrement
+
+        where:
+        parentName | pageTypeName     | pageTitle  | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
+        "HTML"     | "HTML Page Type" | "New Page" | 1                   | 1                  | 0                    | true
+
+    }
+
+    def "invalid createAndSave"() {
+        given:
+        initCategories()
+        def parent = Category.findByName(parentName)
+        def pageType = pageTypeName ? PageType.findByName(pageTypeName) : null
+        def title = pageTitle
+        def originalChildCount = parent?.children?.size() ?: 0
+        def originalPageCount = Page.count()
+        def originalModuleCount = Module.count()
+        def properties = [page: [title: title, pageType: pageType, themeLayout: "sidebar"], category: [parent: parent], flush: true]
+
+        when:
+        def results = service.createAndSave(properties)
+
+        then:
+        ValidationException ex = thrown()
+        ex.message.contains("Page is not valid")
+        ex.message.contains("Field error in object 'com.merrycoders.furthercms.Page' on field 'pageType'")
+        ex.message.contains("com.merrycoders.furthercms.Page.pageType.nullable.error.com.merrycoders.furthercms.Page.pageType")
+        parent?.children?.size() ?: Category.findByUrlKey("")?.children?.size() == originalChildCount + childCountIncrement
+        Page.count() == originalPageCount
+        Module.count() == originalModuleCount
+
+        where:
+        parentName      | pageTypeName    | pageTitle    | childCountIncrement
+        "I don't exist" | "I don't exist" | "New Page"   | 1
+        "I don't exist" | "I don't exist" | ""           | 1
+        null            | null            | null         | 1
+        "Site"          | "HTML"          | "Home Title" | 1 // Results in duplicate URL
+
+    }
 }
