@@ -20,7 +20,6 @@ class CategoryControllerSpec extends SpecificationDataCore {
         controller.utilityService = utilityService
         controller.categoryService = categoryService
         controller.moduleService = new ModuleService()
-        controller.pageService = new PageService()
     }
 
     def "update"() {
@@ -93,10 +92,10 @@ class CategoryControllerSpec extends SpecificationDataCore {
     def "createAndSave"() {
         given:
         initCategories()
-        def parent = Category.findByName(CoreBootstrap.htmlCategoryName)
-        def pageType = parent.page.pageType
-        def title = "New Page"
-        def originalChildCount = parent.children.size()
+        def parent = Category.findByName(parentName)
+        def pageType = pageTypeName ? PageType.findByName(pageTypeName) : null
+        def title = pageTitle
+        def originalChildCount = parent?.children?.size() ?: 0
         def originalPageCount = Page.count()
         params.pageType = pageType
         params.title = title
@@ -104,13 +103,20 @@ class CategoryControllerSpec extends SpecificationDataCore {
         request.makeAjaxRequest()
 
         when:
-        controller.createAndSave(parent.id)
+        controller.createAndSave(parent?.id)
         def results = JSON.parse(response.text)
 
         then:
-        parent.children.size() == originalChildCount + 1
-        Page.count() == originalPageCount + 1
-        results.success == true
+        parent?.children?.size() ?: Category.findByUrlKey("")?.children?.size() == originalChildCount + childCountIncrement
+        Page.count() == originalPageCount + pageCountIncrement
+        results.success == success
+
+        where:
+        parentName      | pageTypeName    | pageTitle  | childCountIncrement | pageCountIncrement | success
+        "HTML"          | "HTML"          | "New Page" | 1                   | 1                  | true
+        "I don't exist" | "I don't exist" | "New Page" | 2                   | 1                  | true
+        "I don't exist" | "I don't exist" | ""         | 2                   | 1                  | true
+        null            | null            | null       | 2                   | 1                  | true
 
     }
 

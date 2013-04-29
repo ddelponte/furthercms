@@ -10,7 +10,6 @@ class CategoryController {
     def utilityService
     def categoryService
     def moduleService
-    def pageService
 
     static allowedMethods = [save: "POST", update: "POST", delete: ["POST", "GET"]]
 
@@ -24,18 +23,15 @@ class CategoryController {
         def parent = Category.get(id)
         def title = params.title ?: "New Page"
         def pageType = params.pageType ?: PageType.findByPageTypeKey("HTML")
-        def page, category
+        def themeLayout = parent?.page?.themeLayout ?: "sidebar"
+        def category
 
         try {
-
-            page = pageService.save(new Page(title: title, pageType: pageType, themeLayout: parent?.page?.themeLayout), true)
-            def urlKey = "${parent.urlKey}/${utilityService.toSlug(title)}}"
-            category = new Category(parent: parent, urlKey: urlKey, page: page)
-            categoryService.save(category, true)
+            category = categoryService.createAndSave([page: [title: title, pageType: pageType, themeLayout: themeLayout], category: [parent: parent, flush: true]])
 
         } catch (ValidationException ex) {
             if (request.xhr) {
-                renderAjaxResponse([page, category])
+                renderAjaxResponse([category])
                 return
             } else {
                 redirect(action: "edit", id: parent.id)
@@ -45,7 +41,7 @@ class CategoryController {
 
         if (request.xhr) {
 
-            renderAjaxResponse([page, category])
+            renderAjaxResponse([category])
             return
 
         } else {

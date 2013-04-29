@@ -119,4 +119,24 @@ class CategoryService {
 
         return categoryInstanceList
     }
+
+    /**
+     *
+     * @param properties Map of page and category properties required to create a new Category instance.
+     * Example: [page: [title: "Page Title", pageType: PageType, themeLayout: "sidebar"], category: [parent: Category], flush: true]
+     * @throws ValidationException
+     * @return The new Category instance
+     */
+    Category createAndSave(Map properties) throws ValidationException {
+        if (!properties) return null
+
+        def page = new Page()
+        page.properties = properties.page
+
+        def parent = properties?.category?.parent
+        def category = new Category(parent: parent, page: page)
+        save(category, properties.flush)
+
+        return category
+    }
 }
