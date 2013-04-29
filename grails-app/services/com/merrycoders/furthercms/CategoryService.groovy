@@ -135,7 +135,14 @@ class CategoryService {
 
         def parent = properties?.category?.parent
         def category = new Category(parent: parent, page: page)
-        save(category, properties.flush)
+        try {
+
+            save(category, properties.flush)
+
+        } catch (ValidationException ex) {
+            if (page?.id) pageService.delete(page)
+            throw ex
+        }
 
         return category
     }

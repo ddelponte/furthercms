@@ -31,7 +31,10 @@ class CategoryController {
 
         } catch (ValidationException ex) {
             if (request.xhr) {
-                renderAjaxResponse([category])
+                AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([category])
+                ajaxPostResponse.message = ex.message
+                ajaxPostResponse.success = false
+                renderAjaxPostResponseObject(ajaxPostResponse)
                 return
             } else {
                 redirect(action: "edit", id: parent.id)

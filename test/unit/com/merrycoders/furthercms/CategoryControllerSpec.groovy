@@ -89,7 +89,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
 
     }
 
-    def "createAndSave"() {
+    def "valid createAndSave"() {
         given:
         initCategories()
         def parent = Category.findByName(parentName)
@@ -97,6 +97,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         def title = pageTitle
         def originalChildCount = parent?.children?.size() ?: 0
         def originalPageCount = Page.count()
+        def originalModuleCount = Module.count()
         params.pageType = pageType
         params.title = title
         request.method = "POST"
@@ -109,14 +110,16 @@ class CategoryControllerSpec extends SpecificationDataCore {
         then:
         parent?.children?.size() ?: Category.findByUrlKey("")?.children?.size() == originalChildCount + childCountIncrement
         Page.count() == originalPageCount + pageCountIncrement
+        Module.count() == originalModuleCount + moduleCountIncrement
         results.success == success
 
         where:
-        parentName      | pageTypeName    | pageTitle  | childCountIncrement | pageCountIncrement | success
-        "HTML"          | "HTML"          | "New Page" | 1                   | 1                  | true
-        "I don't exist" | "I don't exist" | "New Page" | 2                   | 1                  | true
-        "I don't exist" | "I don't exist" | ""         | 2                   | 1                  | true
-        null            | null            | null       | 2                   | 1                  | true
+        parentName      | pageTypeName    | pageTitle    | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
+        "HTML"          | "HTML"          | "New Page"   | 1                   | 1                  | 0                    | true
+        "I don't exist" | "I don't exist" | "New Page"   | 2                   | 1                  | 0                    | true
+        "I don't exist" | "I don't exist" | ""           | 2                   | 1                  | 0                    | true
+        null            | null            | null         | 2                   | 1                  | 0                    | true
+        "Site"          | "HTML"          | "Home Title" | 0                   | 0                  | 0                    | false // Results in duplicate URL
 
     }
 
