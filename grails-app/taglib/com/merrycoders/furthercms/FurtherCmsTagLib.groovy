@@ -155,4 +155,27 @@ class FurtherCmsTagLib {
         out << render(template: "/admin/components/deleteModuleIcon")
     }
 
+    /**
+     * @attr id The Parent category id
+     * @pageType
+     */
+    def newCategoryButton = {attrs, body ->
+        def id = attrs.id
+        PageType pageType = attrs.pageType
+
+        out << render(template: "/admin/components/newCategoryButton", model: [id: id, pageType: pageType])
+
+    }
+
+    /**
+     * Renders the toolbar found towards the top of the main category edit page
+     * @attr categoryInstance
+     * @attr pageType
+     */
+    def categoryEditToolbar = { attrs, body ->
+        def categoryInstance = attrs.categoryInstance
+        def pageType = attrs.pageType
+        out << render(template: "/admin/components/categoryEditToolbar", model: [categoryInstance: categoryInstance, pageType: pageType])
+    }
+
 }

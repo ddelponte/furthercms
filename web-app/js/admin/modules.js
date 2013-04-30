@@ -53,7 +53,6 @@ function saveModules(reload) {
 
                 if (jsonData.success) {
                     totalSavedForms++;
-                    console.log('success');
                 } else {
                     totalSavedForms++;
                     totalErrors++;
@@ -68,7 +67,6 @@ function saveModules(reload) {
                 totalSavedForms++;
                 totalErrors++;
                 updateButtonSaveStatus(totalModuleForms, reload);
-                console.log('error');
             }
 
         });

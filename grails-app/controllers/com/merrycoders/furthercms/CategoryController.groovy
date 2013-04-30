@@ -22,7 +22,7 @@ class CategoryController {
         if (id == null) id = Category.findByUrlKey("").id
         def parent = Category.get(id)
         def title = params.title ?: "New Page"
-        def pageType = params.pageType ?: PageType.findByPageTypeKey("HTML")
+        def pageType = PageType.findByPageTypeKey(params?.pageTypeKey) ?: PageType.findByPageTypeKey("HTML")
         def themeLayout = parent?.page?.themeLayout ?: "sidebar"
         def category
 
@@ -32,7 +32,7 @@ class CategoryController {
         } catch (ValidationException ex) {
             if (request.xhr) {
                 AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([category])
-                ajaxPostResponse.message = ex.message
+                ajaxPostResponse.message = ex.errors.allErrors.collect { g.message(error: it) }?.join(". ")
                 ajaxPostResponse.success = false
                 renderAjaxPostResponseObject(ajaxPostResponse)
                 return
@@ -44,7 +44,12 @@ class CategoryController {
 
         if (request.xhr) {
 
-            renderAjaxResponse([category])
+            AjaxPostResponse ajaxPostResponse = utilityService.preparePostResponse([category])
+            if (ajaxPostResponse.success) {
+                ajaxPostResponse.message = category?.id
+            }
+
+            renderAjaxPostResponseObject(ajaxPostResponse)
             return
 
         } else {

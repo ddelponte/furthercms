@@ -1,0 +1,4 @@
+/*Style the new category button*/
+section#modules-edit a.new {
+    float: left;
+}

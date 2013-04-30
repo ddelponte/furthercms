@@ -45,7 +45,7 @@ class UtilityService {
 
         domainInstances.each { domainInstance ->
 
-            if (domainInstance.hasErrors()) {
+            if (domainInstance?.hasErrors()) {
                 def simpleClassName = WordUtils.uncapitalize(domainInstance.class.simpleName)
 
                 g.eachError(bean: domainInstance) {

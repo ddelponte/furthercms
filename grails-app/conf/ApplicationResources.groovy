@@ -82,4 +82,10 @@ modules = {
         resource(url: "css/admin/components/deleteModuleIcon.css")
         resource(url: "js/admin/components/deleteModuleIcon.js")
     }
+
+    newCategoryButton {
+        dependsOn "jquery"
+        resource(url: "js/admin/components/newCategoryButton.css")
+        resource(url: "js/admin/components/newCategoryButton.js")
+    }
 }
