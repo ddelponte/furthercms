@@ -98,7 +98,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         def originalChildCount = parent?.children?.size() ?: 0
         def originalPageCount = Page.count()
         def originalModuleCount = Module.count()
-        params.pageType = pageType
+        params.pageTypeKey = pageType?.pageTypeKey
         params.title = title
         request.method = "POST"
         request.makeAjaxRequest()

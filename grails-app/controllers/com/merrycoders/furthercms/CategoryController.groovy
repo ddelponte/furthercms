@@ -22,7 +22,8 @@ class CategoryController {
         if (id == null) id = Category.findByUrlKey("").id
         def parent = Category.get(id)
         def title = params.title ?: "New Page"
-        def pageType = PageType.findByPageTypeKey(params?.pageTypeKey) ?: PageType.findByPageTypeKey("HTML")
+        def pageType = params?.pageTypeKey ? PageType.findByPageTypeKey(params?.pageTypeKey) : PageType.findByPageTypeKey("HTML")
+        pageType = pageType ?: PageType.findByPageTypeKey("HTML")
         def themeLayout = parent?.page?.themeLayout ?: "sidebar"
         def category
 
