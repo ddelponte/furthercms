@@ -70,7 +70,7 @@ modules = {
 
     reorderModules {
         dependsOn "jquery, jquery-ui, modules"
-        resource(url: "js/admin/components/reorderModules.js")
+        resource(url: "js/admin/components/reorderModulesButton/reorderModules.js")
     }
 
     json2 {
@@ -79,13 +79,13 @@ modules = {
 
     deleteModuleIcon {
         dependsOn "jquery"
-        resource(url: "css/admin/components/deleteModuleIcon.css")
-        resource(url: "js/admin/components/deleteModuleIcon.js")
+        resource(url: "js/admin/components/deleteModuleIcon/deleteModuleIcon.css")
+        resource(url: "js/admin/components/deleteModuleIcon/deleteModuleIcon.js")
     }
 
     newCategoryButton {
         dependsOn "jquery"
-        resource(url: "js/admin/components/newCategoryButton.css")
-        resource(url: "js/admin/components/newCategoryButton.js")
+        resource(url: "js/admin/components/newCategoryButton/newCategoryButton.css")
+        resource(url: "js/admin/components/newCategoryButton/newCategoryButton.js")
     }
 }
