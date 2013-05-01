@@ -1,6 +1,7 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.exceptions.InvalidCategoryMoveException
+import com.merrycoders.furthercms.modules.Module
 import grails.converters.JSON
 import grails.validation.ValidationException
 import org.apache.commons.lang.StringUtils
@@ -35,16 +36,22 @@ class CategoryService {
     Category save(Category category, Boolean flush = false) throws ValidationException {
         if (!category) return null
 
-        pageService.save(category.page, true)
+        def page = pageService.save(category.page, true)
+
+        if (!page?.modules) {
+            page?.pageType?.moduleTypes.each {moduleType ->
+                Module.create([moduleType: moduleType, page: page, flush: true])
+            }
+        }
 
         if (category?.displayOrder == null) {
             def maxDisplayOrder = category.siblings?.displayOrder ? category.siblings?.displayOrder?.max() + 1 : 0
             category?.displayOrder = maxDisplayOrder
         }
 
-        if (category.page) {
+        if (page) {
             def parentUrlKey = category.parent?.urlKey ? "${category.parent?.urlKey}/" : ""
-            category.urlKey = "${parentUrlKey}${utilityService.toSlug(category.page?.title)}"
+            category.urlKey = "${parentUrlKey}${utilityService.toSlug(page?.title)}"
         }
 
         if (!category.validate()) {

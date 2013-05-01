@@ -160,7 +160,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
 
         where:
         parentName | pageTypeName     | pageTitle  | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
-        "HTML"     | "HTML Page Type" | "New Page" | 1                   | 1                  | 0                    | true
+        "HTML"     | "HTML Page Type" | "New Page" | 1                   | 1                  | 1                    | true
 
     }
 
