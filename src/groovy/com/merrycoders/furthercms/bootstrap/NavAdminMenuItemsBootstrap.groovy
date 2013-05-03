@@ -27,10 +27,10 @@ class NavAdminMenuItemsBootstrap {
 
             def secondaryNavAdminMenuItem2 = new SecondaryAdminMenuItem(
                     primaryNavAdminMenuItem: primaryNavAdminMenuItem,
-                    titleMessageCode: "furthercms.admin.primary.navigation.pages",
-                    titleDefault: "Admin",
+                    titleMessageCode: "furthercms.admin.primary.navigation.page.types",
+                    titleDefault: "Page Types",
                     controller: "admin",
-                    action: "admin",
+                    action: "pageTypes",
                     displayOrder: 0
             )
 
