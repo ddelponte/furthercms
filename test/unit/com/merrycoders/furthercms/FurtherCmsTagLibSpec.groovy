@@ -160,11 +160,11 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         category.metaClass.pageTitleToSlug = {-> return "slug" }
 
         when:
-        def results = tagLib.categoryEditor([category: category, page: page])
+        def results = tagLib.categoryEditor([name: "Editor Name", category: category, page: page])
 
         then:
         assert results.contains('<r:require modules="categoryEditor"></r:require>')
-        assert results.contains('<ui:form controller="category" action="update">')
+        assert results.contains('<ui:form name="Editor Name" controller="category" action="update">')
         assert results.contains('<input type="hidden" name="category.id" value="4" id="category.id" />')
         assert results.contains('<input type="hidden" name="category.version" value="0" id="category.version" />')
         assert results.contains('<input type="hidden" name="page.id" value="4" id="page.id" />')

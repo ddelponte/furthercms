@@ -1,6 +1,6 @@
 <r:require modules="categoryEditor"/>
 
-<ui:form controller="category" action="update">
+<ui:form name="${name}" controller="category" action="update">
 
     <g:hiddenField name="category.id" value="${category?.id}"/>
 

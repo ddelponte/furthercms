@@ -1,5 +1,9 @@
 /*Admin*/
 /*Nav tree*/
+section#category_nav button[data-slidepanel="panel"] {
+    margin-bottom: 1em;
+}
+
 #furtherCmsNavTree {
     float: left;
     margin-right: 25px;

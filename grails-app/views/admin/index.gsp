@@ -72,7 +72,7 @@
 
                     <div class="errors" style="display: none;"></div>
 
-                    <fc:categoryEditor category="${categoryInstance}" page="${pageInstance}"/>
+                    <fc:categoryEditor name="categoryModuleForm" category="${categoryInstance}" page="${pageInstance}"/>
 
                 </section>
 

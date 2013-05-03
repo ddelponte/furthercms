@@ -134,9 +134,10 @@ class FurtherCmsTagLib {
      * @attr page Page instance
      */
     def categoryEditor = { attrs, body ->
+        String name = attrs.name ?: ""
         Category category = attrs.category
         Page page = attrs.page
-        out << render(template: "/modules/category/editor", model: [category: category, page: page])
+        out << render(template: "/modules/category/editor", model: [name: name, category: category, page: page])
     }
 
     /**

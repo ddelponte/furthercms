@@ -107,6 +107,7 @@ function updateButtonSaveStatus(totalModuleForms, reload) {
     if (totalModuleForms == totalSavedForms) {
         if (totalErrors == 0) {
             buttonStatus.text(buttonStatus.attr("data-saved-message") + " " + getFormattedDateAndTime());
+            updateFurtherCmsNavTree();
             buttonStatus.effect("highlight", {}, 3000);
         } else {
             buttonStatus.text(buttonStatus.attr("data-error-saving-message") + " " + getFormattedDateAndTime());
@@ -118,6 +119,17 @@ function updateButtonSaveStatus(totalModuleForms, reload) {
         }
     }
 
+}
+
+/**
+ * Modifies the node text of the nav tree to reflect changes to the page title
+ */
+function updateFurtherCmsNavTree() {
+    var categoryId = jQuery("form[name='categoryModuleForm'] input[name='category\\.id']").val();
+    var pageTitle = jQuery("form[name='categoryModuleForm'] input[name='page\\.title']").val();
+    var treeNode = jQuery("section#category_nav nav div#furtherCmsNavTree li#category_" + categoryId + " a");
+    treeNode.text(pageTitle);
+    // set the treenode value
 }
 
 /**
