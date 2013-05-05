@@ -10,6 +10,22 @@ class AdminControllerSpec extends SpecificationDataCore {
 
     def setup() {}
 
+    def "index"() {
+        given:
+        initNavAdminMenuItems()
+        initCategories()
+
+        when:
+        controller.index()
+
+        then:
+        view == "/admin/index"
+        model.activePrimaryAdminMenuItem.titleDefault == "Home"
+        model.activeSecondaryAdminMenuItem.titleDefault == "Pages"
+        model.contentTemplatePath == "/admin/contentTemplates/pages/noPage"
+
+    }
+
     def "edit"() {
         given:
         initNavAdminMenuItems()
