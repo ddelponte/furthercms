@@ -1,6 +1,5 @@
 package com.merrycoders.furthercms
 
-import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
@@ -15,7 +14,7 @@ class AdminControllerSpec extends SpecificationDataCore {
         given:
         initNavAdminMenuItems()
         initCategories()
-        def category = Category.findByName(CoreBootstrap.htmlCategoryName)
+        def category = Category.findByName(categoryName)
 
         when:
         controller.edit(category.id)
@@ -26,9 +25,17 @@ class AdminControllerSpec extends SpecificationDataCore {
         model.activeSecondaryAdminMenuItem.titleDefault == "Pages"
         model.categoryInstance == category
         model.categoryInstance.page == category.page
-        model.pageType == PageType.findByPageTypeKey("HTML")
+        model.pageType == PageType.findByPageTypeKey(pageTypeKey)
         model.modules.size() == 1
-        model.contentTemplatePath == "/admin/contentTemplates/pages/edit"
+        model.contentTemplatePath == contentTemplatePath
+
+        where:
+        categoryName | pageTypeKey | contentTemplatePath
+        "Site"       | "root"      | "/admin/contentTemplates/pages/noPage"
+        "Home"       | "home"      | "/admin/contentTemplates/pages/edit"
+        "HTML"       | "HTML"      | "/admin/contentTemplates/pages/edit"
+        "HTML Child" | "HTML"      | "/admin/contentTemplates/pages/edit"
 
     }
+
 }
