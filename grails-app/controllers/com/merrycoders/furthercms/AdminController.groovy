@@ -10,12 +10,11 @@ class AdminController {
 //        }
         def activePrimaryAdminMenuItem = PrimaryAdminMenuItem.findByControllerAndAction("admin", "index")
         def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByControllerAndAction("admin", "pages")
-        def contentTemplate = "/admin/defaultBody"
 
         def model = [
                 activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
                 activeSecondaryAdminMenuItem: activeSecondaryAdminMenuItem,
-                contentTemplate: contentTemplate]
+                contentTemplatePath: contentTemplatePath]
 
         render(view: "/admin/index", model: model)
     }
@@ -28,6 +27,7 @@ class AdminController {
         def page = category?.page
         def pageType = page?.pageType
         def modules = page?.modules
+        def contentTemplatePath = category?.urlKey == "" ? this.contentTemplatePath : "/admin/contentTemplates/pages/edit"
 
         def model = [
                 activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
@@ -35,13 +35,13 @@ class AdminController {
                 categoryInstance: category,
                 pageInstance: page,
                 pageType: pageType,
-                modules: modules]
+                modules: modules,
+                contentTemplatePath: contentTemplatePath]
 
         render(view: "/admin/index", model: model)
     }
 
-    def test() {
-        println params.name
-        println params
+    private def getContentTemplatePath(Category category = null) {
+        return params?.contentTemplatePath ?: "/admin/contentTemplates/pages/noPage"
     }
 }
