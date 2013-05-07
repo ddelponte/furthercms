@@ -68,7 +68,7 @@ class FurtherCmsTagLibSpec extends SpecificationDataCore {
         def activeSecondaryAdminMenuItem = SecondaryAdminMenuItem.findByTitleDefault("Pages")
         if (!multipleSecondaryAdminMenuItem) SecondaryAdminMenuItem.list().last().delete()
         def liTag = '<li class="active">'
-        def pTag = '<p:callTag tag="g:link" attrs="{url=/furthercms/admin/pages}">'
+        def pTag = '<p:callTag tag="g:link" attrs="{url=/furthercms/admin/index}">'
         def navTag = '<nav:title item="{titleMessageCode=furthercms.admin.primary.navigation.pages, titleDefault=Pages}"></nav:title>'
 
         when:

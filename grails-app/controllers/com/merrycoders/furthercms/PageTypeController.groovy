@@ -11,8 +11,9 @@ class PageTypeController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [pageTypeInstanceList: PageType.list(params), pageTypeInstanceTotal: PageType.count()]
+        params.max = Math.min(max ?: 100, 100)
+        def model = [contentTemplatePath: "/admin/contentTemplates/pageTypes/list", pageTypeInstanceList: PageType.list(params), pageTypeInstanceTotal: PageType.count(), params: params]
+        chain(controller: "admin", action: "index", model: model)
     }
 
     def create() {

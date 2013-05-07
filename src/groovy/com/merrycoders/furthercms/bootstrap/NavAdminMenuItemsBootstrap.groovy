@@ -21,7 +21,7 @@ class NavAdminMenuItemsBootstrap {
                     titleMessageCode: "furthercms.admin.primary.navigation.pages",
                     titleDefault: "Pages",
                     controller: "admin",
-                    action: "pages",
+                    action: "index",
                     displayOrder: 0
             )
 
@@ -29,9 +29,9 @@ class NavAdminMenuItemsBootstrap {
                     primaryNavAdminMenuItem: primaryNavAdminMenuItem,
                     titleMessageCode: "furthercms.admin.primary.navigation.page.types",
                     titleDefault: "Page Types",
-                    controller: "admin",
-                    action: "pageTypes",
-                    displayOrder: 0
+                    controller: "pageType",
+                    action: "list",
+                    displayOrder: 1
             )
 
             CoreBootstrap.saveDomainObjects([primaryNavAdminMenuItem, secondaryNavAdminMenuItem, secondaryNavAdminMenuItem2])
