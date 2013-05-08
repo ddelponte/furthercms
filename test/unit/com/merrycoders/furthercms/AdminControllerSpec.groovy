@@ -14,6 +14,7 @@ class AdminControllerSpec extends SpecificationDataCore {
         given:
         initNavAdminMenuItems()
         initCategories()
+        request.chainModel = [params: [controller: "pageType", action: "list", max: "100"]]
 
         when:
         controller.index()
@@ -21,8 +22,9 @@ class AdminControllerSpec extends SpecificationDataCore {
         then:
         view == "/admin/index"
         model.activePrimaryAdminMenuItem.titleDefault == "Home"
-        model.activeSecondaryAdminMenuItem.titleDefault == "Pages"
+        model.activeSecondaryAdminMenuItem.titleDefault == "Page Types"
         model.contentTemplatePath == "/admin/contentTemplates/pages/noPage"
+        model.params.size() == 3
 
     }
 

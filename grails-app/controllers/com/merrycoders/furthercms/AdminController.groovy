@@ -9,7 +9,7 @@ class AdminController {
 //            redirect(url: "${s.createLoginLink()}")
 //        }
 
-        def chainModel = flash.chainModel ?: [:]
+        def chainModel = request.chainModel ?: [:]
         def secondaryAdminMenuItemController = chainModel?.params?.controller ?: "admin"
         def secondaryAdminMenuItemAction = chainModel?.params?.action ?: "index"
 
