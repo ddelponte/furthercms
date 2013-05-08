@@ -14,18 +14,22 @@ class AdminControllerSpec extends SpecificationDataCore {
         given:
         initNavAdminMenuItems()
         initCategories()
-        request.chainModel = [params: [controller: "pageType", action: "list", max: "100"]]
+        request.chainModel = chainModel
 
         when:
         controller.index()
 
         then:
         view == "/admin/index"
-        model.activePrimaryAdminMenuItem.titleDefault == "Home"
-        model.activeSecondaryAdminMenuItem.titleDefault == "Page Types"
-        model.contentTemplatePath == "/admin/contentTemplates/pages/noPage"
-        model.params.size() == 3
+        model.activePrimaryAdminMenuItem.titleDefault == primaryMenu
+        model.activeSecondaryAdminMenuItem.titleDefault == secondaryMenu
+        model.contentTemplatePath == contentTemplatePath
+        model.params?.size() == paramsSize
 
+        where:
+        chainModel                                                     | primaryMenu | secondaryMenu | contentTemplatePath                    | paramsSize
+        [params: [controller: "pageType", action: "list", max: "100"]] | "Home"      | "Page Types"  | "/admin/contentTemplates/pages/noPage" | 3
+        null                                                           | "Home"      | "Pages"       | "/admin/contentTemplates/pages/noPage" | null
     }
 
     def "edit"() {
