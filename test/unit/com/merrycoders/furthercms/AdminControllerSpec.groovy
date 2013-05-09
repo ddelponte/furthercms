@@ -27,9 +27,9 @@ class AdminControllerSpec extends SpecificationDataCore {
         model.params?.size() == paramsSize
 
         where:
-        chainModel                                                     | primaryMenu | secondaryMenu | contentTemplatePath                    | paramsSize
-        [params: [controller: "pageType", action: "list", max: "100"]] | "Home"      | "Page Types"  | "/admin/contentTemplates/pages/noPage" | 3
-        null                                                           | "Home"      | "Pages"       | "/admin/contentTemplates/pages/noPage" | null
+        chainModel                                                     | primaryMenu | secondaryMenu | contentTemplatePath                         | paramsSize
+        [params: [controller: "pageType", action: "list", max: "100"]] | "Home"      | "Page Types"  | "/admin/primaryAdminMenuItems/pages/noPage" | 3
+        null                                                           | "Home"      | "Pages"       | "/admin/primaryAdminMenuItems/pages/noPage" | null
     }
 
     def "edit"() {
@@ -53,10 +53,10 @@ class AdminControllerSpec extends SpecificationDataCore {
 
         where:
         categoryName | pageTypeKey | contentTemplatePath
-        "Site"       | "root"      | "/admin/contentTemplates/pages/noPage"
-        "Home"       | "home"      | "/admin/contentTemplates/pages/edit"
-        "HTML"       | "HTML"      | "/admin/contentTemplates/pages/edit"
-        "HTML Child" | "HTML"      | "/admin/contentTemplates/pages/edit"
+        "Site"       | "root"      | "/admin/primaryAdminMenuItems/pages/noPage"
+        "Home"       | "home"      | "/admin/primaryAdminMenuItems/pages/edit"
+        "HTML"       | "HTML"      | "/admin/primaryAdminMenuItems/pages/edit"
+        "HTML Child" | "HTML"      | "/admin/primaryAdminMenuItems/pages/edit"
 
     }
 

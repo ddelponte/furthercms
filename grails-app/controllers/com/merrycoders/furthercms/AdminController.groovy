@@ -34,7 +34,7 @@ class AdminController {
         def page = category?.page
         def pageType = page?.pageType
         def modules = page?.modules
-        def contentTemplatePath = category?.urlKey == "" ? this.contentTemplatePath : "/admin/contentTemplates/pages/edit"
+        def contentTemplatePath = category?.urlKey == "" ? this.contentTemplatePath : "/admin/primaryAdminMenuItems/pages/edit"
 
         def model = [
                 activePrimaryAdminMenuItem: activePrimaryAdminMenuItem,
@@ -49,6 +49,6 @@ class AdminController {
     }
 
     private def getContentTemplatePath(Category category = null) {
-        return params?.contentTemplatePath ?: "/admin/contentTemplates/pages/noPage"
+        return params?.contentTemplatePath ?: "/admin/primaryAdminMenuItems/pages/noPage"
     }
 }

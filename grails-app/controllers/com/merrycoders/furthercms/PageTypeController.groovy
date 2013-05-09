@@ -12,7 +12,7 @@ class PageTypeController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 100, 100)
-        def model = [contentTemplatePath: "/admin/contentTemplates/pageTypes/list", pageTypeInstanceList: PageType.list(params), pageTypeInstanceTotal: PageType.count(), params: params]
+        def model = [contentTemplatePath: "/admin/primaryAdminMenuItems/pageTypes/list", pageTypeInstanceList: PageType.list(params), pageTypeInstanceTotal: PageType.count(), params: params]
         request.chainModel = model
         forward controller: "admin", action: "index"
     }
