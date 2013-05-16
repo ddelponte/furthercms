@@ -12,8 +12,33 @@ class PageTypeController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 100, 100)
-        def model = [contentTemplatePath: "/admin/primaryAdminMenuItems/pageTypes/list", pageTypeInstanceList: PageType.list(params), pageTypeInstanceTotal: PageType.count(), params: params]
+        params.sort = params.sort ?: "name"
+        params.order = params.order ?: "asc"
+
+        def pageTypeListQuery = PageType.where {
+            pageTypeKey != "root"
+        }
+
+        def model = [contentTemplatePath: "/admin/primaryAdminMenuItems/pageTypes/list", pageTypeInstanceList: pageTypeListQuery.list(params), pageTypeInstanceTotal: PageType.count(), params: params]
         request.chainModel = model
+        forward controller: "admin", action: "index"
+    }
+
+    def edit(Long id) {
+        def pageTypeInstance = PageType.get(id)
+
+        if (!pageTypeInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
+            redirect(action: "list")
+            return
+        }
+
+        // TODO: Refactor active secondary menu items so they are associated with multiple actions
+        params.action = "list"
+
+        def model = [pageTypeInstance: pageTypeInstance, contentTemplatePath: "/admin/primaryAdminMenuItems/pageTypes/edit", params: params]
+        request.chainModel = model
+
         forward controller: "admin", action: "index"
     }
 
@@ -33,17 +58,6 @@ class PageTypeController {
     }
 
     def show(Long id) {
-        def pageTypeInstance = PageType.get(id)
-        if (!pageTypeInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [pageTypeInstance: pageTypeInstance]
-    }
-
-    def edit(Long id) {
         def pageTypeInstance = PageType.get(id)
         if (!pageTypeInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
