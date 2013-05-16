@@ -88,4 +88,9 @@ modules = {
         resource(url: "js/admin/components/newCategoryButton/newCategoryButton.css")
         resource(url: "js/admin/components/newCategoryButton/newCategoryButton.js")
     }
+
+    pageTypeForm {
+        dependsOn "jquery"
+        resource(url: "js/admin/primaryAdminMenuItems/pageTypes/core.js")
+    }
 }
