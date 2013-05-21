@@ -1,10 +1,13 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.exceptions.UndeletablePageTypeException
 import org.springframework.dao.DataIntegrityViolationException
 
 class PageTypeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+    def pageTypeService
 
     def index() {
         redirect(action: "list", params: params)
@@ -28,7 +31,7 @@ class PageTypeController {
         def pageTypeInstance = PageType.get(id)
 
         if (!pageTypeInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
+            displayFlashMessage([text: 'default.not.found.message', type: "warning", args: [message(code: 'pageType.label', default: 'Page Type'), id]])
             redirect(action: "list")
             return
         }
@@ -54,24 +57,13 @@ class PageTypeController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'pageType.label', default: 'PageType'), pageTypeInstance.id])
-        redirect(action: "show", id: pageTypeInstance.id)
-    }
-
-    def show(Long id) {
-        def pageTypeInstance = PageType.get(id)
-        if (!pageTypeInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [pageTypeInstance: pageTypeInstance]
+        redirect(action: "list")
     }
 
     def update(Long id, Long version) {
         def pageTypeInstance = PageType.get(id)
         if (!pageTypeInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
+            displayFlashMessage([text: 'default.not.found.message', type: "warning", args: [message(code: 'pageType.label', default: 'Page Type'), id]])
             redirect(action: "list")
             return
         }
@@ -93,26 +85,31 @@ class PageTypeController {
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'pageType.label', default: 'PageType'), pageTypeInstance.id])
-        redirect(action: "show", id: pageTypeInstance.id)
+        displayFlashMessage([text: 'default.updated.message', type: "info", args: [pageTypeInstance.name, ""]])
+        redirect(action: "list")
     }
 
     def delete(Long id) {
         def pageTypeInstance = PageType.get(id)
         if (!pageTypeInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
+            displayFlashMessage([text: 'default.not.found.message', type: "warning", args: [message(code: 'pageType.label', default: 'PageType'), id]])
             redirect(action: "list")
             return
         }
 
         try {
-            pageTypeInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
+
+            pageTypeService.delete(pageTypeInstance)
+
+            displayFlashMessage([text: 'default.deleted.message', type: "info", args: [message(code: 'pageType.label', default: 'PageType'), id]])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'pageType.label', default: 'PageType'), id])
-            redirect(action: "show", id: id)
+            displayFlashMessage([text: 'default.not.deleted.message', type: "error", args: [pageTypeInstance?.name, ""]])
+            redirect(action: "edit", id: id)
+        } catch (UndeletablePageTypeException e) {
+            displayFlashMessage([text: 'default.not.deleted.message', type: "error", args: [pageTypeInstance?.name, ""]])
+            redirect(action: "edit", id: id)
         }
     }
 
