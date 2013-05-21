@@ -1,32 +1,34 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.bootstrap.PageTypeBootstrap
-import com.merrycoders.furthercms.exceptions.UndeletablePageTypeException
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
-@TestFor(PageTypeService)
+@TestFor(PageTypeController)
 @Mock([PageType, PageTypeModuleType, Page, ModuleType, Module, Category, PrimaryCategory])
-class PageTypeServiceSpec extends SpecificationDataCore {
+class PageTypeControllerSpec extends SpecificationDataCore {
 
-    def setup() {}
+    def setup() {
+        controller.pageTypeService = new PageTypeService()
+        controller.metaClass.displayFlashMessage = { LinkedHashMap args -> return args.text }
+    }
 
     def cleanup() {}
 
-    def "Undeletable page type"() {
+    def "undeletable PageType"() {
         given:
         initCategories()
+        def pageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
         def originalPageTypeCount = PageType.count()
-        def pageTypeToDelete = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
 
         when:
-        service.delete(pageTypeToDelete)
+        controller.delete(pageType.id)
 
         then:
-        UndeletablePageTypeException ex = thrown()
-        ex.message == "Unable to delete page type at this time"
+        response.redirectedUrl == "/pageType/edit/${pageType.id}"
         PageType.count() == originalPageTypeCount
+
     }
 
     def "delete"() {
@@ -37,9 +39,11 @@ class PageTypeServiceSpec extends SpecificationDataCore {
         new PageTypeBootstrap().deleteAllPageReferences(pageTypeToDelete)
 
         when:
-        service.delete(pageTypeToDelete)
+        controller.delete(pageTypeToDelete.id)
 
         then:
+        response.redirectedUrl == "/pageType/list"
         PageType.count() == originalPageTypeCount - 1
+
     }
 }

@@ -1,5 +1,9 @@
 package com.merrycoders.furthercms.bootstrap
 
+import com.merrycoders.furthercms.ModuleService
+import com.merrycoders.furthercms.Page
+import com.merrycoders.furthercms.PageService
+
 class PageTypeBootstrap {
 
     static init() {
@@ -12,5 +16,14 @@ class PageTypeBootstrap {
             }
         }
 
+    }
+
+    def void deleteAllPageReferences(com.merrycoders.furthercms.PageType pageTypeToDelete) {
+        def pageService = new PageService()
+        pageService.moduleService = new ModuleService()
+        def pages = Page.findAllByPageType(pageTypeToDelete)
+        pages.each { page ->
+            pageService.delete(page)
+        }
     }
 }
