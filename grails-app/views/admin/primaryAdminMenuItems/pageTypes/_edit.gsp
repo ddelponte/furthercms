@@ -2,17 +2,21 @@
 
 <ui:displayMessage/>
 
-<ui:form name="pageTypeForm"
-         data-update-action-url="${g.createLink(controller: 'pageType', action: 'update')}"
-         data-delete-action-url="${g.createLink(controller: 'pageType', action: 'delete')}"
-         data-delete-action-confirm-message="${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}">
+<section>
 
-    <g:hiddenField name="id" value="${pageTypeInstance?.id}"/>
-    <g:hiddenField name="version" value="${pageTypeInstance?.version}"/>
+    <ui:form name="pageTypeForm"
+             data-update-action-url="${g.createLink(controller: 'pageType', action: 'update')}"
+             data-delete-action-url="${g.createLink(controller: 'pageType', action: 'delete')}"
+             data-delete-action-confirm-message="${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}">
 
-    <g:render template="/admin/primaryAdminMenuItems/pageTypes/form"/>
+        <g:hiddenField name="id" value="${pageTypeInstance?.id}"/>
+        <g:hiddenField name="version" value="${pageTypeInstance?.version}"/>
 
-    <ui:button kind="anchor" class="save" mode="primary" text="plugin.furthercms.default.button.update.label"/>
-    <ui:button kind="anchor" class="delete" mode="danger" text="plugin.furthercms.default.button.delete.label"/>
+        <g:render template="/admin/primaryAdminMenuItems/pageTypes/form"/>
 
-</ui:form>
+        <ui:button kind="anchor" class="save" mode="primary" text="plugin.furthercms.default.button.update.label"/>
+        <ui:button kind="anchor" class="delete" mode="danger" text="plugin.furthercms.default.button.delete.label"/>
+
+    </ui:form>
+
+</section>

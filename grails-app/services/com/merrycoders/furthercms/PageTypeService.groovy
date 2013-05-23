@@ -45,7 +45,7 @@ class PageTypeService {
         if (!pageType) return [:]
         def statusModuleTypes = [:]
 
-        PageTypeModuleTypeStatus.values().each { status ->
+        PageTypeModuleTypeStatus.values().sort { it.name }.each { status ->
             def params = [:]
 
             if (status == PageTypeModuleTypeStatus.ACTIVE) {

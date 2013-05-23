@@ -160,7 +160,7 @@ class FurtherCmsTagLib {
      * @attr id The Parent category id
      * @pageType
      */
-    def newCategoryButton = {attrs, body ->
+    def newCategoryButton = { attrs, body ->
         def id = attrs.id
         PageType pageType = attrs.pageType
 
@@ -177,6 +177,15 @@ class FurtherCmsTagLib {
         def categoryInstance = attrs.categoryInstance
         def pageType = attrs.pageType
         out << render(template: "/admin/components/categoryEditToolbar", model: [categoryInstance: categoryInstance, pageType: pageType])
+    }
+
+    /**
+     * Renders a list of ModuleType instances for each status.
+     * @attr moduleTypeStatusMap A map in the form of [PageTypeModuleTypeStatus.ACTIVE: [ModuleType1, ModuleType2], ...]
+     */
+    def moduleTypeStatusLists = { attrs, body ->
+        def moduleTypeStatusMap = attrs?.moduleTypeStatusMap ?: [:]
+        out << render(template: "/admin/primaryAdminMenuItems/pageTypes/moduleTypeStatusLists", model: moduleTypeStatusMap)
     }
 
 }

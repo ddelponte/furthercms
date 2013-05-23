@@ -38,8 +38,9 @@ class PageTypeController {
 
         // TODO: Refactor active secondary menu items so they are associated with multiple actions
         params.action = "list"
+        Map<PageTypeModuleTypeStatus, ModuleType> moduleTypeStatusMap = pageTypeService.findAllModuleTypesByPageType(pageTypeInstance)
 
-        def model = [pageTypeInstance: pageTypeInstance, contentTemplatePath: "/admin/primaryAdminMenuItems/pageTypes/edit", params: params]
+        def model = [pageTypeInstance: pageTypeInstance, contentTemplatePath: "/admin/primaryAdminMenuItems/pageTypes/edit", moduleTypeStatusMap: moduleTypeStatusMap, params: params]
         request.chainModel = model
 
         forward controller: "admin", action: "index"

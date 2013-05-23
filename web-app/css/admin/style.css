@@ -101,6 +101,30 @@ section#modules-edit a.save, section#modules-edit a.reorder {
     background-color: yellow;
 }
 
+/*Page Types*/
+form#pageTypeForm ul.sortable {
+    list-style: none;
+    min-height: 1.5em;
+    margin: 0;
+    padding: 0;
+    width: 95%;
+}
+
+form#pageTypeForm ul.sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    height: 1em;
+    cursor: hand;
+    cursor: pointer;
+}
+
+form#pageTypeForm ul.sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
+}
+
 /*Errors*/
 section#modules-edit section.module div.errors {
     clear: right;

@@ -4,6 +4,10 @@ modules = {
         resource url: 'js/application.js'
     }
 
+    adminStyle {
+        resource url: "css/admin/style.css"
+    }
+
     jsTree {
         dependsOn "jquery"
         resource(url: "js/admin/jstree-v.pre1.0/jquery.jstree.js")
@@ -15,9 +19,8 @@ modules = {
     }
 
     navTree {
-        dependsOn "jquery, jsTree, jqueryCookie, json2"
+        dependsOn "jquery, jsTree, jqueryCookie, json2, adminStyle"
         resource(url: "js/admin/navTree/navTree.js")
-        resource(url: "css/admin/style.css")
     }
 
     urlUtilities {
@@ -90,7 +93,7 @@ modules = {
     }
 
     pageTypeForm {
-        dependsOn "jquery"
+        dependsOn "jquery, jquery-ui"
         resource(url: "js/admin/primaryAdminMenuItems/pageTypes/core.js")
     }
 }

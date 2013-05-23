@@ -19,3 +19,11 @@ jQuery("form a.delete").click(function (event) {
     }
 
 });
+
+jQuery(".sortable").sortable({
+    cursor: "move",
+    forceHelperSize: true,
+    forcePlaceholderSize: true,
+    dropOnEmpty: true,
+    connectWith: ".connectedSortable"
+}).disableSelection();
