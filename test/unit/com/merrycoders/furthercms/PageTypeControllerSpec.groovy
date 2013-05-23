@@ -46,4 +46,17 @@ class PageTypeControllerSpec extends SpecificationDataCore {
         PageType.count() == originalPageTypeCount - 1
 
     }
+
+    def "edit"() {
+        given:
+        initCategories()
+        def pageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
+
+        when:
+        controller.edit(pageType.id)
+
+        then:
+        response.forwardedUrl == "/grails/admin/index.dispatch"
+
+    }
 }

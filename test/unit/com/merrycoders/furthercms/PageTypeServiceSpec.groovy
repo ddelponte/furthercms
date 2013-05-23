@@ -42,4 +42,20 @@ class PageTypeServiceSpec extends SpecificationDataCore {
         then:
         PageType.count() == originalPageTypeCount - 1
     }
+
+    def "findAllModuleTypesByPageType"() {
+        given:
+        initCategories()
+        def pageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
+
+        when:
+        def results = service.findAllModuleTypesByPageType(pageType)
+
+        then:
+        results[PageTypeModuleTypeStatus.ACTIVE].size() == 1
+        results[PageTypeModuleTypeStatus.AVAILABLE].size() == 0
+        results[PageTypeModuleTypeStatus.UNAVAILABLE].size() == 0
+
+    }
+
 }

@@ -35,4 +35,34 @@ class PageTypeService {
         else return false
 
     }
+
+    /**
+     * Returns a map of ModuleTypes for the specified PageType, organized by status and properly ordered
+     * @param pageType
+     * @return a Map in form [PageTypeModuleTypeStatus.ACTIVE, [ModuleType1, ModuleType2, ...]]
+     */
+    Map<PageTypeModuleTypeStatus, ModuleType> findAllModuleTypesByPageType(PageType pageType) {
+        if (!pageType) return [:]
+        def statusModuleTypes = [:]
+
+        PageTypeModuleTypeStatus.values().each { status ->
+            def params = [:]
+
+            if (status == PageTypeModuleTypeStatus.ACTIVE) {
+
+                params = [sort: "displayOrder", order: "asc"]
+
+            } else {
+
+                params = [sort: "moduleType.name", order: "asc"]
+
+            }
+
+            def moduleTypes = PageTypeModuleType.findAllByPageTypeAndStatus(pageType, status, params)?.moduleType
+            statusModuleTypes[status] = moduleTypes
+        }
+
+        return statusModuleTypes
+
+    }
 }
