@@ -5,6 +5,8 @@
 <section>
 
     <ui:form name="pageTypeForm"
+             controller="pageType"
+             action="updateModuleTypes"
              data-update-action-url="${g.createLink(controller: 'pageType', action: 'update')}"
              data-delete-action-url="${g.createLink(controller: 'pageType', action: 'delete')}"
              data-delete-action-confirm-message="${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}">

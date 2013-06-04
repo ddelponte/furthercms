@@ -90,6 +90,18 @@ class PageTypeController {
         redirect(action: "list")
     }
 
+    /**
+     * Saves a PageType instances ModuleType instances, status and order
+     * @param id PageType id
+     * @param active JSON String of active and ordered ModuleType ids
+     * @param available JSON String of available ModuleType ids
+     * @param unavailable JSON String of unavailable ModuleType ids
+     * @return
+     */
+    def updateModuleTypes(Long id, String active, String available, String unavailable) {
+        redirect (action: "edit", id: id)
+    }
+
     def delete(Long id) {
         def pageTypeInstance = PageType.get(id)
         if (!pageTypeInstance) {

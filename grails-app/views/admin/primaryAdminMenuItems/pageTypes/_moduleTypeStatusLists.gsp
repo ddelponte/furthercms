@@ -2,11 +2,13 @@
 
     <ui:h1>${moduleTypeStatus?.key}</ui:h1>
 
-    <ul class="sortable connectedSortable">
+    <ul id="${moduleTypeStatus?.key}ModuleTypes" class="sortable connectedSortable">
+
+        <g:hiddenField name="${moduleTypeStatus?.key}" value="{${moduleTypeStatus?.value?.id?.collect{'"' + it + '"' + ':"' + moduleTypeStatus?.key + '"'}?.join(',')}}"/>
 
         <g:each in="${moduleTypeStatus?.value}" var="moduleType">
 
-            <li class="ui-state-default">${moduleType}</li>
+            <li class="ui-state-default" data-id="${moduleType?.id}">${moduleType}</li>
 
         </g:each>
 

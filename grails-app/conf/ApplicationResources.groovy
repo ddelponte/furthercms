@@ -93,7 +93,7 @@ modules = {
     }
 
     pageTypeForm {
-        dependsOn "jquery, jquery-ui"
+        dependsOn "jquery, jquery-ui, json2"
         resource(url: "js/admin/primaryAdminMenuItems/pageTypes/core.js")
     }
 }
