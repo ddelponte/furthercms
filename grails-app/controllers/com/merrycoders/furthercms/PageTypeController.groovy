@@ -1,6 +1,7 @@
 package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.exceptions.UndeletablePageTypeException
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class PageTypeController {
@@ -8,6 +9,7 @@ class PageTypeController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def pageTypeService
+    def pageTypeModuleTypeService
 
     def index() {
         redirect(action: "list", params: params)
@@ -91,15 +93,29 @@ class PageTypeController {
     }
 
     /**
-     * Saves a PageType instances ModuleType instances, status and order
+     * Saves a PageType instances ModuleType instances, status and order. All JSON Strings are in the for {moduleTypeId:PageTypeModuleTypeStatus, ...}* For example: {"1":"Active", "2":"Active", etc.
      * @param id PageType id
      * @param active JSON String of active and ordered ModuleType ids
      * @param available JSON String of available ModuleType ids
      * @param unavailable JSON String of unavailable ModuleType ids
      * @return
      */
-    def updateModuleTypes(Long id, String active, String available, String unavailable) {
-        redirect (action: "edit", id: id)
+    def updateModuleTypes(Long id) {
+        def pageType = PageType.get(id)
+        String active = params?.Active ?: "{}"
+        String available = params?.Available ?: "{}"
+        String unavailable = params?.Unavailable ?: "{}"
+
+        def activeModuleTypeIds = JSON.parse(active)?.keySet() ?: []
+        def availableModuleTypeIds = JSON.parse(available)?.keySet() ?: []
+        def unavailableModuleTypeIds = JSON.parse(unavailable)?.keySet() ?: []
+
+        pageTypeModuleTypeService.updateModuleTypes(pageType,
+                [(PageTypeModuleTypeStatus.ACTIVE): activeModuleTypeIds*.toLong(),
+                        (PageTypeModuleTypeStatus.AVAILABLE): availableModuleTypeIds*.toLong(),
+                        (PageTypeModuleTypeStatus.UNAVAILABLE): unavailableModuleTypeIds*.toLong()])
+
+        redirect(action: "edit", id: id)
     }
 
     def delete(Long id) {
