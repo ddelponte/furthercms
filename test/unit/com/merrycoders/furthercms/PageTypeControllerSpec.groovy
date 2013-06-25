@@ -1,6 +1,5 @@
 package com.merrycoders.furthercms
 
-import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.bootstrap.PageTypeBootstrap
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
@@ -66,31 +65,15 @@ class PageTypeControllerSpec extends SpecificationDataCore {
 
         given:
         initCategories()
-        def pageType = PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
-        PageTypeModuleTypeStatus.values().eachWithIndex { pageTypeModuleTypeStatus, index ->
-            5.times {
-                def moduleType = new ModuleType(name: "Module Type $it $index", className: "bogus.class$it$index", code: "bogus.code", )
-                CoreBootstrap.saveDomainObjects([moduleType])
-                PageTypeModuleType.create(pageType, moduleType, pageTypeModuleTypeStatus)
-            }
+        def pageType = com.merrycoders.furthercms.PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
+        def groupedModuleTypes = initPageTypeModuleTypes(pageType)
+        def activeModuleTypes = groupedModuleTypes[PageTypeModuleTypeStatus.ACTIVE]
+        def availableModuleTypes = groupedModuleTypes[PageTypeModuleTypeStatus.AVAILABLE]
+        def unavailableModuleTypes = groupedModuleTypes[PageTypeModuleTypeStatus.UNAVAILABLE]
 
-        }
-
-        def activeModuleTypes
-        def availableModuleTypes
-        def unavailableModuleTypes
-
-        PageTypeModuleTypeStatus.values().each { pageTypeModuleTypeStatus ->
-            def pageTypeModuleTypes = PageTypeModuleType.findAllByPageType(pageType)
-            activeModuleTypes = pageTypeModuleTypes.findAll {it.status == PageTypeModuleTypeStatus.ACTIVE}?.moduleType
-            availableModuleTypes = pageTypeModuleTypes.findAll {it.status == PageTypeModuleTypeStatus.AVAILABLE}?.moduleType
-            unavailableModuleTypes = pageTypeModuleTypes.findAll {it.status == PageTypeModuleTypeStatus.UNAVAILABLE}?.moduleType
-            controller.params[pageTypeModuleTypeStatus.name] = ""
-        }
-
-        def activeJsonString = buildJsonString(activeModuleTypes, PageTypeModuleTypeStatus.ACTIVE.name)
-        def availableJsonString = buildJsonString(availableModuleTypes, PageTypeModuleTypeStatus.AVAILABLE.name)
-        def unavailableJsonString = buildJsonString(unavailableModuleTypes, PageTypeModuleTypeStatus.UNAVAILABLE.name)
+        def activeJsonString = buildModuleTypeJsonString(activeModuleTypes, PageTypeModuleTypeStatus.ACTIVE)
+        def availableJsonString = buildModuleTypeJsonString(availableModuleTypes, PageTypeModuleTypeStatus.AVAILABLE)
+        def unavailableJsonString = buildModuleTypeJsonString(unavailableModuleTypes, PageTypeModuleTypeStatus.UNAVAILABLE)
 
         def originalActiveCount = PageTypeModuleType.countByPageTypeAndStatus(pageType, PageTypeModuleTypeStatus.ACTIVE)
         def originalAvailableCount = PageTypeModuleType.countByPageTypeAndStatus(pageType, PageTypeModuleTypeStatus.AVAILABLE)
@@ -107,27 +90,7 @@ class PageTypeControllerSpec extends SpecificationDataCore {
         originalActiveCount == PageTypeModuleType.countByPageTypeAndStatus(pageType, PageTypeModuleTypeStatus.ACTIVE)
         originalAvailableCount == PageTypeModuleType.countByPageTypeAndStatus(pageType, PageTypeModuleTypeStatus.AVAILABLE)
         originalUnavailableCount == PageTypeModuleType.countByPageTypeAndStatus(pageType, PageTypeModuleTypeStatus.UNAVAILABLE)
-
-    }
-
-    /**
-     *
-     * @param moduleTypes
-     * @param statusString
-     * @return A JSON String representing the hidden field on the form
-     */
-    private String buildJsonString(List<ModuleType> moduleTypes, String statusString) {
-
-        def jsonString = "{"
-
-        moduleTypes.eachWithIndex {moduleType, index ->
-            def comma = index > 0 ? "," : ""
-            jsonString += "${comma}\"${moduleType.id}\":\"${statusString}\""
-        }
-
-        jsonString += "}"
-
-        return jsonString
+        response.redirectedUrl == "/pageType/edit/1"
 
     }
 }

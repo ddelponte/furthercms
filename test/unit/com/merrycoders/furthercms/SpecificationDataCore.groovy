@@ -1,8 +1,10 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.bootstrap.BootstrapUtilities
 import com.merrycoders.furthercms.bootstrap.CategoryBootstrap
 import com.merrycoders.furthercms.bootstrap.CoreBootstrap
 import com.merrycoders.furthercms.bootstrap.NavAdminMenuItemsBootstrap
+import com.merrycoders.furthercms.bootstrap.PageTypeModuleTypeBootstrap
 import spock.lang.Specification
 
 /**
@@ -48,6 +50,28 @@ class SpecificationDataCore extends Specification {
 
     def initNavAdminMenuItems() {
         NavAdminMenuItemsBootstrap.init()
+    }
+
+    /**
+     *
+     * @param pageType
+     * @return Map of PageTypeModuleTypeStatus and associated ModuleTypes.  For example:
+     * [PageTypeModuleTypeStatus.ACTIVE: [ModuleTypeInstance_1, ModuleTypeInstance2, ...], PageTypeModuleTypeStatus.UNAVAILABLE: [...]]
+     */
+    def initPageTypeModuleTypes(com.merrycoders.furthercms.PageType pageType) {
+        return PageTypeModuleTypeBootstrap.initPageTypeModuleTypes(pageType)
+    }
+
+    /**
+     *
+     * @param moduleTypes List of ModuleType instances
+     * @param pageTypeModuleTypeStatus
+     * @return A JSON String representing the hidden field on the form
+     */
+    private String buildModuleTypeJsonString(List<com.merrycoders.furthercms.ModuleType> moduleTypes, PageTypeModuleTypeStatus status) {
+
+        return BootstrapUtilities.buildModuleTypeJsonString(moduleTypes, status)
+
     }
 
 }
