@@ -47,10 +47,9 @@ grails.project.dependency.resolution = {
         compile ":ckeditor:3.6.3.0"
         compile ":rest-client-builder:1.0.2"
 
-        test ":spock:0.7"
         test ":code-coverage:1.2.5"
-//        test ':codenarc:latest.integration'
-//        test ':code-coverage:latest.integration'
+        test ':codenarc:0.18.1'
+        test ":spock:0.7"
     }
 }
 
@@ -66,8 +65,23 @@ codenarc.reports = {
         outputFile = 'target/test-reports/CodeNarcReport.xml'  // Set the 'outputFile' property of the (XML) Report
         title = 'Website Redesign CodeNarc Report'             // Set the 'title' property of the (XML) Report
     }
+
     MyHtmlReport('html') {                  // Report type is 'html'
         outputFile = 'target/test-reports/CodeNarcReport.html'
         title = 'Website Redesign CodeNarc Report'
     }
+}
+
+codenarc.properties = {
+    CatchException.enabled = false
+    ConstantAssertExpression.enabled = false
+    EmptyIfStatement.priority = 1
+    EmptyMethod.enabled = false
+    EqualsAndHashCode.enabled = false
+    GrailsDomainHasEquals.enabled = false
+    GrailsDomainHasToString.enabled = false
+    GrailsPublicControllerMethod.enabled = false
+    MisorderedStaticImports.enabled = false
+    ReturnNullFromCatchBlock.enabled = false
+    UnusedVariable.ignoreVariableNames = 'username' //for the login controller
 }
