@@ -11,9 +11,9 @@ class PageTypeModuleTypeBootstrap {
      * @return Map of PageTypeModuleTypeStatus and associated ModuleTypes.  For example:
      * [PageTypeModuleTypeStatus.ACTIVE: [ModuleTypeInstance_1, ModuleTypeInstance2, ...], PageTypeModuleTypeStatus.UNAVAILABLE: [...]]
      */
-    public static initPageTypeModuleTypes(com.merrycoders.furthercms.PageType pageType) {
+    public static initPageTypeModuleTypes(com.merrycoders.furthercms.PageType pageType = com.merrycoders.furthercms.PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)) {
 
-        if (!pageType) pageType = com.merrycoders.furthercms.PageType.findByPageTypeKey(com.merrycoders.furthercms.bootstrap.PageType.HTML.pageTypeKey)
+        if (!pageType) return [:]
 
         PageTypeModuleTypeStatus.values().eachWithIndex { pageTypeModuleTypeStatus, index ->
             5.times {

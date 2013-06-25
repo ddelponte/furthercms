@@ -110,7 +110,7 @@ class PageTypeController {
         def availableModuleTypeIds = JSON.parse(available)?.keySet() ?: []
         def unavailableModuleTypeIds = JSON.parse(unavailable)?.keySet() ?: []
 
-        pageTypeModuleTypeService.updateModuleTypes(pageType,
+        pageTypeModuleTypeService.updateByModuleTypesById(pageType,
                 [(PageTypeModuleTypeStatus.ACTIVE): activeModuleTypeIds*.toLong(),
                         (PageTypeModuleTypeStatus.AVAILABLE): availableModuleTypeIds*.toLong(),
                         (PageTypeModuleTypeStatus.UNAVAILABLE): unavailableModuleTypeIds*.toLong()])

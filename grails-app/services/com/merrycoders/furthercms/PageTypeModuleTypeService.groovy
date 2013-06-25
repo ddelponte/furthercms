@@ -10,7 +10,7 @@ class PageTypeModuleTypeService {
      * [PageTypeModuleTypeStatus.ACTIVE : [1, 2, 3], PageTypeModuleTypeStatus.AVAILABLE : [...], ...]
      * @return List of PageTypeModuleType instances
      */
-    List updateModuleTypes(PageType pageType, Map<PageTypeModuleTypeStatus, Long> groupedModuleTypeIds) {
+    List updateByModuleTypesById(PageType pageType, Map<PageTypeModuleTypeStatus, Long> groupedModuleTypeIds) {
 
         def pageTypeModuleTypeList = []
 
