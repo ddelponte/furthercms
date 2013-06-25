@@ -38,7 +38,7 @@ class ModuleType {
      */
     Module getModule() {
         if (!this?.id) return null
-        def module = Class.forName(this.className, true, Thread.currentThread().contextClassLoader).newInstance()
+        def module = this.class.classLoader.loadClass(this.className, true)?.newInstance()
         module.moduleType = this
         return module
     }

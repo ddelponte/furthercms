@@ -68,7 +68,7 @@ class SpecificationDataCore extends Specification {
      * @param pageTypeModuleTypeStatus
      * @return A JSON String representing the hidden field on the form
      */
-    private String buildModuleTypeJsonString(List<com.merrycoders.furthercms.ModuleType> moduleTypes, PageTypeModuleTypeStatus status) {
+    String buildModuleTypeJsonString(List<com.merrycoders.furthercms.ModuleType> moduleTypes, PageTypeModuleTypeStatus status) {
 
         return BootstrapUtilities.buildModuleTypeJsonString(moduleTypes, status)
 

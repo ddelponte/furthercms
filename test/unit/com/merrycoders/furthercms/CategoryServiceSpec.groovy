@@ -151,7 +151,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         def properties = [page: [title: title, pageType: pageType, themeLayout: "sidebar"], category: [parent: parent], flush: true]
 
         when:
-        def results = service.createAndSave(properties)
+        service.createAndSave(properties)
 
         then:
         parent?.children?.size() ?: Category.findByUrlKey("")?.children?.size() == originalChildCount + childCountIncrement
@@ -176,7 +176,7 @@ class CategoryServiceSpec extends SpecificationDataCore {
         def properties = [page: [title: title, pageType: pageType, themeLayout: "sidebar"], category: [parent: parent], flush: true]
 
         when:
-        def results = service.createAndSave(properties)
+        service.createAndSave(properties)
 
         then:
         ValidationException ex = thrown()
