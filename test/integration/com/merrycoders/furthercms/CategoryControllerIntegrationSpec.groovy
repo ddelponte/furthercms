@@ -46,7 +46,6 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         def jsonObject = JSON.parse(controller.response?.text)
 
         then:
-        assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
         assert jsonObject?.domainObjects?.size() == domainObjectsSize
         assert jsonObject.firstError?.first() == firstError
         assert jsonObject?.message == message
@@ -78,7 +77,6 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
         def jsonObject = JSON.parse(controller.response?.text)
 
         then:
-        assert jsonObject?.class == "com.merrycoders.furthercms.ajax.AjaxPostResponse"
         assert jsonObject?.domainObjects?.size() == 2
         assert jsonObject.firstError?.first() == null
         assert jsonObject?.message.contains("The resulting URL must be unique")

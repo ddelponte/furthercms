@@ -87,7 +87,7 @@ class CategoryService {
      * Users are not allowed to move a Category to one of it's children, thereby making the child its parent.
      * @param category
      * @param parent
-     * @param position JSON representation of the moved node and its siblings, properly ordered in the form {position: category.id}.  For example: "{0:1, 1:2, 2:88}"
+     * @param positions JSON representation of the moved node and its siblings, properly ordered in the form {position: category.id}.  For example: "{0:1, 1:2, 2:88}"
      * @throws ValidationException
      * @return The category instance with the new parent
      */
