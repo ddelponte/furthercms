@@ -4,11 +4,6 @@ jQuery("#available-module-types a").click(function (event) {
     event.preventDefault();
     var url = jQuery(this).attr("data-render-module-edit-action");
 
-//    jQuery.get(url, function (data) {
-////        $('.result').html(data);
-//        alert(data);
-//    });
-
     var jqxhr = jQuery.get(url, function (data) {
 
     })
