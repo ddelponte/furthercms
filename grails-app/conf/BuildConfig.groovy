@@ -4,6 +4,8 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.target.level = 1.7
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+//grails.plugin.location."platform-ui" = "../grails-platform-ui"
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -38,18 +40,18 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.8.3"
         runtime ":jquery-ui:1.8.24"
-        runtime ":resources:1.2.RC2"
+        runtime ":resources:1.2"
         runtime ':bootstrap-theme:1.0.RC3'
 
         compile ":mail:1.0.1"
         compile ":svn:1.0.2"
         compile ":platform-core:1.0.RC5"
-        compile ":platform-ui:1.0.RC3"
+        compile ":platform-ui:1.0.RC4"
         compile ":ckeditor:3.6.3.0"
-        compile ":rest-client-builder:1.0.2"
+        compile ":rest-client-builder:1.0.3"
 
         test ":code-coverage:1.2.6"
-        test ':codenarc:0.18.1'
+        test ':codenarc:0.19'
         test(":spock:0.7") {
             exclude "spock-grails-support"
         }
