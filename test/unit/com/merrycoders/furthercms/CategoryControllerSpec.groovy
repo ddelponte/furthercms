@@ -2,13 +2,14 @@ package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.ajax.AjaxPostResponse
 import com.merrycoders.furthercms.bootstrap.CoreBootstrap
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(CategoryController)
-@Mock([Category, Page, PageType, Module, ModuleType, PageTypeModuleType, PrimaryCategory])
+@Mock([Category, Page, PageType, Module, ModuleType, PageTypeModuleType, HtmlModule, PrimaryCategory])
 class CategoryControllerSpec extends SpecificationDataCore {
     def utilityService
 
@@ -93,7 +94,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         given:
         initCategories()
         def parent = Category.findByName(parentName)
-        def pageType = pageTypeName ? PageType.findByName(pageTypeName) : null
+        def pageType = pageTypeKey ? PageType.findByPageTypeKey(pageTypeKey) : null
         def title = pageTitle
         def originalChildCount = parent?.children?.size() ?: 0
         def originalPageCount = Page.count()
@@ -114,7 +115,7 @@ class CategoryControllerSpec extends SpecificationDataCore {
         results.success == success
 
         where:
-        parentName      | pageTypeName    | pageTitle    | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
+        parentName      | pageTypeKey     | pageTitle    | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
         "HTML"          | "HTML"          | "New Page"   | 1                   | 1                  | 1                    | true
         "I don't exist" | "I don't exist" | "New Page"   | 2                   | 1                  | 1                    | true
         "I don't exist" | "I don't exist" | ""           | 2                   | 1                  | 1                    | true

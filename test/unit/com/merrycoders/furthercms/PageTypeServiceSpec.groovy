@@ -2,12 +2,13 @@ package com.merrycoders.furthercms
 
 import com.merrycoders.furthercms.bootstrap.PageTypeBootstrap
 import com.merrycoders.furthercms.exceptions.UndeletablePageTypeException
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(PageTypeService)
-@Mock([PageType, PageTypeModuleType, Page, ModuleType, Module, Category, PrimaryCategory])
+@Mock([PageType, PageTypeModuleType, Page, ModuleType, Module, HtmlModule, Category, PrimaryCategory])
 class PageTypeServiceSpec extends SpecificationDataCore {
 
     def setup() {}

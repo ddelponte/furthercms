@@ -1,11 +1,12 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(PageTypeModuleTypeService)
-@Mock([PageType, PageTypeModuleType, Page, ModuleType, Module, Category, PrimaryCategory, PageTypeModuleType])
+@Mock([PageType, PageTypeModuleType, Page, ModuleType, Module, HtmlModule, Category, PrimaryCategory, PageTypeModuleType])
 class PageTypeModuleTypeServiceSpec extends SpecificationDataCore {
 
     def setup() {}

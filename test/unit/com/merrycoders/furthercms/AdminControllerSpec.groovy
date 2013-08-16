@@ -1,11 +1,12 @@
 package com.merrycoders.furthercms
 
+import com.merrycoders.furthercms.modules.HtmlModule
 import com.merrycoders.furthercms.modules.Module
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 
 @TestFor(AdminController)
-@Mock([Category, Page, PageType, Module, ModuleType, PageTypeModuleType, PrimaryCategory, PrimaryAdminMenuItem, SecondaryAdminMenuItem])
+@Mock([Category, Page, PageType, Module, ModuleType, PageTypeModuleType, HtmlModule, PrimaryCategory, PrimaryAdminMenuItem, SecondaryAdminMenuItem])
 class AdminControllerSpec extends SpecificationDataCore {
 
     def setup() {}
