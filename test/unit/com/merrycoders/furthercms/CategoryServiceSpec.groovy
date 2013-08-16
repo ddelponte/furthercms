@@ -14,9 +14,10 @@ class CategoryServiceSpec extends SpecificationDataCore {
 
     def setup() {
         def categoryService = initCategoryService()
+        service.moduleService = categoryService.moduleService
         service.pageService = categoryService.pageService
-        service.utilityService = categoryService.utilityService
         service.primaryCategoryService = categoryService.primaryCategoryService
+        service.utilityService = categoryService.utilityService
     }
 
     def cleanup() {

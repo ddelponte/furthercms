@@ -21,14 +21,14 @@ class PageService {
      * Delete the page if it does not belong to more than one category.  Also delete all of the Page's Module instances
      * @param page
      */
-    void delete(Page page) {
+    void delete(Page page, Boolean flush = false) {
         if (page) {
 
             def modules = Module.findAllByPage(page)
-            moduleService.deleteModules(modules)
+            moduleService.deleteModules(modules, flush)
 
             if (Category.countByPage(page) <= 1) {
-                page.delete(flush: true)
+                page.delete(flush: flush)
             }
 
         }

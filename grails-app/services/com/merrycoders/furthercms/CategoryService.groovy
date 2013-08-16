@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils
 class CategoryService {
     def pageService
     def primaryCategoryService
+    def moduleService
     def utilityService
 
     /**
@@ -40,7 +41,7 @@ class CategoryService {
 
         if (!page?.modules) {
             page?.pageType?.moduleTypes.each {moduleType ->
-                Module.create([moduleType: moduleType, page: page, flush: true])
+                moduleService.create([moduleType: moduleType, page: page, flush: true])
             }
         }
 
@@ -134,7 +135,7 @@ class CategoryService {
      * @throws ValidationException
      * @return The new Category instance
      */
-    Category createAndSave(Map properties) throws ValidationException {
+    Category createAndSave(Map properties, Boolean flush = false) throws ValidationException {
         if (!properties) return null
 
         def page = new Page()
@@ -144,10 +145,10 @@ class CategoryService {
         def category = new Category(parent: parent, page: page)
         try {
 
-            save(category, properties.flush)
+            save(category, flush)
 
         } catch (ValidationException ex) {
-            if (page?.id) pageService.delete(page)
+            if (page?.id) pageService.delete(page, flush)
             throw ex
         }
 

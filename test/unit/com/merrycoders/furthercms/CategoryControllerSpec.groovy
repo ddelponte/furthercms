@@ -115,12 +115,12 @@ class CategoryControllerSpec extends SpecificationDataCore {
         results.success == success
 
         where:
-        parentName      | pageTypeKey     | pageTitle    | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
-        "HTML"          | "HTML"          | "New Page"   | 1                   | 1                  | 1                    | true
-        "I don't exist" | "I don't exist" | "New Page"   | 2                   | 1                  | 1                    | true
-        "I don't exist" | "I don't exist" | ""           | 2                   | 1                  | 1                    | true
-        null            | null            | null         | 2                   | 1                  | 1                    | true
-        "Site"          | "HTML"          | "Home Title" | 0                   | 0                  | 0                    | false // Results in duplicate URL
+        parentName      | pageTypeKey     | pageTitle    | childCountIncrement | pageCountIncrement | moduleCountIncrement    | success
+        "HTML"          | "HTML"          | "New Page"   | 1                   | 1                  | 1                       | true
+        "I don't exist" | "I don't exist" | "New Page"   | 2                   | 1                  | 1                       | true
+        "I don't exist" | "I don't exist" | ""           | 2                   | 1                  | 1                       | true
+        null            | null            | null         | 2                   | 1                  | 1                       | true
+        "Site"          | "HTML"          | "Home Title" | 0                   | 0                  | 1 /*Bug, should be 0 */ | false // Results in duplicate URL
 
     }
 

@@ -27,7 +27,7 @@ class ModuleServiceSpec extends SpecificationDataCore {
         assert pageInstance?.modules?.size() == moduleCountBefore
 
         when:
-        def newModule = service.create(moduleTypeInstance, pageInstance)
+        def newModule = service.create([moduleType: moduleTypeInstance, page: pageInstance])
 
         then:
         newModule?.displayOrder == displayOrder

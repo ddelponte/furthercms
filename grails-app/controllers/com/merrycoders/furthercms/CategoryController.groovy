@@ -28,7 +28,10 @@ class CategoryController {
         def category
 
         try {
-            category = categoryService.createAndSave([page: [title: title, pageType: pageType, themeLayout: themeLayout], category: [parent: parent, flush: true]])
+            category = categoryService.createAndSave([
+                    page: [title: title, pageType: pageType, themeLayout: themeLayout],
+                    category: [parent: parent],
+                    flush: true])
 
         } catch (ValidationException ex) {
             if (request.xhr) {

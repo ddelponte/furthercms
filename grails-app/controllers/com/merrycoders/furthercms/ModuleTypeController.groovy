@@ -53,7 +53,7 @@ class ModuleTypeController {
     private getModuleEditTagAndCreateModule(Long id) {
         def moduleTypeInstance = ModuleType.get(id)
         def pageInstance = Page.get(params.long("page.id"))
-        def module = moduleService.create(moduleTypeInstance, pageInstance)
+        def module = moduleService.create([moduleType: moduleTypeInstance, page: pageInstance])
 
         return [moduleEditTag: fc.renderModuleEdit([module: module], ""), module: module]
     }

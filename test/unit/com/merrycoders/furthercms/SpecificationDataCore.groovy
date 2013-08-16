@@ -26,6 +26,7 @@ class SpecificationDataCore extends Specification {
         categoryService.utilityService = new UtilityService()
         primaryCategoryService = new PrimaryCategoryService()
         categoryService.primaryCategoryService = primaryCategoryService
+        categoryService.moduleService = new ModuleService()
         return categoryService
     }
 
