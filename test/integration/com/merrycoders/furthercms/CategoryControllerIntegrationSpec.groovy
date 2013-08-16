@@ -84,4 +84,38 @@ class CategoryControllerIntegrationSpec extends IntegrationSpec {
 
     }
 
+    def "valid createAndSave"() { // This test is performed here because transactional delete is not working in unit tests (2.2.4)
+        given:
+        def controller = new CategoryController()
+        def parent = Category.findByName(parentName)
+        def pageType = pageTypeKey ? PageType.findByPageTypeKey(pageTypeKey) : null
+        def title = pageTitle
+        def originalChildCount = parent?.children?.size() ?: 0
+        def originalPageCount = Page.count()
+        def originalModuleCount = Module.count()
+        controller.params.pageTypeKey = pageType?.pageTypeKey
+        controller.params.title = title
+        controller.request.method = "POST"
+        controller.request.makeAjaxRequest()
+
+        when:
+        controller.createAndSave(parent?.id)
+        def results = JSON.parse(controller.response.text)
+
+        then:
+        parent?.children?.size() ?: Category.findByUrlKey("")?.children?.size() == originalChildCount + childCountIncrement
+        Page.count() == originalPageCount + pageCountIncrement
+        Module.count() == originalModuleCount + moduleCountIncrement
+        results.success == success
+
+        where:
+        parentName      | pageTypeKey     | pageTitle    | childCountIncrement | pageCountIncrement | moduleCountIncrement | success
+        "HTML"          | "HTML"          | "New Page"   | 1                   | 1                  | 1                    | true
+        "I don't exist" | "I don't exist" | "New Page"   | 2                   | 1                  | 1                    | true
+        "I don't exist" | "I don't exist" | ""           | 2                   | 1                  | 1                    | true
+        null            | null            | null         | 2                   | 1                  | 1                    | true
+        "Site"          | "HTML"          | "Home Title" | 0                   | 0                  | 0                    | false // Results in duplicate URL
+
+    }
+
 }
