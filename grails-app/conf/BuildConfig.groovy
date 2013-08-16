@@ -33,8 +33,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build(":tomcat:$grailsVersion",
-                ":release:2.0.4") {
+        build(':release:2.2.1', ':rest-client-builder:1.0.3', ":tomcat:$grailsVersion") {
             export = false
         }
         runtime ":hibernate:$grailsVersion"
@@ -48,7 +47,6 @@ grails.project.dependency.resolution = {
         compile ":platform-core:1.0.RC5"
         compile ":platform-ui:1.0.RC4"
         compile ":ckeditor:3.6.3.0"
-        compile ":rest-client-builder:1.0.3"
 
         test ":code-coverage:1.2.6"
         test ':codenarc:0.19'
